@@ -1,20 +1,33 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
-const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+
+const mySocials = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/georgerowlands/",
+  },
+  {
+    label: "Github",
+    href: "https://github.com/LuciferUchiha",
+  },
+  {
+    label: "StackOverflow",
+    href: "https://stackoverflow.com/users/10994912/lucifer-uchiha?tab=profile"
+  },
+]
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "My Site",
   tagline: "Dinosaurs are cool",
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://georgerowlands.ch",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "george-rowlands", // Usually your GitHub org/user name.
+  projectName: "digital-garden-v2", // Usually your repo name.
 
   presets: [
     [
@@ -25,7 +38,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/LuciferUchiha/digital-garden-v2/tree/main",
         },
         blog: false,
         theme: {
@@ -39,9 +52,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "My Site",
+        title: "George Rowlands",
         logo: {
-          alt: "My Site Logo",
+          alt: "George Rowlands Logo",
           src: "img/logo.svg",
         },
         items: [
@@ -49,63 +62,39 @@ const config = {
             type: "doc",
             docId: "intro",
             position: "left",
-            label: "Tutorial",
+            label: "Docs",
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/LuciferUchiha/digital-garden-v2",
             label: "GitHub",
             position: "right",
           },
         ],
       },
       footer: {
-        style: "dark",
+        style: "light",
         links: [
           {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
+            title: "Socials",
+            items: mySocials,
           },
           {
-            title: "Community",
+            title: "Other",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                html: `<a href="https://www.buymeacoffee.com/georgerowlands" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>`,
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "Privacy Policy",
+                href: "/privacy-policy",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Last updated on ${new Date().toDateString()}`
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: darkCodeTheme,
       },
     }),
 };
