@@ -25,7 +25,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/logo.png",
   organizationName: "george-rowlands", // Usually your GitHub org/user name.
   projectName: "digital-garden-v2", // Usually your repo name.
 
@@ -55,7 +55,7 @@ const config = {
         title: "George Rowlands",
         logo: {
           alt: "George Rowlands Logo",
-          src: "img/logo.svg",
+          src: "img/logo.png",
         },
         items: [
           {
