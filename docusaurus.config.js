@@ -19,8 +19,8 @@ const mySocials = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
+  title: "George R.",
+  tagline: "Dinosaurs are cool", // this can be referenced in react code
   url: "https://georgerowlands.ch",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -48,6 +48,18 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "recipes",
+        path: "recipes",
+        routeBasePath: "recipes",
+        sidebarPath: require.resolve("./sidebarsRecipes.js"),
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -68,6 +80,15 @@ const config = {
             docId: "index",
             position: "left",
             label: "Digital Garden",
+          },
+
+          { to: "projects/", label: "Projects", position: "right" },
+          { to: "about/", label: "About", position: "right" },
+          {
+            to: "/recipes/intro", // To highlight the navbar item, you must link to a document, not a top-level directory
+            position: "right",
+            label: "Recipes",
+            activeBaseRegex: `/recipes/`,
           },
           {
             href: "https://github.com/LuciferUchiha/digital-garden-v2",
