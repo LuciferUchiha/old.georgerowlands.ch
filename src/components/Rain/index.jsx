@@ -1,4 +1,4 @@
-import React, { Children, useMemo } from "react";
+import React, { useMemo } from "react";
 import styles from "./styles.module.css";
 
 const Rain = ({ numDrops }) => {

@@ -4,6 +4,7 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
+import Rain from "../components/Rain";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -32,6 +33,7 @@ export default function Home() {
       title="Home"
       description="Description will go into a meta tag in <head />"
     >
+      <Rain />
       <HomepageHeader />
       <main>
         <p>Hello world</p>
