@@ -13,9 +13,9 @@ const mySocials = [
   },
   {
     label: "StackOverflow",
-    href: "https://stackoverflow.com/users/10994912/lucifer-uchiha?tab=profile"
+    href: "https://stackoverflow.com/users/10994912/lucifer-uchiha?tab=profile",
   },
-]
+];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -51,11 +51,16 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: "dark",
+        disableSwitch: false,
+      },
       navbar: {
         title: "George Rowlands",
         logo: {
           alt: "George Rowlands Logo",
-          src: "img/logo.png",
+          src: "img/blackLogo.png",
+          srcDark: "img/logo.png",
         },
         items: [
           {
@@ -82,7 +87,7 @@ const config = {
             title: "Other",
             items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/georgerowlands" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>`,
+                html: `<a href="https://www.buymeacoffee.com/georgerowlands"><img src="https://github.com/LuciferUchiha/digital-garden-v2/tree/main/static/img/buyMeACoffeePurple.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;"/></a>`,
               },
               {
                 label: "Privacy Policy",
@@ -91,7 +96,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Last updated on ${new Date().toDateString()}`
+        copyright: `Last updated on ${new Date().toDateString()}`,
       },
       prism: {
         theme: darkCodeTheme,
