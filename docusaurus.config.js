@@ -92,7 +92,7 @@ const config = {
           },
           {
             href: "https://github.com/LuciferUchiha/digital-garden-v2",
-            label: "GitHub",
+            className: "header-github-link",
             position: "right",
           },
         ],
