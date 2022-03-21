@@ -82,8 +82,8 @@ const config = {
             label: "Digital Garden",
           },
 
-          { to: "/", label: "Projects", position: "right" },
-          { to: "/", label: "About", position: "right" },
+          { to: "projects/", label: "Projects", position: "right" },
+          { to: "about/", label: "About", position: "right" },
           {
             to: "/recipes/intro", // To highlight the navbar item, you must link to a document, not a top-level directory
             position: "right",
