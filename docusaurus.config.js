@@ -65,9 +65,9 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "index",
             position: "left",
-            label: "Docs",
+            label: "Digital Garden",
           },
           {
             href: "https://github.com/LuciferUchiha/digital-garden-v2",
@@ -87,7 +87,7 @@ const config = {
             title: "Other",
             items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/georgerowlands"><img src="https://github.com/LuciferUchiha/digital-garden-v2/tree/main/static/img/buyMeACoffeePurple.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;"/></a>`,
+                html: `<a href="https://www.buymeacoffee.com/georgerowlands" target="_blank"><img src="https://raw.githubusercontent.com/LuciferUchiha/digital-garden-v2/main/static/img/buyMeACoffeePurple.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;"></a>`,
               },
               {
                 label: "Privacy Policy",
@@ -96,7 +96,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Last updated on ${new Date().toDateString()}`,
+        copyright: `Last updated on ${new Date().toUTCString()}`,
       },
       prism: {
         theme: darkCodeTheme,
