@@ -9,9 +9,9 @@ const AboutMe = () => {
       description="Description will go into a meta tag in <head />"
     >
       <main>
+        <Rain numDrops={300} />
         <div className="hero hero--primary container">
           <h1 className="hero__title">About me</h1>
-          <Rain />
         </div>
       </main>
     </Layout>
