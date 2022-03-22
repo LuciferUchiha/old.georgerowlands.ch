@@ -6,34 +6,36 @@ The intent of the decorator pattern is to give objects new responsibilities with
 
 ```mermaid
 classDiagram
-  Component <|-- Decorator
-  Component <|-- ConcreteComponent
-  Decorator <|-- ConcreteDecoratorA
-  Decorator <|-- ConcreteDecoratorB
-  Component <-- Decorator
-  class Component{
-    +operationA()
-    +operationB()
-  }
-  class Decorator{
- Component wrappedObj
-    +operationA()
- +operationB()
-  }
-  class ConcreteComponent{
-    +operationA()
- +operationB()
-  }
-  class ConcreteDecoratorA{
- Object newState // can extend state
- +operationA()
- +operationB()
-  } 
-  class ConcreteDecoratorB{
- +operationA()
- +operationB()
- +newBehavior() // can add new
-  } 
+ Component <|-- IDecorator
+ Component <|-- ConcreteComponent
+ IDecorator <|-- ConcreteDecoratorA
+ IDecorator <|-- ConcreteDecoratorB
+ Component <-- IDecorator
+ class Component {
+  +operationA()
+  +operationB()
+ }
+ class IDecorator {
+  Component wrappedObj
+  +operationA()
+  +operationB()
+ }
+ class ConcreteDecoratorA{
+  Object newState // can extend state
+  +operationA()
+  +operationB()
+ }
+
+ class ConcreteDecoratorB{
+  +operationA()
+  +operationB()
+  +newBehavior() // can add new
+ }
+ 
+ class ConcreteComponent {
+  +operationA()
+  +operationB()
+ }
 ```
 
 With this structure you can do things in the decorator before after calling wrappedObj.operationA().

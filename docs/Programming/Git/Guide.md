@@ -1,10 +1,10 @@
 # Guide
 
-For more in depth information click [here](https://git-scm.com/book/en/v2).
+You can find more in depth information [here](https://git-scm.com/book/en/v2).
 
 ## Initial setup
 
-First thing you should do after installing git is set your username and email.
+The first thing you should do after installing git is set your username and email.
 These are stored in a `gitconfig` file. There are multiple levels of configs, `--global` being for the entire system and `--local` only for that repository.
 
 ```shell
@@ -26,9 +26,9 @@ git <command> --help or git help <command>
 
 ## Initialize a repository in an existing directory
 
-Make sure this is executed inside the directory. This creates a new subdirectory named `.git` that contains all of your necessary repository files.
+Make sure this is executed inside the directory you want to have as a repository. This command will create a new subdirectory named `.git` which contains all of the files that are needed for maintaining your repository including but not limited to the commit history.
 
-*Do not delete the `.git` folder!*
+*Do not delete the `.git` folder unless you know what you are doing!*
 
 ```shell
 git init
@@ -37,6 +37,7 @@ git init
 ## Making changes to a repository
 
 ![Git stages](https://git-scm.com/book/en/v2/images/lifecycle.png)
+
 After adding/deleting/modifying files, use `git add <directory>` or `git add <file>` to add the files to the queue to be committed.
 `git commit` commits all the added files. To be more descriptive a commit messages can also be added with `git commit -m “<message>”` which is very important so that you know what was changed in that commit.
 
@@ -46,10 +47,15 @@ You can also use the following to make life easier:
 - `git add .` stages new files and modifications, without deletions
 - `git add -u` stages modifications and deletions, without new files
 
-To save even more time you can use `git commit -a` which is the same as executing `git add -A` followed by a `git commit`
+To save even more time you can use the `git commit -a` command which is the same as executing `git add -A` followed by a `git commit`. This can then be combined to the following
 
-To check the status of the files in your repository use`git status`
-To see the history of your commits you can use `git log`
+```shell
+git commit -am "<message>"
+```
+
+To check the status of the files in your repository use`git status`.
+
+To see the history of your commits you can use `git log`.
 
 ## Using a Remote Repository
 
@@ -65,18 +71,18 @@ git branch -M main
 git push -u origin main
 ```
 
-The first command adds the remote repo as a remote with the name origin.
-The second command changes the current branch name to main as this is the default branch that is created on github.
+The first command adds the remote repo as a remote with the name `origin`.
+The second command changes the current branch name to `main` as this is the default branch that is created on github.
 The last command pushes to the remote repo and marks at as the upstream branch for the current branch.
 
-You can check the remote repository you are connected to with `git remote -v`.
+You can check the remote repositories you are connected to with `git remote -v`.
 Now you can edit and add files and commit your changes. Once you are done, you can *push* your changes with
 
 ```shell
 git push
 ```
 
-Before you continue working you should pull any changed you might have committed from another computer or that might have been committed by a collaborator:
+Before you continue working you should pull any changed you might have committed from another computer or that might have been committed by a collaborator
 
 ```shell
 git pull

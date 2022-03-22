@@ -46,6 +46,11 @@ const config = {
           // Please change this to your repo.
           editUrl:
             "https://github.com/LuciferUchiha/digital-garden-v2/tree/main",
+          admonitions: {
+            customTypes: {
+              example: "info",
+            },
+          },
         },
         blog: false,
         theme: {

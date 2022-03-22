@@ -36,7 +36,7 @@ For a weighted graph this is slightly trickier as the shortest path isn't necess
 ### Dijkstra's algorithm
 
 1. Assign all the vertices the attributes "finished", "Distance and „Via/Predecessor“. Initialize the distance of the root vertex as 0 and all others as $\infty$.
-2. While there are unvisited nodes. So finished=false and distance $\leq \infinity$.
+2. While there are unvisited nodes. So finished=false and distance $\leq \infty$.
    1. Choose the vertex $v$ with the smallest distance.
    2. Set $v.finished = true$
    3. For all vertices $w$ that have and edge between $v$ and $w$
