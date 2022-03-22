@@ -37,11 +37,11 @@ For a weighted graph this is slightly trickier as the shortest path isn't necess
 
 1. Assign all the vertices the attributes "finished", "Distance and „Via/Predecessor“. Initialize the distance of the root vertex as 0 and all others as $\infty$.
 2. While there are unvisited nodes. So finished=false and distance $\leq \infinity$.
- 1. Choose the vertex $v$ with the smallest distance.
- 2. Set $v.finished = true$
- 3. For all vertices $w$ that have and edge between $v$ and $w$
-  1. Set int d = v.dist + edge weight between $v$ and $w$.
-  2. if(d < w.dist) w.dist = d; w.via = v;
+   1. Choose the vertex $v$ with the smallest distance.
+   2. Set $v.finished = true$
+   3. For all vertices $w$ that have and edge between $v$ and $w$
+      1. Set int d = v.dist + edge weight between $v$ and $w$.
+      2. if(d < w.dist) w.dist = d; w.via = v;
 
 The time complexity of this algorithm is as followed. For 1 While loop step 1 takes $O(n)$, step 2 takes $O(1)$, step 3 takes $O(outdeg(v))$
 
