@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## What is a digital garden?
 
-A digital garden is a mix between a notebook and a blog, it is a place to share thoughts and cultivate them into garden. A blog has articles and a publication date and never changes after it has been published, whereas a digital garden is a place where the written notes keep getting edited and refined. The notes can span from short cheatsheets to full notes on an entire subject going into every detail.
+A digital garden is a mix between a notebook and a blog, it is a place to share thoughts and cultivate them into garden. A blog has articles and a publication date and never changes after it has been published, whereas a digital garden is a place where the written notes keep getting edited and refined. The notes can span from just a short cheatsheet to a full set of notes on an entire subject where you go into every nitty gritty detail.
 
 Another characteristic of a digital garden is the navigation: where a blog is usually explored in chronological order, a digital garden uses lots of internal links to connect all the notes together into a Network.
 
