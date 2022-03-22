@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Reading/Writing List
+# Reading/Watching List
 
 ## 2022
 

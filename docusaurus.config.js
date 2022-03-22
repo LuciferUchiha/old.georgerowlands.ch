@@ -1,6 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const prismAdditionalLanguages = require("./prismLanguages");
 const math = require("remark-math");
 const katex = require("rehype-katex");
 
@@ -28,7 +30,7 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/logo.png",
-  organizationName: "george-rowlands", // Usually your GitHub org/user name.
+  organizationName: "LuciferUchiha", // Usually your GitHub org/user name.
   projectName: "digital-garden-v2", // Usually your repo name.
 
   presets: [
@@ -131,7 +133,9 @@ const config = {
         copyright: `Last updated on ${new Date().toUTCString()}`,
       },
       prism: {
-        theme: darkCodeTheme,
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+        additionalLanguages: prismAdditionalLanguages,
       },
     }),
 };
