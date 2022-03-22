@@ -1,29 +1,8 @@
 import React from "react";
-import clsx from "clsx";
 import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import styles from "./index.module.css";
+import styled from "styled-components";
 
-function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        {/* <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
-          >
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div> */}
-      </div>
-    </header>
-  );
-}
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -32,10 +11,27 @@ export default function Home() {
       title="Home"
       description="Description will go into a meta tag in <head />"
     >
-      <HomepageHeader />
       <main>
-        <p>Hello world</p>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" />
+        <Container>
+          <p>Hi, my name is</p>
+          <Name>George Rowlands !=</Name>
+          <h2>Computer Science Student 👨‍💻</h2>
+        </Container>
       </main>
     </Layout>
   );
 }
+
+const Name = styled.h1`
+  font-family: 'Fira Code VF', monospace;
+  color: var(--ifm-color-primary);
+  font-size: 3rem;
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px);
+  margin: 3rem;
+`;
