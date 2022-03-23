@@ -3,6 +3,7 @@ import Layout from "@theme/Layout";
 import styled from "styled-components";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import ProgressBar from "../components/ProgressBar";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -12,11 +13,11 @@ export default function Home() {
       description="Description will go into a meta tag in <head />"
     >
       <main>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" />
         <Container>
           <p>Hi, my name is</p>
-          <Name>George Rowlands !=</Name>
+          <Name>George Rowlands</Name>
           <h2>Computer Science Student 👨‍💻</h2>
+          <ProgressBar label="Knowledge" length={15} />
         </Container>
       </main>
     </Layout>
@@ -24,10 +25,9 @@ export default function Home() {
 }
 
 const Name = styled.h1`
-  font-family: 'Fira Code VF', monospace;
-  color: var(--ifm-color-primary);
   font-size: 3rem;
-`
+  color: var(--ifm-color-primary);
+`;
 
 const Container = styled.div`
   display: flex;

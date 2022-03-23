@@ -78,6 +78,10 @@ const config = {
         "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
       crossorigin: "anonymous",
     },
+    {
+      href: "https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css",
+      type: "text/css",
+    },
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
