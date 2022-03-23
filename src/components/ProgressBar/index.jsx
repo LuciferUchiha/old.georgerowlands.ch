@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
+/* Yes a progress bar could also be done with css but I wanted to try a different approach 
+and liked the look of the one using Unicodes in the Fira Code font*/
 const ProgressBar = ({ label, length }) => {
   let emptyBar = "\uEE00";
   emptyBar += "\uEE01".repeat(length);
   emptyBar += "\uEE02";
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("baum");
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <Container>
       <Label>{label}</Label>
