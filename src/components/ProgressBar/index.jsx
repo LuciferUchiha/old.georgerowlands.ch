@@ -4,21 +4,45 @@ import styled from "styled-components";
 /* Yes a progress bar could also be done with css but I wanted to try a different approach 
 and liked the look of the one using Unicodes in the Fira Code font*/
 const ProgressBar = ({ label, length }) => {
-  let [currentProgress, setCurrentProgress] = useState(0);
+  const [counters, setCounters] = useState([0, 0]);
+
+  const [spinnerCounter, progressCounter] = counters;
+
+  console.log(spinnerCounter);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentProgress(
-        (currentProgress) => (currentProgress + 1) % (length + 3)
-      );
-    }, 1000);
+      setCounters(([spinnerCounter, progressCounter]) => [
+        (spinnerCounter + 1) % 6,
+        (progressCounter + 1) % (length + 3),
+      ]);
+    }, 200);
     return () => clearInterval(interval);
   }, []);
+
+  const spinnerString = String.fromCodePoint(
+    parseInt("EE0" + (spinnerCounter + 6).toString(16), 16)
+  );
+
+  //   let progressString = "";
+  //   if (progressCounter == 0) {
+  //     progressString = "\uEE00" + "\uEE01".repeat(length) + "\uEE02";
+  //   } else {
+  //     progressString =
+  //       "\uEE03" +
+  //       "\uEE04".repeat(progressCounter - 1) +
+  //       "\uEE01".repeat(length - progressCounter - 1);
+  //     if (progressCounter == length + 2) progressString += "\uEE05";
+  //     else progressString += "\uEE02";
+  //   }
 
   return (
     <Container>
       <Label>{label}</Label>
-      <Bar>{currentProgress}</Bar>
+      <FiraCode>
+        {progressCounter}
+        {spinnerString}
+      </FiraCode>
     </Container>
   );
 };
@@ -35,7 +59,7 @@ const Container = styled.div`
   color: var(--ifm-color-primary-light);
 `;
 
-const Bar = styled.div`
+const FiraCode = styled.div`
   padding: 5px 0px 0px;
   font-family: "Fira Code VF", monospace;
 `;
