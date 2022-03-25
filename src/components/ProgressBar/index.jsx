@@ -24,24 +24,24 @@ const ProgressBar = ({ label, length }) => {
     parseInt("EE0" + (spinnerCounter + 6).toString(16), 16)
   );
 
-  //   let progressString = "";
-  //   if (progressCounter == 0) {
-  //     progressString = "\uEE00" + "\uEE01".repeat(length) + "\uEE02";
-  //   } else {
-  //     progressString =
-  //       "\uEE03" +
-  //       "\uEE04".repeat(progressCounter - 1) +
-  //       "\uEE01".repeat(length - progressCounter - 1);
-  //     if (progressCounter == length + 2) progressString += "\uEE05";
-  //     else progressString += "\uEE02";
-  //   }
+  let progressString = "";
+  if (progressCounter == 0) {
+    progressString = "\uEE00" + "\uEE01".repeat(length + 1) + "\uEE02"; // shouldnt be + 1 but it works
+  } else {
+    progressString =
+      "\uEE03" +
+      "\uEE04".repeat(progressCounter - 1) +
+      "\uEE01".repeat(length - (progressCounter - 2));
+    if (progressCounter == length + 2) progressString += "\uEE05";
+    else progressString += "\uEE02";
+  }
 
   return (
     <Container>
       <Label>{label}</Label>
       <FiraCode>
-        {progressCounter}
-        {spinnerString}
+        {progressString}
+        {" " + spinnerString}
       </FiraCode>
     </Container>
   );
@@ -62,4 +62,5 @@ const Container = styled.div`
 const FiraCode = styled.div`
   padding: 5px 0px 0px;
   font-family: "Fira Code VF", monospace;
+  letter-spacing: -0.02rem; // because otherwise weird line
 `;
