@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import ProgressBar from "../components/ProgressBar";
+import Rain from "../components/Rain";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -13,10 +14,11 @@ export default function Home() {
       description="Description will go into a meta tag in <head />"
     >
       <main>
+        <Rain numDrops={600} />
         <Container>
           <p>Hi, my name is</p>
           <Name>George Rowlands</Name>
-          <h2>Computer Science Student 👨‍💻</h2>
+          <h2>Computer Science Student</h2>
           <ProgressBar label="Knowledge" length={15} />
         </Container>
       </main>

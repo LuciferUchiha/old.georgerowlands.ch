@@ -48,6 +48,7 @@ const ProgressBar = ({ label, length }) => {
 };
 
 export default ProgressBar;
+
 const Label = styled.div`
   margin-right: 10px;
 `;
