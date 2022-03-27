@@ -1,8 +1,7 @@
 ---
 sidebar_position: 1
+title: What is a digital garden?
 ---
-
-# Welcome
 
 ## What is a digital garden?
 

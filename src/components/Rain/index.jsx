@@ -34,12 +34,9 @@ const fall = keyframes`
 `;
 
 const RainContainer = styled.div`
-z-index: 1;
-    overflow: hidden;
 `;
 
 const Drop = styled.div`
-z-index: 2;
     left: ${props => props.left};
     top: ${props => props.top};
     background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(219, 178, 255,0.3) ), to(rgba(127, 57, 251,0.3))  );

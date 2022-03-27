@@ -1,8 +1,7 @@
 ---
 sidebar_position: 2
+title: Reading/Watching List
 ---
-
-# Reading/Watching List
 
 ## 2022
 
