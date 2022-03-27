@@ -238,7 +238,7 @@ $$\varphi=arg(z)=\arg(a+bi)=
 Punkte in einem Koordinatensystem müssen nicht unbedingt im kartesischen
 Koordinatensystem sein. Wir können auch polare Koordinaten verwenden, wir müssen es dann nur Umwandeln. Dafür verwenden wir Betrag: $r=|z|$ und Argument: $\varphi=\arg(z)$ der komplexen Zahl.
 
-![komplexeZahlenebenePolar](/img/maths/komplexeZahlenebenePolar.jpg)
+![komplexeZahlenebenePolar](/img/maths/komplexeZahlenebenePolar.png)
 
 ### Goniometrische Darstellung
 
@@ -274,7 +274,7 @@ Wir sehen, dass die komplexe Konjugation eine Spiegelung an der x-Achse bewirkt.
 Die Addition/Subtraktion von zwei komplexen Zahlen lässt sich wie die Addition zweier Vektoren interpretieren. Achtung sie sind aber nicht Vektoren sondern Zeiger!
 
 ![komplexeZahlenAddieren](/img/maths/komplexeZahlenAddieren.png)
-![komplexeZahlenSubtrahieren](/img/maths/komplexeZahlenAddierenSubtrahieren.jpg)
+![komplexeZahlenSubtrahieren](/img/maths/komplexeZahlenAddierenSubtrahieren.png)
 
 Die Berechnung der Summe ist immer am einfachsten in der arithmetische Form die goniometrische Form eignet sich nicht dafür.
 

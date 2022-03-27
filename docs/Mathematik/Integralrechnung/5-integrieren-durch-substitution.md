@@ -10,7 +10,7 @@ also wenn wir eine Verkettung von Funktionen haben und die innere Funktion abgel
 
 $$\int{x\cdot e^{x^2}}$$
 
-weil es nicht normalerweise lösbar ist. Hier ist $g(x)=x^2$ was abgeleitet zu $g'(x)=2x$ wird wir haben aber nur $x$ nicht $2x$. Grund dafür ist die [Faktorregel](4-elementare-integrationsregeln#Faktorregel) welche besagt das wir die 2 ja herausnehmen können, deshalb können wir Konstanten bei der obigen Voraussetzung ignorieren.
+weil es nicht normalerweise lösbar ist. Hier ist $g(x)=x^2$ was abgeleitet zu $g'(x)=2x$ wird wir haben aber nur $x$ nicht $2x$. Grund dafür ist die Faktorregel welche besagt das wir die 2 ja herausnehmen können, deshalb können wir Konstanten bei der obigen Voraussetzung ignorieren.
 
 Der erste Schritt haben wir schon gemacht wir haben unsere variable zum Substituieren identifiziert $u=x^2$. Wir müssen aber alles was mit der alten Variable zu tun haben ersetzen, inklusive das $dx$. Um dies zu erreichen benutzen wir noch die folgende Formel $dx=\frac{du}{u'}=\frac{du}{2x}$.
 

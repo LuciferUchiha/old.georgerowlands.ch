@@ -136,7 +136,7 @@ A new set can also be constructed by determining which elements two sets have "i
 The so called **absolute complement** of $A$ (or simply the **complement of** $A$) is the set of elements not in $A$. In other words, let $U$ be a set that contains all the elements under study. If there is no need to mention $U$, either because it has been previously specified, or it is obvious (for example all positive numbers). Then the absolute complement of $A$ is the difference (Or relative complement) of $A$ in $U$.
 This can be written as $A^c = U \setminus A$.
 
-![absoluteComplement](/img/maths/absoluteComplement.jpg)
+![absoluteComplement](/img/maths/absoluteComplement.png)
 
 :::note Complement examples
 
