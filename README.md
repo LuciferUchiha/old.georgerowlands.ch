@@ -1,6 +1,8 @@
 # Website
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator. It is deployed and hosted on [Netlify](https://www.netlify.com/).
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/14817907-43c5-4f5f-b8b0-81261b0583a0/deploy-status)](https://app.netlify.com/sites/georgerowlands/deploys)
 
 ## Installation
 
