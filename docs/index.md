@@ -11,8 +11,10 @@ Another characteristic of a digital garden is the navigation: where a blog is us
 
 ## How was my garden built?
 
-My notes are written in Markdown using [Obsidian](https://obsidian.md/). Why Obsidian and Markdown? Because I like how easy it is just to write a few things down without having to spend a lot of my time. These technologies however do allow me to go into deep detail if needed by offering lots of cool tools to draw diagrams, add code snippets etc.
+My notes are written in Markdown. I used to write them in [Obsidian](https://obsidian.md/) but decided to move over to using [Visual Studio Code](https://code.visualstudio.com/) with the following plugins
 
-All my notes are stored in a Vault that is hosted on Github which allows me to read and edit my notes on any device I own, be it my laptop, computer or phone.
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint), which is also set as the formatter for `.md`
 
-I then have a second repository on Github which takes my non-private notes and builds them into a simple website using [mkdocs](https://www.mkdocs.org/) and the [material theme](https://squidfunk.github.io/mkdocs-material/). Therefore after an initial setup(Which can take a lot of time depending on what you want your page to look like and be able to handle) everything works automatically I can just concentrate on writing my notes.
+The reason for the switch is because my digital garden used to be built with [Mkdocs](https://www.mkdocs.org/) and the [Material Theme](https://squidfunk.github.io/mkdocs-material/) however now it is built using [Docusaurus](https://docusaurus.io/) which is in the end a react app and VS Code offers me other plugins to work on it.
