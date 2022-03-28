@@ -1,10 +1,12 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import styled from "styled-components";
-
+import { Canvas } from "@react-three/fiber";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+
 import ProgressBar from "../components/ProgressBar";
 import Rain from "../components/Rain";
+import Box from "../components/Box";
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -16,24 +18,38 @@ export default function Home() {
       <main>
         <Rain numDrops={600} />
         <Container>
-          <p>Hi, my name is</p>
-          <Name>George Rowlands</Name>
-          <h2>Computer Science Student</h2>
-          <ProgressBar label="Knowledge" length={15} />
+          <NameSection>
+            <p>Hi, my name is</p>
+            <Name>George Rowlands</Name>
+            <h2>Computer Science Student</h2>
+            <ProgressBar label="Knowledge" length={15} />
+          </NameSection>
+          <Canvas>
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <Box position={[-1.2, 0, 0]} />
+            <Box position={[1.2, 0, 0]} />
+          </Canvas>
         </Container>
       </main>
     </Layout>
   );
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 60px);
+`;
+
 const Name = styled.h1`
   font-size: 3rem;
   color: var(--ifm-color-primary);
 `;
 
-const Container = styled.div`
+const NameSection = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 150px);
   margin: 3rem;
 `;

@@ -8,8 +8,6 @@ const ProgressBar = ({ label, length }) => {
 
   const [spinnerCounter, progressCounter] = counters;
 
-  console.log(spinnerCounter);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCounters(([spinnerCounter, progressCounter]) => [
