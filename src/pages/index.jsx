@@ -3,6 +3,7 @@ import Layout from "@theme/Layout";
 import styled from "styled-components";
 import { Canvas } from "@react-three/fiber";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
 import ProgressBar from "../components/ProgressBar";
 import Rain from "../components/Rain";
@@ -16,7 +17,11 @@ export default function Home() {
       description="Description will go into a meta tag in <head />"
     >
       <main>
-        <Rain numDrops={600} />
+        <BrowserOnly fallback={<div>Loading...</div>}>
+          {() => {
+            return <Rain numDrops={600} />;
+          }}
+        </BrowserOnly>
         <Container>
           <NameSection>
             <p>Hi, my name is</p>
