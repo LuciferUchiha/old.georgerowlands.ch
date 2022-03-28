@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-/* Yes a progress bar could also be done with css but I wanted to try a different approach 
-and liked the look of the one using Unicodes in the Fira Code font*/
-const ProgressBar = ({ label, length }) => {
+/* Yes a progress bar could also be done with css but I wanted to try a different approach
+and liked the look of the one using Unicodes in the Fira Code font */
+function ProgressBar({ label, length }) {
   const [counters, setCounters] = useState([0, 0]);
 
   const [spinnerCounter, progressCounter] = counters;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCounters(([spinnerCounter, progressCounter]) => [
+      setCounters(() => [
         (spinnerCounter + 1) % 6,
         (progressCounter + 1) % (length + 3),
       ]);
     }, 200);
     return () => clearInterval(interval);
-  }, []);
+  }, [length, progressCounter, spinnerCounter]);
 
   const spinnerString = String.fromCodePoint(
-    parseInt("EE0" + (spinnerCounter + 6).toString(16), 16)
+    parseInt(`EE0${(spinnerCounter + 6).toString(16)}`, 16),
   );
 
-  let progressString = "";
-  if (progressCounter == 0) {
-    progressString = "\uEE00" + "\uEE01".repeat(length + 1) + "\uEE02"; // shouldnt be + 1 but it works
+  let progressString = '';
+  if (progressCounter === 0) {
+    progressString = `\uEE00${'\uEE01'.repeat(length + 1)}\uEE02`; // shouldnt be + 1 but it works
   } else {
-    progressString =
-      "\uEE03" +
-      "\uEE04".repeat(progressCounter - 1) +
-      "\uEE01".repeat(length - (progressCounter - 2));
-    if (progressCounter == length + 2) progressString += "\uEE05";
-    else progressString += "\uEE02";
+    progressString = `\uEE03${
+      '\uEE04'.repeat(progressCounter - 1)
+    }${'\uEE01'.repeat(length - (progressCounter - 2))}`;
+    if (progressCounter === length + 2) progressString += '\uEE05';
+    else progressString += '\uEE02';
   }
 
   return (
@@ -39,17 +39,23 @@ const ProgressBar = ({ label, length }) => {
       <Label>{label}</Label>
       <FiraCode>
         {progressString}
-        {" " + spinnerString}
+        {` ${spinnerString}`}
       </FiraCode>
     </Container>
   );
-};
+}
 
 export default ProgressBar;
+
+ProgressBar.propTypes = {
+  label: PropTypes.string.isRequired,
+  length: PropTypes.number.isRequired,
+};
 
 const Label = styled.div`
   margin-right: 10px;
 `;
+
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;

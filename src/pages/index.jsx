@@ -1,26 +1,22 @@
-import React from "react";
-import Layout from "@theme/Layout";
-import styled from "styled-components";
-import { Canvas } from "@react-three/fiber";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import BrowserOnly from "@docusaurus/BrowserOnly";
+import React from 'react';
+import Layout from '@theme/Layout';
+import styled from 'styled-components';
+import { Canvas } from '@react-three/fiber';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
-import ProgressBar from "../components/ProgressBar";
-import Rain from "../components/Rain";
-import Box from "../components/Box";
+import ProgressBar from '../components/ProgressBar';
+import Rain from '../components/Rain';
+import Box from '../components/Box';
 
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title="Home"
       description="Description will go into a meta tag in <head />"
     >
       <main>
-        <BrowserOnly fallback={<div>Loading...</div>}>
-          {() => {
-            return <Rain numDrops={600} />;
-          }}
+        <BrowserOnly>
+          {() => <Rain numDrops={600} />}
         </BrowserOnly>
         <Container>
           <NameSection>

@@ -1,39 +1,40 @@
-import React, { useMemo } from "react";
-import styled, { keyframes } from "styled-components";
-import useWindowDimensions from "../../util/customHooks";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import styled, { keyframes } from 'styled-components';
+import useWindowDimensions from '../../util/customHooks';
 
-const Rain = ({ numDrops }) => {
+const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+function Rain({ numDrops }) {
   const { height, width } = useWindowDimensions();
 
-  // scales numDrops to screen dimensions
-  const relativeNumDrops = numDrops * (width / 1000);
-
   const drops = useMemo(() => {
-    const drops = [];
+    const generatedDrops = [];
 
-    for (let i = 1; i < relativeNumDrops; i++) {
+    // scales numDrops to screen dimensions
+    for (let i = 1; i < numDrops * (width / 1000); i += 1) {
       const dropLeft = randRange(0, width);
       // this number needs to be adjusted so there isn't an underflow
       const dropTop = randRange(-1000, height);
-      drops.push({ left: dropLeft, top: dropTop });
+      generatedDrops.push({ id: i, left: dropLeft, top: dropTop });
     }
-    return drops;
-  }, [width, height]);
+    return generatedDrops;
+  }, [numDrops, width, height]);
 
   return (
     <RainContainer>
-      {drops.map(({ left, top }, i) => (
-        <Drop key={i} className="drop" left={left} top={top} />
+      {drops.map((drop) => (
+        <Drop key={drop.id} className="drop" left={drop.left} top={drop.top} />
       ))}
     </RainContainer>
   );
-};
-
-const randRange = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
 
 export default Rain;
+
+Rain.propTypes = {
+  numDrops: PropTypes.number.isRequired,
+};
 
 const fall = keyframes`
     to {
