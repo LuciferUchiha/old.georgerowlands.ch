@@ -26,6 +26,36 @@ Another good trick to remember the vowels is that if there are 2 lines apart fro
 
 ## Combinations
 
-Once you know the vowels and consonants you can already make some weirds by combining them like here
+Once you know the vowels and consonants you can already make some words by combining them as seen below
 
 ![hangulCombinations](/img/korean/hangulCombinations.png)
+
+## Double Consonants
+
+Double consonants (in korean "ssang ja-eum") only apply to 5 basic consonants and stacks the consonants next to each other. In korean "ssang" means "double" so for example "giyeok" becomes "ssang giyeok". The double consonants have different pronunciation to there single counterparts with the main difference being that the double consonants have extra stress.
+
+![hangulDoubleConsonants](/img/korean/hangulDoubleConsonants.png)
+
+## Complex/Compound Vowels
+
+In korean these are known as "diphthongs". Just like with the normal vowels we have two groups again, ones that are written to the right and ones that are written underneath the consonant.
+
+The ones that are based of two vertical lines (ae, yae, eh, yeh) are written to the right the others underneath the consonant. The ones that are written to the right are pretty easy to remember they have just like the normal consonants a base part, the 2 vertical lines and then you add horizontal lines. Here you can also use the same rules of if 2 horizontal lines are added then it starts with a "y".
+
+![hangulComplexVowels](/img/korean/hangulComplexVowels.png)
+
+These can then be all combined together to make for example the following words
+
+![hangulComplexVowelsCombinations](/img/korean/hangulComplexVowelsCombinations.png)
+
+## Basic Final/Ending Consonants
+
+Also called in korean "batchim". Is basically another consonant under the syllable (consonant + vowel) all consonants can become final consonants apart from these:
+
+- "dd", ssang digeut
+- "jj", ssang jieut
+- "bb", ssang bieup
+
+![hangulFinalConsonants](/img/korean/hangulFinalConsonants.png)
+
+## Double Final/Ending Consonants
