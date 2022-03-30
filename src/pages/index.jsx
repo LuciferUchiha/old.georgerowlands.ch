@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <Layout title="Home" description="Description will go into a meta tag in <head />">
       <main>
-        <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>
         <Container>
+          <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>
           <NameSection>
             <p>Hi, my name is</p>
             <Name>George Rowlands</Name>

@@ -15,7 +15,7 @@ function Rain({ numDrops }) {
     for (let i = 1; i < numDrops * (width / 1000); i += 1) {
       const dropLeft = randRange(0, width);
       // this number needs to be adjusted so there isn't an underflow
-      const dropTop = randRange(-1000, height);
+      const dropTop = randRange(-1000, 800);
       generatedDrops.push({ id: i, left: dropLeft, top: dropTop });
     }
     return generatedDrops;
