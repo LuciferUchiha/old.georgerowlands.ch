@@ -10,14 +10,9 @@ import Box from '../components/Box';
 
 export default function Home() {
   return (
-    <Layout
-      title="Home"
-      description="Description will go into a meta tag in <head />"
-    >
+    <Layout title="Home" description="Description will go into a meta tag in <head />">
       <main>
-        <BrowserOnly>
-          {() => <Rain numDrops={600} />}
-        </BrowserOnly>
+        <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>
         <Container>
           <NameSection>
             <p>Hi, my name is</p>
@@ -52,5 +47,5 @@ const Name = styled.h1`
 const NameSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 3rem;
+  margin: 10%;
 `;

@@ -38,7 +38,7 @@ Rain.propTypes = {
 
 const fall = keyframes`
     to {
-        margin-top: 100vh; // Not sure if this is correct
+        margin-top: 100vh;
     }
 `;
 
@@ -54,16 +54,10 @@ const Drop = styled.div.attrs((props) => ({
   },
 }))`
   z-index: -10;
-  background: -webkit-gradient(
-    linear,
-    0% 0%,
-    0% 100%,
-    from(rgba(219, 178, 255, 0.3)),
-    to(rgba(127, 57, 251, 0.3))
-  );
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(219, 178, 255, 0.3)), to(rgba(127, 57, 251, 0.3)));
   width: 1px;
   height: 89px;
   position: absolute;
   bottom: 200px;
-  animation: ${fall} 0.63s linear infinite;
+  animation: ${fall} 0.8s linear infinite;
 `;
