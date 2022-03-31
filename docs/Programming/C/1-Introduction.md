@@ -13,4 +13,8 @@ C was originally developed at Bell Labs by Dennis Ritchie in 1972 to construct u
 - linking(goal is to get the program into a final form for execution on the compute, this is most of the time done during compilation, the linker combines the object modules with additional libraries needed by the program to create the entire executable file which can then be run)
 - running
 
+### Installing C compiler on Windows
+
+GNU gcc compiler, make and gdb debugger cygwin.com which simulates a unix environment.
+
 ## First C Program
