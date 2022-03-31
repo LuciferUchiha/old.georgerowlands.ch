@@ -17,6 +17,9 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["React Function Components" by Robin Wieruch:](https://www.robinwieruch.de/react-function-component/)<br/>
   Explanation of function components in React from begging to end.
 
+- ["How Does C Compilation Work?" by Brennan D Baraban:](https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d)<br/>
+  Not a to in depth explanation but just enough of how C compilers (specifically gcc) work.
+
 ### Videos
 
 ## 2021
