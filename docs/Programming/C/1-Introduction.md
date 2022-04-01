@@ -31,9 +31,10 @@ int main(void)
 
 To then compile and run our "Hello World" we can use for example the GNU Compiler Collection (gcc).
 
-```shell
-gcc -std=c11 -pedantic -pedantic-errors -Wall -Wextra -g -o helloWorld helloWorld.c
-helloWorld.exe or ./helloWorld.o
+```bash
+foo@bar:~$ gcc -std=c11 -pedantic -pedantic-errors -Wall -Wextra -g -o helloWorld helloWorld.c
+foo@bar:~$ helloWorld.exe
+Hello World
 ```
 
 The options mean the following:
@@ -54,8 +55,7 @@ When specifying the file to be included you can either write it between double q
 
 ## Inputting Data
 
-THESE NEEDS TO COME LATER ON after pointers and arrays, strings
-reading input from keyboard the most general is scanf reads input from standard input stream stdin which is by default the console according to the provided format. comes in as a string but can be formatted to other types as seen later. returns number of items it succesfully reads so when typign in 2014 it will be 4 characters not 1 string or a number. scanf uses whitespaces to decide how to divide the input.
+The `stdio.h` file contains the `scanf()` function which reads input from the standard input stream "stdin", which by default is the console. The function can read and parse the input using the provided format specifier. Important to know is that it uses whitespaces to tokenize the input.
 
 ```c title="main.c"
 #include "stdio.h"
@@ -64,43 +64,32 @@ int main(void)
 {
     char str[100];
     int i;
+    printf("Enter a word followed by a space and a number: ");
+    // provide pointers to where to store the values (remember str is actually a pointer to the first element)
+    int tokensRead = scanf("%s %d", str, &i); 
 
-    printf("Enter a word: ");
-    scanf("%s", str); // automatically is a pointer to index 0, only reading till whitespace
-
-    printf("Enter an integer: ");
-    scanf("%d", &i); // needs pointer to where to save
-
-    printf("You entered str: %s  and i: %d", str, i);
+    printf("%d tokens were read str: %s  and i: %d", tokensRead,str, i);
 
     return 0;
 }
 ```
 
-## Variables and datatypes
+## Variables and data types
 
-in memory each byte has a unique address not each bit.
-naming variables start with a letter or underscore and then followed by any combiantion of letters, underscores or digits as long as it also isn't reserved like int. declaring variable reserves the space in memory as it know the amount of bytes the data type of the variable needs. type-speicfer variable-name; multiple of same type int x,y,z; assign value to variable with =  for example x = 12; initializing varibale is giving it an initial value, can be done as part of declaration like int a= 12;
+To create a variable you first need a name. A variable name must start with a letter or underscore and then be followed by any combination of letters, underscores or digits as long as the name in the end isn't a reserved word like "int". Secondly you need a type which defines how the data is stored in memory for example `int` is an integer. When writing `int x;` you are declaring a variable which reserves the space in memory to hold the later on assigned value as it knows the amount of bytes the data type of the variable needs. Initializing a variable is giving it an initial value. This can be done as part of the declaration like for example `int a = 12;`.
 
 ### Basic data types
 
-#### Numbers
+[A basic list of c data types](https://en.wikipedia.org/wiki/C_data_types#Main_types), how much memory they take up but this is very computer and compiler dependant. Closly tied to the amount of memory is of course the value range of a variable. These ranges can be checked by including [limits.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/limits.h.html) for integer values and [float.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/float.h.html) for float values (part of the standard library).
 
-types to store integers, floating points and characters. int, float, double, char, _Bool. memory needed for a certain type is dependent on machine and the compiler. int might take 32 bit or 64bit depending.
+Some interesting things to note are:
 
-int x= 0; can also be asssigned in hex x=0xFFFFFF;
+- You can assign values using hex so `int x = 0xFFFFFF` is possible.
+- You can use scientific notation to assign values so `float x = 1.7e4` is possible.
+- You can add short, long, signed and unsigned to numerical values. `short` **might** make the types memory usage smaller, `long` **might** make it larger. `signed` is by default so has no real effect, `unsigned` means its range is only positive values and includes 0. Unless it is `int` itself the word int can be omitted so `long int` and `long` are the same. For some reason you can also do `long long` and `short short` who knows why?
+- If you want specific sized data types you can include from the standard library [stdint.h](https://pubs.opengroup.org/onlinepubs/009696899/basedefs/stdint.h.html) as to why to this doesn't exist for floats you can [read here](https://www.reddit.com/r/cpp/comments/34d7b6/why_do_we_have_intn_t_but_no_equivalent_for/).
 
-can add to bsaic integer types short long and unsigned(only 0 and positive) unsigned basically doubles the range  to check the ranges #include `<limits.h>` and float.h
-
-short int might use less storage not neccesarly tho
-long int or just long might use more storage or long float
-long long int or just long long might use more storage then a long int
-
-floating points can also be assigned using scientific notation so
-float x=3. or 125.8 or -.001 or -3.47 or 1.7e4
-
-double is same as float but more bits most computers 64bits
-can create long double but useless???
+### Boolean types
 
 _Bool value 0 or 1 so true or false.
 
@@ -110,9 +99,7 @@ b = TRUE;
 
 from C99 can also #include < stdbool.h> and then write bool val = true/false;
 
-look at C wikipedia
-
-#### Enums and chars
+### Enums
 
 data type that only allows specific values
 for example enum primaryColor {red, green, blue}
@@ -121,26 +108,55 @@ to now define primary color of this type enum primaryColor myColor = red;
 
 under the hood C maps all the values to integer constants the first being 0 next beign 1 etc.; so myColor = 0; is the same as above. You can also define a different starting number and then other or increased by 1 or completly custom like north=0, east=90 etc.
 
-chars are single characters like 'a' or '6' or ';'; under the hood also just numbers mapped to the ascii table.
-so char grad=65; will transfer via ASCII table
+### Format specifiers
 
-escape characters are special character that represnt actions like new line etc. x='\n' or '\r' carraige return
+There are lots format specifiers for outputting different data types. You can also use format specifiers to do cool things like adding leading or trailing zeros or only showing a certain amount of decimal points.
 
-### fomat specifers
+![cFormatSpecifiers](/img/programming/cFormatSpecifiers.png)
 
-for precision of floats for example, does it trunk or round?
+You can find more details in the [documentation of printf](https://www.cplusplus.com/reference/cstdio/printf/).
 
 ### command line arguments
 
-THIS NEEEDS TO COME LATER ON, after arrays
-main gets two arguments argc for argument count and argv for argument vector which is an array of character pointers so strings(advanced)
+When compiling you can pass arguments to the main function. The first parameter `argc` is the argument count, the second parameter `argv` is the argument vector which is an array of strings. So in other words it is an array of character arrays or an array of character pointers.
+
+```c title="main.c"
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    printf("argc=%d\n", argc);
+
+    // the first argument is the name of the executable
+    printf("exe name=%s\n", argv[0]);
+
+    for (int i = 1; i < argc; i++)
+    {
+        printf("argv[%d]=%s\n", i, argv[i]);
+    }
+
+    return 0;
+}
+```
+
+To then pass arguments you can do the following
+
+```bash
+foo@bar:~$ gcc -std=c11 -pedantic -pedantic-errors -Wall -Wextra -g -o argvExample main.c
+foo@bar:~$ argvExample.exe arg1 arg2
+argc=3
+exe name=./argvExample
+argv[1]=arg1
+argv[2]=arg2
+```
 
 ## Operators
 
-arithmetic or logical(boolean) operators and others like assignment, bitwise or relational.
-all the same as in java and other languages so not gonna explain important to know is precedence
+Has the same operators as in many other languages and also work the same so not gonna go into detail. The only interesting ones to go into are below.
 
-### Cast and sizeof
+![cOperatorPrecedence](/img/programming/cOperatorPrecedence.png)
+
+### Casting
 
 conversion between different types can happen automatically (implicit) or has to be done explicit.
 
@@ -148,18 +164,233 @@ for example double to flaot is implicit as no data is lost however double to int
 
 (int) 25.1 + (int) 27.435
 
-siezof we used above but tells u how many bytes in memory are occupied by a type
+### sizeof
+
+The sizeof operator is very simple and just outputs how many bytes a data type or variable takes up.
+
+```c
+int x = 3;
+
+printf("An int takes up %ld bytes on my computer and a double %ld", sizeof(x), sizeof(double)); // 4 and 8
+```
 
 ## Control Flows
 
-also work the same way as in java and other languages.
+These work just as in many other languages so will not go into further detail.
+
+### If/Else
+
+```c
+if (test expression1) {
+   // statement(s)
+}
+else if(test expression2) {
+   // statement(s)
+}
+else {
+   // statement(s)
+}
+```
+
+### For
+
+```c
+for (initializationStatement; testExpression; updateStatement) {
+    // statements inside the body of loop
+}
+```
+
+### While
+
+```c
+while (testExpression) {
+  // the body of the loop 
+}
+```
+
+### Do While
+
+```c
+do {
+  // the body of the loop
+}
+while (testExpression);
+```
+
+### Break and Continue
+
+The `break` statement ends a loop immediately when it is encountered. The `continue` statement skips the current iteration of a loop and continues with the next iteration.
+
+### Goto
+
+Just dont use this.... if you need it you are doing something wrong unless you have a very very special use-case.
+
+```c
+#include <stdio.h>
+int main()
+{
+    int num, i = 1;
+    printf("Enter the number whose table you want to print?");
+    scanf("%d", &num);
+table:
+    printf("%d x %d = %d\n", num, i, num * i);
+    i++;
+    if (i <= 10)
+        goto table;
+}
+```
+
+### Switch
+
+Important to note here is that the values of expression and each constant-expression must have an integral type and a constant-expression must have an unambiguous constant integral value at compile time. Also the break here makes sure that it doesn't fall through to the other statements.
+
+```c
+switch (expression)
+​{
+    case constant-expression-1:
+      // statements
+      break;
+
+    case constant-expression-t2:
+      // statements
+      break;
+    default:
+      // default statements
+}
+```
+
+## Constant values
+
+with define const value that is just substitueted word for word in preprocessing in C90 const was added which just does not allow the value to change more flexible as it allows you to defien a type. a further way would be an Enum
 
 ## Arrays
 
-## Pointers
+fixed size can only store values of one data type. declaration long numbers[10]; 10 being the size, so can store 10 values. to access particular element you need to use an index starting at 0. array out of bounds in C might crash your program or can cause unexpected behaviour like xxxxx memory attack. the compiler cannot check out of bounds errors. Can be initialized with values with long numbers[5] = {1,2,3,4,5}; Can also partialy initialize array rest will just take their default init value so for int, 0.
 
-## Character arrays, Strings
+designated initializers test it!! int arr[6]={[5]=10}; so the last value will be 10 all others 0.
+
+can also create multidimensional arrays so basically an array of arrays. same as in other language 2D can be imagined like a table, row can column can also use designated initializers. Can also go further on like 3D etc. But can quickly get confussing.
+
+C99 introduced variable lenght arrays meaning the length can be assigned usign a variable not a constant. This does not mean the length of an array can change! Linus torvalds is not a fan of this which is why the linux kernel is VLA free. C11 it is however optional for compilers to implement
 
 ## Functions
 
+function header defines name, paramaters(number and data types of vlaues) type the functionr eturns. functiion body contaisn the statements that are executed when the funciton is called. void no return, void not passing any data. function prototypes is just the header so defining, providing all the external specifications the function. functions need to be defined before the are used so often u write all the fucntion protorpyes at the start of the file.
+
+parameters are local to the function on the stack. pass by value meaning a copy is made that is local to the function meaning if we change the value it has no effect to the argument we will later on learn how to pass by reference. return value doesn't have to be handled.
+
+local and global variables.
+
+local variables are always local to the block they are defined in.
+
+global variables can be accesed from anywhere and are decalred outside of any function, are alive from start to end of program. local variables mask global variables. should avoid them tho as they are a dependency which means that there is coupling between functions.
+
+## Pointers
+
+Every variable is a memory location and every memory location has its address defined which can be accessed using ampersand (&) operator which denotes an address in memory. A pointer is a variable whose value is the address of another variable. Thsi address is internally represented as an unsigned int on most systems however you shouldn't think of it as such. every pointer has the type of the variable it is pointing to so the compiler knows how much memory is occupied by that variable. the asteriks denotes a pointer. you can initiate it by pointing to no location in memory with NULL, so called null pointer. to access the value a pointer is pointign to is so called dereferencing which is using the asterik again. *pointer + 5. to output a pointers value in hex use %p, pointers always use 8 bytes. pointers also have addresses so can output that aswell &pnumber warning by compiler because expected a pointer but it is a pointer to a pointer of itn so cast to void\*.
+
+pointer arithmetic: + or - to increment or decrement a pointer by one which is usefull when working with arrays to go to the next or previous element.
+
+pointer - pointer is space between the pointers so could find out if they point to same value?
+
+never dereference uninitialized pointer as value could go anywhere could maybe overwrite data or cause the program to crash. NULL is same as zero which is same as false so can do if(!pointer) to do soemthign if the pointer is not NULL.
+
+const long *pvalue = &value defines a pointer to a constant. so the value cant be changed so*pvalue=99; is not possible. but we can still change it via value=99 can also still change to waht the pointer is pointing to so long number and then pvalue=&number is still possible.
+
+not allowing the address to change then you write int *const pConst, cant change the address, but can change the values???? can then also combine the 2.
+
+void pointers: void* can store an address of any type. can not be dereferenced as it doesn't know the size of waht it is pointign to so must first be cast to anotehr pointer type.
+
+pointers and array, can point an int*pointer to the first elemenet because an array always points to the first address. does the same as &values[0]
+arr[i] is the same as*(arr+i) if arr is a pointer you can also arr++ to go to next element.
+
+interesting example is arraySum from video
+
+swap example from book with pass by value and pass by reference.
+
+pointers also allow then to have multiple returns, so called output parameters.
+
+dynamic memory allocation. when creating variables or pointers compilers assigns memory on the stack which normally does not stay aroudn for very long when no longer needed is cleared, leaves block. dynamic memory allocation reserves space on heap which is around for the entire program but then needs to be freed by you the developer.
+
+malloc from stdlib.h, specify number of bytes to reserve on heap and returns addres of first byte as a void pointer so to use needs to be cast. if it fails will return NULL.
+programmer is responsible so need to release the memory, otherwise memory leak which is when you allocate memory but can no longer access it without releasing it.
+free(pointer); pointer=NULL. calloc() number of data items and then the size of each item so for example for arrays, advantage is it initializes all the bits to zero. realloc realocates memory to resize some already allocated memory. it preserves the contents which is very important.
+
+## Character arrays, Strings
+
+string constant/literal is anythign between double quotes. strings in memory are arrays of char. \0 is the null character which is added by compiler at the end of each string so we know where it ends. so a length of a string is always one more. do not confuse with NULL which is a symbol that represnets a memory adress that doesnt reference anything. no datatype stirng in C can however get extensive functions for string from standard library. char myString[20] can store a string wtih up to 19 charachters. can initialize like char word[] = {'H', 'e', ...} if there is no array size given compiler compute the size and adds one for the null terminator. You can also do char word[7] = {"Hello!"} if the array is to small size=6 compiler doesnt put one there and doesn't throw error so good practice is or aynthign or let compiler figure it out. can also partially initialize char str[40] = "To be". myString= "Hello" doesnt work you could iterate over it. display entire stirng with %s no indexes or anything.
+
+compare strings tricky because char arrays so cant jsut do == you can use functions for standard library.
+
+string functions from standard library in string.h strlen returns size_t which is an unsigned long, strcpy, strncpy because you cant assign does not check if it fits will just copy as much as it can or throw error???? strncpy has third number which is maximum number of characters to copy check how exactly, concatenation strcat, strncat coyp of frist string is appeneded to the first second string is not altered returns where was inserted ncat only copies certain amount of characters, compararing strcmp adn strncmp if they are the same then returns 0, else -1 if "smaller on ascii" or 1 if larger, compares strings until they differ so can check for substrings at the beginning.
+
+search strings: strchr and strstr finding string or char in string. returns pointer to where to first occurance that was found so char* if not found return NULL which is eqvl to no address.
+
+toikeninzing string: strtok(), can use multiple delimeters, returns first token etc, seems a bit dumb????
+
+analyzing like isLower, isUpper, isAlpha etc. can be done on characters or strings
+
+converting char like toUpper, toLower so need to do for each for string.
+ stdlib.h has functions to convert to numbers like atoi etc.
+
 ## Structures
+
+for grouping elements together very similiar to classes like in java or other langauges but no functions. for example a date, month, day, year. can then create variables as type struct date. memory is allocated 3 variables inside. can access member variables with . so today.year for example. can also assign initil.
+
+unnamed structures for only one time thing. can initialize structs like arrays with {7,2,2015}. or just the frist 2 or can do {.month=12}
+
+compound literal can assign values after initilation like (struct date) {1,2,3} or specify the specific values with .month=9
+
+can have arrays of strucutres. and do all the silly initilization things or with [1],month=12
+
+nested strucutres also work. date, time and then combine them.
+
+pointer to a struct. derefernce and then access value can be shortend with ->
+
+## typdef
+
+The `typedef` keyword is used in C to assign alternative names to existing datatypes. This can be especially powerfull when combined with structs.can be used to give a type a new name. so typedef unsigned char BYTE; BYTE can then be used as an allias. this can become very powerful with structs.
+
+```c
+#include <stdio.h>
+
+typedef struct Point
+{
+    double x;
+    double y;
+} Point; // can have the same name
+
+struct date
+{
+    unsigned short day;
+    unsigned short month;
+    unsigned int year;
+};
+typedef struct date Date;
+
+typedef unsigned char byte;
+
+int main(void)
+{
+    Point origin = {0, 0};
+    struct date today = {1, 4, 2022};
+    Date tomorrow = {2, 4, 2022};
+    byte intSize = sizeof(int);
+
+    printf("The origin is: (%f/%f)\n", origin.x, origin.y);
+    printf("Today is %d/%d/%d\n", today.day, today.month, today.year);
+    printf("Tommorrow is %d/%d/%d\n", tomorrow.day, tomorrow.month, tomorrow.year);
+    printf("On my computer an int takes up %d bytes.\n", intSize);
+
+    return 0;
+}
+```
+
+```bash title="output"
+The origin is: (0.000000/0.000000)
+Today is 1/4/2022
+Tommorrow is 2/4/2022
+On my computer an int takes up 4 bytes.
+```
+
+## File I/O
