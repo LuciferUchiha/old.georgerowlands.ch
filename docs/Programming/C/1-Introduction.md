@@ -91,13 +91,61 @@ Some interesting things to note are:
 
 ### Boolean types
 
-_Bool value 0 or 1 so true or false.
+To have variables with boolean values in C we can use the `_Bool` data type which can have the values 0 (false) or 1 (true).
 
-or you could make your own with an Enum typedef enum { FALSE, TRUE } Boolean; // [TLPI]
-Boolean b;
-b = TRUE;
+```c
+#include <stdio.h>
 
-from C99 can also #include < stdbool.h> and then write bool val = true/false;
+int main(void) 
+{
+    _Bool x = 1; 
+    _Bool y = 0;
+    if(x) {
+        printf("This will print!");
+    } if (!y)
+    {
+        printf("This will also print!");
+    }
+}
+```
+
+Another way would be to use an Enum with a typedef, this takes advantage of Enums being constant integer values under the hood.
+
+```c
+#include <stdio.h>
+typedef enum { FALSE, TRUE } Boolean;
+
+int main(void) 
+{
+    Boolean x = TRUE;
+    Boolean y = 0;
+    if (x) {
+        printf("This will print!");
+    }
+    if (!y) {
+        printf("This will also print!");
+    }
+}
+```
+
+From C99 onwards you can also `#include <stdbool.h>`.
+
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main(void) 
+{
+    bool x = true;
+    bool y = 0;
+    if (x) {
+        printf("This will print!");
+    }
+    if (!y) {
+        printf("This will also print!");
+    }
+}
+```
 
 ### Enums
 
