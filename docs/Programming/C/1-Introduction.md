@@ -184,7 +184,7 @@ These work just as in many other languages so will not go into further detail.
 if (test expression1) {
    // statement(s)
 }
-else if(test expression2) {
+else if (test expression2) {
    // statement(s)
 }
 else {
@@ -227,7 +227,7 @@ Just dont use this.... if you need it you are doing something wrong unless you h
 
 ```c
 #include <stdio.h>
-int main()
+int main(void) 
 {
     int num, i = 1;
     printf("Enter the number whose table you want to print?");
@@ -245,8 +245,7 @@ table:
 Important to note here is that the values of expression and each constant-expression must have an integral type and a constant-expression must have an unambiguous constant integral value at compile time. Also the break here makes sure that it doesn't fall through to the other statements.
 
 ```c
-switch (expression)
-​{
+switch (expression) {
     case constant-expression-1:
       // statements
       break;
@@ -261,7 +260,35 @@ switch (expression)
 
 ## Constant values
 
-with define const value that is just substitueted word for word in preprocessing in C90 const was added which just does not allow the value to change more flexible as it allows you to defien a type. a further way would be an Enum
+### define
+
+With `#define` you can define key value pairs that will be substituted in the preprocessing phase. Important is that you don't write a type, an equal or a semicolon!
+
+```c
+#include <stdio.h>  
+#define PI 3.14  
+
+int main(void) 
+{  
+   printf("%f",PI); 
+   return 0; 
+}  
+```
+
+### const
+
+In C90 the `const` keyword was added which does not allow the value of a variable to change, making it read-only. Using const is much more flexible then define as allows you to use a data type and it is also better for performance.
+
+```c
+#include <stdio.h>
+
+int main(void) 
+{
+    const int PI = 3.14;
+    printf("%f",PI);  
+    return 0;
+}
+```
 
 ## Arrays
 
@@ -335,17 +362,97 @@ converting char like toUpper, toLower so need to do for each for string.
 
 ## Structures
 
-for grouping elements together very similiar to classes like in java or other langauges but no functions. for example a date, month, day, year. can then create variables as type struct date. memory is allocated 3 variables inside. can access member variables with . so today.year for example. can also assign initil.
+In C structures defined using the `struct` keyword are a very important concept as they allow for grouping of elements very similarly to classes in other languages they just don't include functions.for example a date, month, day, year. can then create variables as type struct date. memory is allocated 3 variables inside. can access member variables with . so today.year for example. can also assign initil.compound literal can assign values after initilation like (struct date) {1,2,3} or specify the specific values with .month=9for only one time thing. can initialize structs like arrays with {7,2,2015}. or just the frist 2 or can do {.month=12}
 
-unnamed structures for only one time thing. can initialize structs like arrays with {7,2,2015}. or just the frist 2 or can do {.month=12}
+### Unnamed structs
 
-compound literal can assign values after initilation like (struct date) {1,2,3} or specify the specific values with .month=9
+Unnamed structures can be used if you know that you only need one instance of it at all times which can be useful for constants.
 
-can have arrays of strucutres. and do all the silly initilization things or with [1],month=12
+```c
+    struct /* No name */ {
+        float x;
+        float y;
+    } point;
+    
+    point.x = 42;
+```
 
-nested strucutres also work. date, time and then combine them.
+### Array of structs
 
-pointer to a struct. derefernce and then access value can be shortend with ->
+Can then do all the normal things you would expect to be able to do with an array.
+
+```c
+struct Student
+{
+    int rollNumber;
+    char studentName[10];
+    float percentage;
+};
+struct Student studentRecord[5];
+```
+
+### Nested structs
+
+A nested structure in C is a structure within structure. One structure can be declared inside another structure in the same way structure members are declared inside a structure.
+
+```c
+struct Date
+{
+    int day;
+    int month;
+    int year;
+};
+struct Time
+{
+    int hours;
+    int minutes;
+    int seconds;
+};
+struct DateTime
+{
+    struct Date date;
+    struct Time time;
+}
+```
+
+### Pointers to structs
+
+You can have pointers to struct variables. The important thing to know here is that there is a shorthand for accessing the data by usign the `->` operator.
+
+```c
+#include<stdio.h>
+
+struct dog
+{
+    char name[10];
+    char breed[10];
+    int age;
+    char color[10];
+};
+
+int main()
+{
+    struct dog my_dog = {"tyke", "Bulldog", 5, "white"};
+    struct dog *ptr_dog;
+    ptr_dog = &my_dog;
+
+    printf("Dog's name: %s\n", (*ptr_dog).name); // instead of having to do this
+    printf("Dog's breed: %s\n", ptr_dog->breed); // you can do this
+    printf("Dog's age: %d\n", ptr_dog->age);
+    printf("Dog's color: %s\n", ptr_dog->color);
+
+    // changing the name of dog from tyke to jack
+    strcpy(ptr_dog->name, "jack");
+
+    // increasing age of dog by 1 year
+    ptr_dog->age++;
+
+    printf("Dog's new name is: %s\n", ptr_dog->name);
+    printf("Dog's age is: %d\n", ptr_dog->age);
+
+    return 0;
+}
+```
 
 ## typdef
 
