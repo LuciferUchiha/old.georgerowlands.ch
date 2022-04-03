@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 title: What is a digital garden?
+description: A brief introduction and explanation on what a digital garden is and how I built mine.
+tags: [Digital Garden, Docusaurus]
 ---
 
 ## What is a digital garden?

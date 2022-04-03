@@ -1,4 +1,8 @@
-# Introduction
+---
+title: The C Basics
+description: A extensive and detailed summary on the basics of programming C language including examples.
+tags: [C language, Operators, Control Flow, Arrays, Pointers, Strings, File I/O]
+---
 
 ## History
 
@@ -54,6 +58,8 @@ The `#include <stdio.h>` is a so called preprocessor directive meaning we are te
 When specifying the file to be included you can either write it between double quotes or angle brackets. The difference between these two forms is subtle but important. If a header file is included using < >, the preprocessor will search a predetermined directory path to locate the header file (the folder for the standard library). If the header file is enclosed in "", the preprocessor will look first for the header file in the same directory as the source file and then in the other folders.
 
 ## Inputting Data
+
+[//]: # (THIS HAS A DEPENDENCY TO STRINGS AND POINTERS SO MOVE FURTHER DOWN)
 
 The `stdio.h` file contains the `scanf()` function which reads input from the standard input stream "stdin", which by default is the console. The function can read and parse the input using the provided format specifier. Important to know is that it uses whitespaces to tokenize the input.
 
@@ -149,6 +155,8 @@ int main(void)
 
 ### Enums
 
+[//]: # (TODO CLEANUP)
+
 data type that only allows specific values
 for example enum primaryColor {red, green, blue}
 
@@ -165,6 +173,8 @@ There are lots format specifiers for outputting different data types. You can al
 You can find more details in the [documentation of printf](https://www.cplusplus.com/reference/cstdio/printf/).
 
 ### command line arguments
+
+[//]: # (THIS HAS A DEPENDENCY TO STRINGS AND ARRAYS SO MOVE FURTHER DOWN)
 
 When compiling you can pass arguments to the main function. The first parameter `argc` is the argument count, the second parameter `argv` is the argument vector which is an array of strings. So in other words it is an array of character arrays or an array of character pointers.
 
@@ -205,6 +215,8 @@ Has the same operators as in many other languages and also work the same so not 
 ![cOperatorPrecedence](/img/programming/cOperatorPrecedence.png)
 
 ### Casting
+
+[//]: # (CLEANUP REQUIRED)
 
 conversion between different types can happen automatically (implicit) or has to be done explicit.
 
@@ -340,6 +352,8 @@ int main(void)
 
 ## Arrays
 
+[//]: # (CLEANUP REQUIRED)
+
 fixed size can only store values of one data type. declaration long numbers[10]; 10 being the size, so can store 10 values. to access particular element you need to use an index starting at 0. array out of bounds in C might crash your program or can cause unexpected behaviour like xxxxx memory attack. the compiler cannot check out of bounds errors. Can be initialized with values with long numbers[5] = {1,2,3,4,5}; Can also partialy initialize array rest will just take their default init value so for int, 0.
 
 designated initializers test it!! int arr[6]={[5]=10}; so the last value will be 10 all others 0.
@@ -349,6 +363,8 @@ can also create multidimensional arrays so basically an array of arrays. same as
 C99 introduced variable lenght arrays meaning the length can be assigned usign a variable not a constant. This does not mean the length of an array can change! Linus torvalds is not a fan of this which is why the linux kernel is VLA free. C11 it is however optional for compilers to implement
 
 ## Functions
+
+[//]: # (CLEANUP REQUIRED)
 
 function header defines name, paramaters(number and data types of vlaues) type the functionr eturns. functiion body contaisn the statements that are executed when the funciton is called. void no return, void not passing any data. function prototypes is just the header so defining, providing all the external specifications the function. functions need to be defined before the are used so often u write all the fucntion protorpyes at the start of the file.
 
@@ -361,6 +377,8 @@ local variables are always local to the block they are defined in.
 global variables can be accesed from anywhere and are decalred outside of any function, are alive from start to end of program. local variables mask global variables. should avoid them tho as they are a dependency which means that there is coupling between functions.
 
 ## Pointers
+
+[//]: # (CLEANUP REQUIRED)
 
 Every variable is a memory location and every memory location has its address defined which can be accessed using ampersand (&) operator which denotes an address in memory. A pointer is a variable whose value is the address of another variable. Thsi address is internally represented as an unsigned int on most systems however you shouldn't think of it as such. every pointer has the type of the variable it is pointing to so the compiler knows how much memory is occupied by that variable. the asteriks denotes a pointer. you can initiate it by pointing to no location in memory with NULL, so called null pointer. to access the value a pointer is pointign to is so called dereferencing which is using the asterik again. *pointer + 5. to output a pointers value in hex use %p, pointers always use 8 bytes. pointers also have addresses so can output that aswell &pnumber warning by compiler because expected a pointer but it is a pointer to a pointer of itn so cast to void\*.
 
@@ -392,6 +410,8 @@ programmer is responsible so need to release the memory, otherwise memory leak w
 free(pointer); pointer=NULL. calloc() number of data items and then the size of each item so for example for arrays, advantage is it initializes all the bits to zero. realloc realocates memory to resize some already allocated memory. it preserves the contents which is very important.
 
 ## Character arrays, Strings
+
+[//]: # (CLEANUP REQUIRED)
 
 string constant/literal is anythign between double quotes. strings in memory are arrays of char. \0 is the null character which is added by compiler at the end of each string so we know where it ends. so a length of a string is always one more. do not confuse with NULL which is a symbol that represnets a memory adress that doesnt reference anything. no datatype stirng in C can however get extensive functions for string from standard library. char myString[20] can store a string wtih up to 19 charachters. can initialize like char word[] = {'H', 'e', ...} if there is no array size given compiler compute the size and adds one for the null terminator. You can also do char word[7] = {"Hello!"} if the array is to small size=6 compiler doesnt put one there and doesn't throw error so good practice is or aynthign or let compiler figure it out. can also partially initialize char str[40] = "To be". myString= "Hello" doesnt work you could iterate over it. display entire stirng with %s no indexes or anything.
 
