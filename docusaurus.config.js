@@ -57,7 +57,7 @@ const config = {
         },
         googleAnalytics: {
           trackingID: 'G-WJELRB9KYB',
-          anonymizeIP: false,
+          anonymizeIP: true,
         },
       },
     ],
