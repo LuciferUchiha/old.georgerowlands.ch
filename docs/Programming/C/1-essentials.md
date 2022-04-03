@@ -573,3 +573,19 @@ On my computer an int takes up 4 bytes.
 ```
 
 ## File I/O
+
+c views a file as a continoues sequence of bytes and can read byte forbyte. text files or binary files. text files are sequence of characters as lines each endign with newline. c automaticall opens 3 files, standard input, keyboarad, stnadard ouptut and error both by defualt display file that is read with getchar or scanf
+standard ouput is used with printf or puts()
+
+file pointer pointing to a struct fo type FILE that represents a stream. fopen() opens file and return the file pointer takes name and mode if can't open return NULL.
+file modes w,a,r,w+,a+,r+ etc. always check if pFile is null
+
+renaming file with rename function prob also does the same for move becuase it can take absolute path???
+
+files need to be close wehn done EOF = endoffile character returns 0 if sussecfull otherwise EOF is equivalant to -1.
+
+deleting file with remove()
+
+reading from file: fgetc get char as int from open file, rewind resets reader head at start, fgets reads an entire line as string it keeps newline at end. fscanf ???
+
+writing to file:
