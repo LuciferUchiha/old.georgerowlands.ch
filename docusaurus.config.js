@@ -36,9 +36,8 @@ const config = {
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      '@docusaurus/preset-classic',
+      {
         docs: {
           remarkPlugins: [math, mermaid],
           rehypePlugins: [katex],
@@ -56,7 +55,11 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+        googleAnalytics: {
+          trackingID: 'G-WJELRB9KYB',
+          anonymizeIP: false,
+        },
+      },
     ],
   ],
   plugins: [

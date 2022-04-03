@@ -10,7 +10,7 @@ import Box from '../components/Box';
 
 export default function Home() {
   return (
-    <Layout title="Home" description="Description will go into a meta tag in <head />">
+    <Layout title="Home" description="The homepage of georgerowlands.ch">
       <main>
         <Container>
           <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>

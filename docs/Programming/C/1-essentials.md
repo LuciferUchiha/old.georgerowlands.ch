@@ -1,7 +1,7 @@
 ---
-title: The C Basics
+title: Essentials
 description: A extensive and detailed summary on the basics of programming C language including examples.
-tags: [C language, Operators, Control Flow, Arrays, Pointers, Strings, File I/O]
+tags: [C, Types, Operators, Control Flow, Arrays, Pointers, Strings, File I/O]
 ---
 
 ## History
@@ -50,6 +50,10 @@ The options mean the following:
 - `-Wextra` turn on extra warnings.
 - `-g` activates the debugger.
 - `-o` the name of the executable file.
+
+## Commenting
+
+[//]: # (NEEDS TO BE WRITTEN UP)
 
 ## Include
 
