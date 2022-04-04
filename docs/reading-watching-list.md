@@ -23,6 +23,12 @@ This is a collection of articles, books and videos I have read or watched and wo
 
 ### Videos
 
+- ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)
+  This helped me with improving my C knowledge and summarizing it gives a pretty good and extensive introduction to the language. He also has another Course where more advanced subjects are introduced.
+
+- ["Advanced C Programming Course - Udemy course by Jason Fedin"](https://www.udemy.com/course/advanced-c-programming-cours)
+  This is the advanced course mentioned above which definitely improves our knowledge and productivity.
+
 ## 2021
 
 ### Books

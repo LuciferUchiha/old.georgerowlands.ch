@@ -592,4 +592,13 @@ deleting file with remove()
 
 reading from file: fgetc get char as int from open file, rewind resets reader head at start, fgets reads an entire line as string it keeps newline at end. fscanf ???
 
-writing to file:
+writing to file: fputc for single char as int very ineffiecient, fputs to write string with new line at the end., does not write the null terminator needs to be written urself. fputf just like printf
+
+file positioning: ftell returns position(offset in bytes) as long value, fgetpos get positon, fseek move to a certain position in file. SEEK_:SET, CUR, END, fsetpos go to certain pos.
+
+## standard header files
+
+stddef.h has NULL or size_t in it etc.
+in stdlib, abs(), exit(), getenv(), qsort for quicksort of array, rand, srand for seeded random, system
+time.h has dates and times.
+locale.h formatting dates
