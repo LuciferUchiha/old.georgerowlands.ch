@@ -432,6 +432,10 @@ analyzing like isLower, isUpper, isAlpha etc. can be done on characters or strin
 converting char like toUpper, toLower so need to do for each for string.
  stdlib.h has functions to convert to numbers like atoi etc.
 
+## Macros
+
+TODO:
+
 ## Structures
 
 In C structures defined using the `struct` keyword are a very important concept as they allow for grouping of elements very similarly to classes in other languages they just don't include functions.for example a date, month, day, year. can then create variables as type struct date. memory is allocated 3 variables inside. can access member variables with . so today.year for example. can also assign initil.compound literal can assign values after initilation like (struct date) {1,2,3} or specify the specific values with .month=9for only one time thing. can initialize structs like arrays with {7,2,2015}. or just the frist 2 or can do {.month=12}
