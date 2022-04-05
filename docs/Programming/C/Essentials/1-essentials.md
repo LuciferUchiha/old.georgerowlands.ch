@@ -1,7 +1,7 @@
 ---
 title: Essentials
 description: A extensive and detailed summary on the basics of programming C language including examples.
-tags: [C, Types, Operators, Control Flow, Arrays, Pointers, Strings, File I/O]
+tags: [C, Types, Operators, Control Flow, Arrays, Pointers, Strings]
 ---
 
 ## History
@@ -339,6 +339,45 @@ int main(void)
 }  
 ```
 
+You can also conditionally define variables depending on certain compiler arguments or environment variables.
+
+```c
+#include <stdio.h>  
+
+#define X 2
+
+#if X == 1
+    #define Y 1
+#elif X==2
+    #define Y 2
+#else
+    #define Y 3
+#endif
+
+int main(void) 
+{  
+   printf("%d",Y); 
+   return 0; 
+}  
+```
+
+You can also execute certain code by checking if something is defined or not.
+
+```c
+#include <stdio.h>
+#define UNIX 1
+
+int main()
+{
+   #ifdef UNIX
+   printf("UNIX specific function calls go here.\n");
+   #endif
+   printf("C has some weird things.\n");
+
+   return 0;
+}
+```
+
 ### const
 
 In C90 the `const` keyword was added which does not allow the value of a variable to change, making it read-only. Using const is much more flexible then define as allows you to use a data type and it is also better for performance.
@@ -575,26 +614,6 @@ Today is 1/4/2022
 Tommorrow is 2/4/2022
 On my computer an int takes up 4 bytes.
 ```
-
-## File I/O
-
-c views a file as a continoues sequence of bytes and can read byte forbyte. text files or binary files. text files are sequence of characters as lines each endign with newline. c automaticall opens 3 files, standard input, keyboarad, stnadard ouptut and error both by defualt display file that is read with getchar or scanf
-standard ouput is used with printf or puts()
-
-file pointer pointing to a struct fo type FILE that represents a stream. fopen() opens file and return the file pointer takes name and mode if can't open return NULL.
-file modes w,a,r,w+,a+,r+ etc. always check if pFile is null
-
-renaming file with rename function prob also does the same for move becuase it can take absolute path???
-
-files need to be close wehn done EOF = endoffile character returns 0 if sussecfull otherwise EOF is equivalant to -1.
-
-deleting file with remove()
-
-reading from file: fgetc get char as int from open file, rewind resets reader head at start, fgets reads an entire line as string it keeps newline at end. fscanf ???
-
-writing to file: fputc for single char as int very ineffiecient, fputs to write string with new line at the end., does not write the null terminator needs to be written urself. fputf just like printf
-
-file positioning: ftell returns position(offset in bytes) as long value, fgetpos get positon, fseek move to a certain position in file. SEEK_:SET, CUR, END, fsetpos go to certain pos.
 
 ## standard header files
 
