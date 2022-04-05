@@ -91,7 +91,7 @@ int main()
 }
 ```
 
-````bash title="Output"
+```bash title="Output"
 Volume of Box1 : 180
 Volume of Box2 : 1440
 Volume of Box3 : 4860
