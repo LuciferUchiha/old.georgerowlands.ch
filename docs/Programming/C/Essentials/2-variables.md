@@ -1,7 +1,7 @@
 ---
 title: Variables and data types
 description: How do variables work in C and what data types are there.
-tags: [C, variables, data types, command line arguments, visibility, const, static, define, sizeof]
+tags: [c, variables, data types, command line arguments, visibility, const, static, define, sizeof]
 ---
 
 ## Variables and data types
