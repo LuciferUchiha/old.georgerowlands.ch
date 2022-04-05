@@ -1,9 +1,12 @@
-
-## Structures
+---
+title: Structures
+description: What are structure how can you use them to create your own types in C.
+tags: [c, structs, typedef]
+---
 
 In C structures defined using the `struct` keyword are a very important concept as they allow for grouping of elements very similarly to classes in other languages they just don't include functions.for example a date, month, day, year. can then create variables as type struct date. memory is allocated 3 variables inside. can access member variables with . so today.year for example. can also assign initil.compound literal can assign values after initilation like (struct date) {1,2,3} or specify the specific values with .month=9for only one time thing. can initialize structs like arrays with {7,2,2015}. or just the frist 2 or can do {.month=12}
 
-### Unnamed structs
+## Unnamed structs
 
 Unnamed structures can be used if you know that you only need one instance of it at all times which can be useful for constants.
 
@@ -16,7 +19,7 @@ Unnamed structures can be used if you know that you only need one instance of it
     point.x = 42;
 ```
 
-### Array of structs
+## Array of structs
 
 Can then do all the normal things you would expect to be able to do with an array.
 
@@ -30,7 +33,7 @@ struct Student
 struct Student studentRecord[5];
 ```
 
-### Nested structs
+## Nested structs
 
 A nested structure in C is a structure within structure. One structure can be declared inside another structure in the same way structure members are declared inside a structure.
 
@@ -54,7 +57,7 @@ struct DateTime
 }
 ```
 
-### Pointers to structs
+## Pointers to structs
 
 You can have pointers to struct variables. The important thing to know here is that there is a shorthand for accessing the data by usign the `->` operator.
 

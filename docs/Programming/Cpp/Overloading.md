@@ -1,7 +1,7 @@
 ---
 title: Overloading
 description: TO BE DONEEEEE
-tags: [c++, overloading, operator overloading, friend, move-semantic]
+tags: [cpp, overloading, operator overloading, friend, move-semantic]
 ---
 
 C++ allows you to specify more than one definition for a function name or an operator in the same scope, which is called function overloading and operator overloading.

@@ -61,4 +61,19 @@ int main()
 }
 ```
 
-not allowing the address to change then you write int *const pConst, cant change the address, but can change the values???? can then also combine the 2.
+When `const` is written in between the type and identifier you can not change the address the pointer points to, however you can still the change the value of the variable as this has no effect on the address.
+
+```c
+#include<stdio.h>
+int main()
+{
+    int val = 10;
+    int* const pointer = &val;
+    int otherVal = 3;
+    // *pointer = &otherVal;  this does not work
+    *pointer = 5; // this however still works
+    printf("%d", *pointer); // 4
+}
+```
+
+You can then also combine these 2 concepts.

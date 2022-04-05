@@ -1,7 +1,7 @@
 ---
 title: Essentials
 description: TO BE DONEEEEE
-tags: [c++]
+tags: [cpp]
 ---
 
 ## Variables and data types

@@ -32,11 +32,11 @@ int addNumbers(int a, int b) {
 
 ### Pass by reference
 
-swap example from book with pass by value and pass by reference.
+TODO: swap example from book with pass by value and pass by reference.
 
 ### Multiple return values
 
-pointers also allow then to have multiple returns, so called output parameters.
+TODO: pointers also allow then to have multiple returns, so called output parameters.
 
 ## Macros
 
