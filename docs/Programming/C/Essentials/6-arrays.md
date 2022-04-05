@@ -9,3 +9,12 @@ designated initializers test it!! int arr[6]={[5]=10}; so the last value will be
 can also create multidimensional arrays so basically an array of arrays. same as in other language 2D can be imagined like a table, row can column can also use designated initializers. Can also go further on like 3D etc. But can quickly get confussing.
 
 C99 introduced variable lenght arrays meaning the length can be assigned usign a variable not a constant. This does not mean the length of an array can change! Linus torvalds is not a fan of this which is why the linux kernel is VLA free. C11 it is however optional for compilers to implement
+
+pointers and array, can point an int*pointer to the first elemenet because an array always points to the first address. does the same as &values[0]
+arr[i] is the same as*(arr+i) if arr is a pointer you can also arr++ to go to next element.
+
+## Pointer arithmetic
+
+pointer arithmetic: + or - to increment or decrement a pointer by one which is usefull when working with arrays to go to the next or previous element.
+
+pointer - pointer is space between the pointers so could find out if they point to same value?
