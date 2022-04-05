@@ -165,6 +165,21 @@ There are lots format specifiers for outputting different data types. You can al
 
 ![cFormatSpecifiers](/img/programming/cFormatSpecifiers.png)
 
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    printf("Characters: %c %c \n", 'a', 65);
+    printf("Preceding with blanks: %10d \n", 1977);
+    printf("Preceding with zeros: %010d \n", 1977);
+    printf("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
+    printf("floats: %.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
+    printf("Width trick: %*d \n", 20, 10);
+    return 0;
+}
+```
+
 You can find more details in the [documentation of printf](https://www.cplusplus.com/reference/cstdio/printf/).
 
 ### Visibility

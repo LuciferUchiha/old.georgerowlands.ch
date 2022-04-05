@@ -76,4 +76,4 @@ int main()
 }
 ```
 
-You can then also combine these 2 concepts.
+You can then also combine these two concepts.
