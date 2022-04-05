@@ -20,3 +20,6 @@ My notes are written in Markdown. I used to write them in [Obsidian](https://obs
 - [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint), which is also set as the formatter for `.md`
 
 The reason for the switch is because my digital garden used to be built with [Mkdocs](https://www.mkdocs.org/) and the [Material Theme](https://squidfunk.github.io/mkdocs-material/) however now it is built using [Docusaurus](https://docusaurus.io/) which is in the end a react app and VS Code offers me other plugins to work on it.
+
+
+UwU
