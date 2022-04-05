@@ -44,6 +44,21 @@ int main()
 
 ## Const pointers
 
-const long *pvalue = &value defines a pointer to a constant. so the value cant be changed so*pvalue=99; is not possible. but we can still change it via value=99 can also still change to waht the pointer is pointing to so long number and then pvalue=&number is still possible.
+There are 3 ways you can use the `const` keyword with pointers all having different results.
+
+When `const` is written before the type it defines a pointer to a constant value meaning we cant change the value via dereferencing. If the variable the pointer points isn't defined as a constant then the value can still be changed.
+
+```c
+#include<stdio.h>
+int main()
+{
+    int val = 10;
+    const int* pointer = &val;
+    // *pointer = 3;  this does not work
+    val = 4; // this however still does
+    pointer = &val;
+    printf("%d", *pointer); // 4
+}
+```
 
 not allowing the address to change then you write int *const pConst, cant change the address, but can change the values???? can then also combine the 2.
