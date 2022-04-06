@@ -111,6 +111,7 @@ int main(void)
     printf("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
     printf("floats: %.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
     printf("Width trick: %*d \n", 20, 10);
+    printf("%s", 0 ? "true" : "false");
     return 0;
 }
 ```

@@ -4,17 +4,146 @@ description: What are strings and how do they work internally in C
 tags: [C, strings, character arrays]
 ---
 
-string constant/literal is anythign between double quotes. strings in memory are arrays of char. \0 is the null character which is added by compiler at the end of each string so we know where it ends. so a length of a string is always one more. do not confuse with NULL which is a symbol that represnets a memory adress that doesnt reference anything. no datatype stirng in C can however get extensive functions for string from standard library. char myString[20] can store a string wtih up to 19 charachters. can initialize like char word[] = {'H', 'e', ...} if there is no array size given compiler compute the size and adds one for the null terminator. You can also do char word[7] = {"Hello!"} if the array is to small size=6 compiler doesnt put one there and doesn't throw error so good practice is or aynthign or let compiler figure it out. can also partially initialize char str[40] = "To be". myString= "Hello" doesnt work you could iterate over it. display entire stirng with %s no indexes or anything.
+String are stored and can be handled as arrays of chars which is why you often hear character array instead of string. In C the compiler adds at the end of each string the null character, '\0' (not to be confused with NULL) so it knows where the string ends. This also means that the length of a string is always one longer then you might think it is. To get the length of a string you can implement your own function or use the built in function `strlen` provided in `string.h`.
 
-compare strings tricky because char arrays so cant jsut do == you can use functions for standard library.
+```c
+#include <stdio.h>
+#include <string.h>
 
-string functions from standard library in string.h strlen returns size_t which is an unsigned long, strcpy, strncpy because you cant assign does not check if it fits will just copy as much as it can or throw error???? strncpy has third number which is maximum number of characters to copy check how exactly, concatenation strcat, strncat coyp of frist string is appeneded to the first second string is not altered returns where was inserted ncat only copies certain amount of characters, compararing strcmp adn strncmp if they are the same then returns 0, else -1 if "smaller on ascii" or 1 if larger, compares strings until they differ so can check for substrings at the beginning.
+size_t getStringLength(char *str)
+{
+    size_t count;
+    for (count = 0; str[count] != '\0'; ++count)
+        ;
+    return count;
+}
 
-search strings: strchr and strstr finding string or char in string. returns pointer to where to first occurance that was found so char* if not found return NULL which is eqvl to no address.
+int main()
+{
+    char a[6] = {'h', 'e', 'l', 'l', 'o'}; // one more for null char
+    char b[] = {'h', 'e', 'l', 'l', 'o'};
+    char c[] = "hello"; // string literal
+    char d[] = {"hello"};
+    char e[50] = "hello"; // to long
+    char f[5] = "hello";  // to short, '\0' is not added so carefull...
 
-toikeninzing string: strtok(), can use multiple delimeters, returns first token etc, seems a bit dumb????
+    printf("%s length=%ld strlen=%ld\n", a, getStringLength(a), strlen(a));
+    printf("%s length=%ld strlen=%ld\n", b, getStringLength(b), strlen(b));
+    printf("%s length=%ld strlen=%ld\n", c, getStringLength(c), strlen(c));
+    printf("%s length=%ld strlen=%ld\n", d, getStringLength(d), strlen(d));
+    printf("%s length=%ld strlen=%ld\n", e, getStringLength(e), strlen(e));
+    printf("%s length=%ld strlen=%ld\n", f, getStringLength(f), strlen(f));
+    return 0;
+}
+```
 
-analyzing like isLower, isUpper, isAlpha etc. can be done on characters or strings
+```bash title="output"
+hello length=5 strlen=5
+hellohello length=10 strlen=10
+hello length=5 strlen=5
+hello length=5 strlen=5
+hello length=5 strlen=5
+hellohello length=10 strlen=10
+```
 
-converting char like toUpper, toLower so need to do for each for string.
- stdlib.h has functions to convert to numbers like atoi etc.
+:::warning
+We can see that b and f produce bizarre results, f slightly understandable however b is very confussing.
+:::
+
+## String functions
+
+### Converting
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    char number[] = "123.321 hello";
+    char *restL;
+    char *restF;
+
+    int i = atoi(number); // returns 0 if fails
+    long l = atol(number);
+    double f = atof(number);
+
+    strtol(number, &restL, 10); // third parameter is base
+    strtod(number, &restF);
+
+    printf("%s = %d\n", number, i);
+    printf("%s = %ld\n", number, l);
+    printf("%s = %f\n", number, f);
+    printf("%s\n", restL);
+    printf("%s\n", restF);
+    return 0;
+}
+```
+
+```bash title="output"
+123.321 hello = 123
+123.321 hello = 123
+123.321 hello = 123.321000
+.321 hello
+ hello
+```
+
+### Comparing
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char str1[] = "Hello Earth";
+    char str2[] = "Hello World";
+
+    printf("Compare %s with %s = %d\n", str1, str2, strcmp(str1, str2));
+    printf("Compare first 5 letters of %s with %s = %d\n", str1, str2, strncmp(str1, str2, 5));
+
+    return 0;
+}
+```
+
+```bash title="output"
+Compare Hello Earth with Hello World = -18
+Compare first 5 letters of Hello Earth with Hello World = 0
+```
+
+### Analyzing
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main()
+{
+    char c = 'c';
+
+    printf("isLower: %d\n", islower(c));
+    printf("isUpper: %d\n", isupper(c));
+    printf("isAlpha: %d\n", isalpha(c));        // a-Z or A-Z adds 2 if lower, 1 if upper
+    printf("isDigit: %d\n", isdigit(c));        // 0-9
+    printf("isAlphanumeric: %d\n", isalnum(c)); // a-Z or A-Z or 0-9 adds 2 if lower, 1 if upper
+    printf("isWhitespace: %d\n", isspace(c));
+    return 0;
+}
+```
+
+```bash title="output"
+isLower: 1
+isUpper: 0
+isAlpha: 2
+isDigit: 0
+isAlphanumeric: 2
+isWhitespace: 0
+```
+
+### Searching
+
+### Copying
+
+### Concatenating
+
+### Tokenizing

@@ -80,6 +80,8 @@ int main()
 
 By using pointers as so called output parameters you can have functions return more then one value.
 
+### Pointers to functions
+
 ## Macros
 
 TODO:

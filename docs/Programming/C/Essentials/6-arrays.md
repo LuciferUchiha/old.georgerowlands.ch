@@ -61,7 +61,7 @@ void printIntArray(int* arr, int length) {
 int main()
 {
     int marks[] = {19, 10, 8, 17, 9};
-    int* ptr = marks;
+    int* ptr = marks; // same as &marks[0]
     printIntArray(ptr, 5);
 
     return 0;
