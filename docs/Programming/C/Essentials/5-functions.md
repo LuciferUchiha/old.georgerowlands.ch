@@ -36,6 +36,12 @@ You might find yourself often swapping values between two variables which would 
 
 ```c
 #include <stdio.h>
+void swap(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+    printf("swap: a=%d, b=%d\n", a, b);
+}
 int main()
 {
     int a = 10;
@@ -46,18 +52,18 @@ int main()
 
     return 0;
 }
-void swap(int a, int b){
-    int temp = a;
-    a = b;
-    b = temp;
-    printf("swap: a=%d, b=%d\n", a, b);
-}
 ```
 
 When executing the above code you will notice that the desired result was not reached due to functions in java being pass by value. To fix this we can use pointers and create functions which are pass by reference.
 
 ```c
 #include <stdio.h>
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+    printf("swap: a=%d, b=%d\n", a, b);
+}
 int main()
 {
     int a = 10;
@@ -67,12 +73,6 @@ int main()
     printf("main: a=%d, b=%d\n", a, b);
 
     return 0;
-}
-void swap(int* a, int* b){
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-    printf("swap: a=%d, b=%d\n", a, b);
 }
 ```
 

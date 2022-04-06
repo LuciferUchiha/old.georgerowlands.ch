@@ -1,20 +1,69 @@
-## Arrays
+---
+title: Arrays
+description: What are functions, how can you create and use them in C?
+tags: [C, arrays, multidimensional arrays, pointer arithmetic]
+---
 
-[//]: # (CLEANUP REQUIRED)
+In C an array is a variable that can store multiple values of the same data type. When declaring it you must define how many values the array can hold. You can then access particular elements by using indexes which start at 0. In C array out of bounds, meaning the index is not in the range of $0-length-1$, can not be checked by the compiler and therefore does not throw an error. An out of bounds exception can cause the program to crash or unexpected behavior. Arrays are initialized with the default value of that type but you can also specify specific values when initializing.
 
-fixed size can only store values of one data type. declaration long numbers[10]; 10 being the size, so can store 10 values. to access particular element you need to use an index starting at 0. array out of bounds in C might crash your program or can cause unexpected behaviour like xxxxx memory attack. the compiler cannot check out of bounds errors. Can be initialized with values with long numbers[5] = {1,2,3,4,5}; Can also partialy initialize array rest will just take their default init value so for int, 0.
+```c
+#include <stdio.h>
 
-designated initializers test it!! int arr[6]={[5]=10}; so the last value will be 10 all others 0.
+void printIntArray(int arr[], int length){
+    printf("%d", arr[0]);
+    for(int i = 1; i < length; i++) {
+        printf(", %d", arr[i]);
+    }
+    printf("\n");
+}
 
-can also create multidimensional arrays so basically an array of arrays. same as in other language 2D can be imagined like a table, row can column can also use designated initializers. Can also go further on like 3D etc. But can quickly get confussing.
+int main()
+{
+    int empty[1];
+    int marks[5] = {19, 10, 8, 17, 9};
+    int otherMarks[] = {1,2,3}; // length is inferred
+    int moreMarks[5] = {[2]=10, [4]=40}; // all others are 0
 
-C99 introduced variable lenght arrays meaning the length can be assigned usign a variable not a constant. This does not mean the length of an array can change! Linus torvalds is not a fan of this which is why the linux kernel is VLA free. C11 it is however optional for compilers to implement
+    printIntArray(empty, 1);
+    printIntArray(marks, 5);
+    printIntArray(otherMarks, 3);
+    printIntArray(moreMarks, 5);
 
-pointers and array, can point an int*pointer to the first elemenet because an array always points to the first address. does the same as &values[0]
-arr[i] is the same as*(arr+i) if arr is a pointer you can also arr++ to go to next element.
+    return 0;
+}
+```
+
+```bash title="Output"
+-410826608
+19, 10, 8, 17, 9
+1, 2, 3
+0, 0, 10, 0, 40
+```
+
+## Multidimensional arrays
+
+In C you can also create multidimensional arrays so which are arrays of arrays. Just as in other language 2D can be visualized as a table. You can also go further like 3D etc. but this can quickly get very confusing.
 
 ## Pointer arithmetic
 
-pointer arithmetic: + or - to increment or decrement a pointer by one which is usefull when working with arrays to go to the next or previous element.
+Interestingly the name of an array is also a pointer to the first element of an array which we can make use of with a concept called pointer arithmetic to iterate through the array.
 
-pointer - pointer is space between the pointers so could find out if they point to same value?
+```c
+#include <stdio.h>
+
+void printIntArray(int* arr, int length) {
+    int *arr_end = arr + length;
+    for(int* ptr = arr; ptr < arr_end; ptr++){
+        printf("%p\t%d\n", (void*)ptr, *ptr);
+    }
+}
+
+int main()
+{
+    int marks[] = {19, 10, 8, 17, 9};
+    int* ptr = marks;
+    printIntArray(ptr, 5);
+
+    return 0;
+}
+```
