@@ -4,11 +4,9 @@ description: How do variables work in C and what data types are there.
 tags: [c, variables, data types, command line arguments, visibility, const, static, define, sizeof]
 ---
 
-## Variables and data types
-
 To create a variable you first need a name. A variable name must start with a letter or underscore and then be followed by any combination of letters, underscores or digits as long as the name in the end isn't a reserved word like "int". Secondly you need a type which defines how the data is stored in memory for example `int` is an integer. When writing `int x;` you are declaring a variable which reserves the space in memory to hold the later on assigned value as it knows the amount of bytes the data type of the variable needs. Initializing a variable is giving it an initial value. This can be done as part of the declaration like for example `int a = 12;`.
 
-### Basic data types
+## Basic data types
 
 [A basic list of c data types](https://en.wikipedia.org/wiki/C_data_types#Main_types), how much memory they take up but this is very computer and compiler dependant. Closly tied to the amount of memory is of course the value range of a variable. These ranges can be checked by including [limits.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/limits.h.html) for integer values and [float.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/float.h.html) for float values (part of the standard library).
 
@@ -19,7 +17,26 @@ Some interesting things to note are:
 - You can add short, long, signed and unsigned to numerical values. `short` **might** make the types memory usage smaller, `long` **might** make it larger. `signed` is by default so has no real effect, `unsigned` means its range is only positive values and includes 0. Unless it is `int` itself the word int can be omitted so `long int` and `long` are the same. For some reason you can also do `long long` and `short short` who knows why?
 - If you want specific sized data types you can include from the standard library [stdint.h](https://pubs.opengroup.org/onlinepubs/009696899/basedefs/stdint.h.html) as to why to this doesn't exist for floats you can [read here](https://www.reddit.com/r/cpp/comments/34d7b6/why_do_we_have_intn_t_but_no_equivalent_for/).
 
-### Boolean types
+## Enums
+
+An enum is a data type that only allows specific values. These values are under the hood mapped to integer constants with the first being mapped to 0 then the next is 0++ etc. if nothing else is specified.
+
+```c
+#include <stdio.h>
+
+int main(void) 
+{
+    enum planets {mercury, venus, earth, mars, jupiter, saturn, uranus};
+    enum planets home = earth;
+    printf("Our home is the %d. planet from the sun.\n", home+1);
+
+    enum days {monday=1, tuesday, wednesday, thursday, friday, saturday=10, sunday}; 
+    printf("Level of motivation on a monday is %d and on a tuesday %d.\n", monday, tuesday);
+    printf("On saturday it is %d and sunday %d\n.", saturday, sunday);
+}
+```
+
+## Boolean types
 
 To have variables with boolean values in C we can use the `_Bool` data type which can have the values 0 (false) or 1 (true).
 
@@ -77,16 +94,67 @@ int main(void)
 }
 ```
 
-### Enums
+## Format specifiers
 
-[//]: # (TODO CLEANUP)
+There are lots format specifiers for outputting different data types. You can also use format specifiers to do cool things like adding leading or trailing zeros or only showing a certain amount of decimal points.
 
-data type that only allows specific values
-for example enum primaryColor {red, green, blue}
+![cFormatSpecifiers](/img/programming/cFormatSpecifiers.png)
 
-to now define primary color of this type enum primaryColor myColor = red;
+```c
+#include <stdio.h>
 
-under the hood C maps all the values to integer constants the first being 0 next beign 1 etc.; so myColor = 0; is the same as above. You can also define a different starting number and then other or increased by 1 or completly custom like north=0, east=90 etc.
+int main(void)
+{
+    printf("Characters: %c %c \n", 'a', 65);
+    printf("Preceding with blanks: %10d \n", 1977);
+    printf("Preceding with zeros: %010d \n", 1977);
+    printf("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
+    printf("floats: %.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
+    printf("Width trick: %*d \n", 20, 10);
+    return 0;
+}
+```
+
+You can find more details in the [documentation of printf](https://www.cplusplus.com/reference/cstdio/printf/).
+
+## Visibility
+
+All identifiers (variables, functions, classes etc.) must be defined before they can be used . Depending on where the identifier is defined they identifier has has a different visibility. Identifiers in the same block must be ambiguous and are visible in the inner blocks. An identifier from an outer block can be redefined in an inner block and can therefore be shadowed.
+
+```c
+#include <stdio.h>
+int main(void)
+{
+    int x = 6
+    {
+        int x = 9;
+        {
+            int x = 10;
+            printf("%d", x) // 10
+        }
+         printf("%d", x) // 9
+    }
+}
+```
+
+### Global
+
+If you define a variable outside all blocks then it is part of the global scope and exists as long as the program runs and can be accessed between multiple files by including the header file where it is defined and adding the `extern` keyword before it.
+
+```c title="main.c"
+#include <stdio.h>
+
+int x = 5; // global
+
+int main(void)
+{
+    printf("%d", x) // 5
+}
+```
+
+### static
+
+By adding the `static` keyword to the global variable we can limit it's visibility to just this file.
 
 ## Constant values
 
@@ -158,68 +226,6 @@ int main(void)
     return 0;
 }
 ```
-
-### Format specifiers
-
-There are lots format specifiers for outputting different data types. You can also use format specifiers to do cool things like adding leading or trailing zeros or only showing a certain amount of decimal points.
-
-![cFormatSpecifiers](/img/programming/cFormatSpecifiers.png)
-
-```c
-#include <stdio.h>
-
-int main(void)
-{
-    printf("Characters: %c %c \n", 'a', 65);
-    printf("Preceding with blanks: %10d \n", 1977);
-    printf("Preceding with zeros: %010d \n", 1977);
-    printf("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
-    printf("floats: %.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
-    printf("Width trick: %*d \n", 20, 10);
-    return 0;
-}
-```
-
-You can find more details in the [documentation of printf](https://www.cplusplus.com/reference/cstdio/printf/).
-
-### Visibility
-
-All identifiers (variables, functions, classes etc.) must be defined before they can be used . Depending on where the identifier is defined they identifier has has a different visibility. Identifiers in the same block must be ambiguous and are visible in the inner blocks. An identifier from an outer block can be redefined in an inner block and can therefore be shadowed.
-
-```c
-#include <stdio.h>
-int main(void)
-{
-    int x = 6
-    {
-        int x = 9;
-        {
-            int x = 10;
-            printf("%d", x) // 10
-        }
-         printf("%d", x) // 9
-    }
-}
-```
-
-#### Global
-
-If you define a variable outside all blocks then it is part of the global scope and exists as long as the program runs and can be accessed between multiple files by including the header file where it is defined and adding the `extern` keyword before it.
-
-```c title="main.c"
-#include <stdio.h>
-
-int x = 5; // global
-
-int main(void)
-{
-    printf("%d", x) // 5
-}
-```
-
-#### static
-
-By adding the `static` keyword to the global variable we can limit it's visibility to just this file.
 
 ## Operators
 
