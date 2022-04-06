@@ -156,6 +156,119 @@ int main(void)
 
 By adding the `static` keyword to the global variable we can limit it's visibility to just this file.
 
+## Dynamically allocated memory
+
+We have seen above that a lot of objects are only available inside their blocks once the block is finished they are removed. These objects are stored on the stack. If we create an object in a function we can return it and still work with it, however in C the object is copied on return which can very bad for performance if the object is very large.
+
+Objects can also be stored statically meaning they are available as long as the program runs.
+
+```c
+#include<stdio.h>
+int inc()
+{
+  static int count = 0;
+  count++;
+  return count;
+}
+  
+int main()
+{
+  printf("%d ", inc()); // 1
+  printf("%d ", inc()); // 2
+  return 0;
+}
+```
+
+The last possibility is using dynamically allocated memory. In C you can not define an array with a certain size at runtime, if we would want to do something like that we would need dynamic memory allocation. To be able to use this in C you must include `stdlib.h`. To go back on our problem of returning a created object from a function we can create the object on the stack and then just return the address of the object.
+
+### malloc
+
+The `malloc()` function, short for "memory allocation", is used to dynamically allocate a single large block of memory with the specified size and returns a pointer to the block.
+
+:::warning
+When the memory is no longer needed you should free and set the pointer to NULL as you are otherwise using unnecessary memory and could also lead to memory leaks.
+:::
+
+:::warning
+Malloc does not initialize the memory!
+:::
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int* ptr;
+    int n, i;
+
+    printf("Enter number of elements:");
+    scanf("%d",&n);
+    printf("Entered number of elements: %d\n", n);
+
+    // Dynamically allocate memory using malloc()
+    ptr = (int*)malloc(n * sizeof(int)); // returns void*
+
+    if (ptr) {
+        printf("Memory successfully allocated using malloc.\n");
+
+        for (i = 0; i < n; ++i) {
+            ptr[i] = i + 1;
+        }
+
+        printf("The elements of the array are: ");
+        for (i = 0; i < n; ++i) {
+            printf("%d, ", ptr[i]);
+        }
+    }
+
+    free(ptr); // free the memory!!
+    ptr = NULL;
+
+    return 0;
+}
+```
+
+### calloc
+
+The `calloc()` function, short for "contiguous allocation", is very similiar to the malloc function however it dynamically allocates the specified number of blocks of memory of the specified type. The most important difference however is that it initializes each block with a default value of '0'.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int* ptr;
+    int n, i;
+
+    printf("Enter number of elements:");
+    scanf("%d",&n);
+    printf("Entered number of elements: %d\n", n);
+
+    // Dynamically allocate memory using calloc()
+    ptr = (int*)calloc(n, sizeof(int));
+
+     if (ptr) {
+        printf("Memory successfully allocated using calloc.\n");
+
+        for (i = 0; i < n; ++i) {
+            ptr[i] = i + 1;
+        }
+
+        printf("The elements of the array are: ");
+        for (i = 0; i < n; ++i) {
+            printf("%d, ", ptr[i]);
+        }
+    }
+
+    free(ptr); // free the memory!!
+    ptr = NULL;
+
+    return 0;
+}
+```
+
 ## Constant values
 
 ### define
