@@ -4,9 +4,7 @@ description: Reading and writing to files in C.
 tags: [c, file io]
 ---
 
-POSIX VS standard libraryy, file descriptors??? modes and flags. Also buffers and flushinggg
-
-To interact with files in C you need to have a FILE pointer, which will let the program keep track of the memory address of the file being accessed. In C text files are sequence of characters as lines each ending with a newline (\n). Interstingly you have already been working with file I/O since the beggining as C automatically opens 3 files, the standard input (keyboard), standard output and error (both being the display). You have read from and written to these files using `scanf()` and `printf()`.
+To interact with files in C you need to have a FILE pointer, which will let the program keep track of the memory address of the file being accessed. In C text files are sequence of characters as lines each ending with a newline (\n). Interestingly you have already been working with file I/O since the begging as C automatically opens 3 files, the standard input (keyboard), standard output and error (both being the display). You have read from and written to these files using `scanf()` and `printf()`.
 
 ## Opening and closing files
 
