@@ -4,7 +4,7 @@ description: What are strings and how do they work internally in C
 tags: [C, strings, character arrays]
 ---
 
-String are stored and can be handled as arrays of chars which is why you often hear character array instead of string. In C the compiler adds at the end of each string the null character, '\0' (not to be confused with NULL) so it knows where the string ends. This also means that the length of a string is always one longer then you might think it is. To get the length of a string you can implement your own function or use the built in function `strlen` provided in `string.h`.
+String are stored and can be handled as arrays of chars which is why you often hear character array instead of string. In C the compiler adds at the end of each string literal the null character, '\0' (not to be confused with NULL) so it knows where the string ends. This also means that the length of a string is always one longer then you might think it is. To get the length of a string you can implement your own function or use the built in function `strlen` provided in `string.h`.
 
 ```c
 #include <stdio.h>
@@ -20,8 +20,8 @@ size_t getStringLength(char *str)
 
 int main()
 {
-    char a[6] = {'h', 'e', 'l', 'l', 'o'}; // one more for null char
-    char b[] = {'h', 'e', 'l', 'l', 'o'};
+    char a[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
+    char b[] = {'h', 'e', 'l', 'l', 'o', '\0'};
     char c[] = "hello"; // string literal
     char d[] = {"hello"};
     char e[50] = "hello"; // to long
@@ -39,16 +39,12 @@ int main()
 
 ```bash title="output"
 hello length=5 strlen=5
-hellohello length=10 strlen=10
+hello length=5 strlen=5
 hello length=5 strlen=5
 hello length=5 strlen=5
 hello length=5 strlen=5
 hellohello length=10 strlen=10
 ```
-
-:::warning
-We can see that b and f produce bizarre results, f slightly understandable however b is very confussing.
-:::
 
 ## String functions
 
