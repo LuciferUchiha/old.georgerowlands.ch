@@ -1,10 +1,8 @@
 ---
 title: Functions
 description: What are functions, how can you create and use them in C?
-tags: [C, functions, function prototype, macros]
+tags: [C, functions, function prototype, function pointers, qsort, map, macros]
 ---
-
-## Functions
 
 Just as with variables functions need to be defined before they can be used. To declare a function we use function prototypes, which include a name, the type of value it return and a list of parameters it takes. Parameters being values that the function it takes as input, also with a name and type just like variables.
 
@@ -30,7 +28,7 @@ int addNumbers(int a, int b) {
 
 ```
 
-### Pass by reference
+## Pass by reference
 
 You might find yourself often swapping values between two variables which would lead you to implementing a swap function and your first attempt might look something like this
 
@@ -76,11 +74,13 @@ int main()
 }
 ```
 
-### Multiple return values
+## Multiple return values
 
 By using pointers as so called output parameters you can have functions return more then one value.
 
-### Pointers to functions
+## Pointers to functions
+
+### Map
 
 We can use pointer for functions for a multitude of things for example passing a function to a map function which applies the function to every element in the array.
 
@@ -131,6 +131,8 @@ Before: 88 56 100 2 25
 After: 89 57 101 3 26
 ```
 
+### QSort
+
 Another common use case is when you want to use the `qsort` function from the standard library to sort an array.
 
 ```c void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void*))```
@@ -146,7 +148,7 @@ int compareInts(const void *a, const void *b)
     return (*(int *)a - *(int *)b);
 }
 
-int main()
+int main(void)
 {
     int i;
     int values[LENGTH] = {88, 56, 100, 2, 25};
@@ -176,4 +178,42 @@ After: 2 25 56 88 100
 
 ## Macros
 
-TODO:
+Macros are based on the define preprocessor directive, and work very similarly to functions. Just as when defining a key value pair you are limited to one line unless you use a backslash, "\", at the end. Macros can be faster then normal functions because in the end they are just text substitutions and you therefore don't have the overhead when using functions like creating a new memory space. You must however be careful when using macros as they can not be debugged and because they really are just text substitute they can cause unexpected side effects.
+
+```c
+#include <stdio.h>
+#define PRINT(a) \
+    printf("value=%d\n", a);
+
+#define MAX(a, b) ((a) > (b)) ? (a) : (b)
+
+int main(void)
+{
+    int a = 5;
+    int b = 4;
+
+    PRINT(a);            // 5
+    int c = MAX(++a, b); // becomes ((++a) > (b)) ? (++a) : (b)
+    PRINT(c);            // 7
+}
+```
+
+### Macro operators
+
+We have already seen the first one in action `\`. Another one is `defined` which can be used to check if a symbol is already defined `#if defined(DEBUG)` which is very similar to `#ifdef`.
+
+#### The # operator
+
+If you place a # in front of a parameter in a macro definition is inserts double quotes around the actual marco argument and therefore makes it to a constant string. Strings that are separated by a white space are concatenated during preprocessing so you can do something like this
+
+```c
+#include <stdio.h>
+#define PRINTINT(var) printf(#var "=%d\n", var)
+
+int main(void)
+{
+    int count = 100;
+    PRINTINT(count); // printf("count" "=%d\n", count); -> printf("count=%d\n", count);
+    return 0;
+}
+```
