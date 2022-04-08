@@ -84,3 +84,34 @@ With the `int ftruncate(int fd, off_t length)` function you can truncate the fil
 ### Flushing
 
 With the `int fsync(int fd)` function you can flush the buffers, or in other words synchronize the file states. This has the same effect as adding the O_SYNC flag when opening the file.
+
+## Example
+
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(void)
+{
+    int fd = open("text.txt", O_RDWR | O_CREAT | O_SYNC, S_IRUSR | S_IWUSR);
+    char *msg = "Hello World";
+    int written = write(fd, msg, strlen(msg));
+    printf("wrote %d bytes to %d\n", written, fd);
+
+    lseek(fd, -written, SEEK_CUR);
+
+    char read_msg[100];
+    read(fd, read_msg, 100);
+
+    printf("read from file %d: \"%s\"", fd, read_msg);
+
+    return 0;
+}
+```
+
+```bash title="output"
+wrote 11 bytes to 3
+read from file 3: "Hello World"
+```
