@@ -1,5 +1,5 @@
 ---
-title: File I/O
+title: Standard File I/O
 description: Reading and writing to files in C.
 tags: [c, file io]
 ---
@@ -97,17 +97,17 @@ Very similar to reading you have the following functions for writing
 
 Important to note here is that the null terminator, '\0' will not be written.
 
-## File positions
+## Positioning
 
 The file position of a stream describes where in the file the stream is currently reading or writing.
 
 - `long int ftell (FILE *stream)` returns the current file position of the stream.
 - `int fseek (FILE *stream, long int offset, int whence)` is used to change the file position of the stream. The value of whence must be one of the constants SEEK_SET, SEEK_CUR, or SEEK_END, to indicate whether the offset is relative to the beginning of the file, the current file position, or the end of the file.
 
-## Rename and move file
+## Rename and move
 
 You can rename or move files with `int rename(const char *old_filename, const char *new_filename)`. The function moves the file in between directories if needed so it can also be used to move files.
 
-## Remove file
+## Remove
 
-To remove/delete a file you can use `int remove(const char *pathname)`.
+To remove/delete a file you can use `int remove(const char *pathname)`. if the file really is a file then `int unlink(const char *pathname)` will be called and if it is a directory `int rmdir(const char *pathname)` is called.

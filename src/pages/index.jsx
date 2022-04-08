@@ -20,10 +20,9 @@ export default function Home() {
             <h2>Computer Science Student</h2>
             <ProgressBar label="Knowledge" length={15} />
           </NameSection>
-          <Canvas>
+          <Canvas style={{ flexBasis: 'max-content' }}>
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            <Box position={[-1.2, 0, 0]} />
             <Box position={[1.2, 0, 0]} />
           </Canvas>
         </Container>
@@ -34,7 +33,6 @@ export default function Home() {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   min-height: calc(100vh - 60px);
 `;
@@ -45,6 +43,7 @@ const Name = styled.h1`
 `;
 
 const NameSection = styled.div`
+  flex-basis: content;
   display: flex;
   flex-direction: column;
   margin: 10%;

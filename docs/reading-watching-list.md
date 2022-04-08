@@ -30,6 +30,12 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["Understanding User and Kernel Mode" by Jeff Atwood](https://blog.codinghorror.com/understanding-user-and-kernel-mode/)<br/>
   A very in depth and good explanation on how operating systems are structured and what role the user and kernel mode play.
 
+- ["System level I/O with Unix/Linux" by Kedi](http://kedizheng.com/2019/08/19/system-level-i-o-with-unix-linux/)<br/>
+  Helped me understand how file I/O works with POSIX system calls.
+
+- ["File I/O by university of chicago"](https://www.classes.cs.uchicago.edu/archive/2017/winter/51081-1/LabFAQ/lab2/fileio.html)<br/>
+  Helped me understand how file I/O works with POSIX system calls.
+
 ### Videos
 
 - ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)<br/>
