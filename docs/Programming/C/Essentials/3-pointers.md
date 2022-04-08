@@ -79,3 +79,63 @@ int main()
 ```
 
 You can then also combine these two concepts.
+
+## Double pointers (pointers to pointers)
+
+You can in theory also go further then double but its just becomes a mess and shouldn't be done.
+
+A common use case for double pointers is if you want to preserve the Memory-Allocation or Assignment even outside of a function call.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void foo(int **p)
+{
+    int a = 5;
+    *ptr = &a;
+}
+
+int main(void)
+{
+    int *p = NULL;
+    p = malloc(sizeof(int));
+    *p = 42;
+    foo(&p);
+    printf("%d\n", *p); // 5 not 42
+    free(p);
+    p = NULL;
+
+    return 0;
+}
+```
+
+another common use case is when working with strings.
+
+```c
+int wordsInSentence(char **s) {
+    int w = 0;
+    while (*s) {
+        w++;s++;
+    }
+    return w;
+}
+
+int main(void)
+{
+    char *word = "foo";
+    char **sentence;
+
+    sentence = malloc(4 * sizeof *sentence); // assume it worked
+    sentence[0] = word;
+    sentence[1] = word;
+    sentence[2] = word;
+    sentence[3] = NULL;
+
+    printf("total words in my sentence: %d\n", wordsInSentence(sentence));
+
+    free(sentence);
+    free(word);
+    return 0;
+}
+```

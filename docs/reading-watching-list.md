@@ -10,8 +10,11 @@ This is a collection of articles, books and videos I have read or watched and wo
 
 ### Books
 
+- ["The ANSI C Programming Language 2nd edition" by Brian Kernighan and Dennis Ritchie](https://books.google.ch/books?id=OpJ_0zpF7jIC&source=gbs_navlinks_s)<br/>
+  I honestly didn't finish this book as it was just very repetitive. However you could I definetly tell that it was very detailed in its explanations. It was also interesting to see what they thought about the language so many years ago and how little has changed. You might also find it [here as a pdf](https://github.com/MTJailed/C-Programming-Books/blob/master/The%20ANSI%20C%20Programming%20Language.pdf).
+
 - ["Effective C" by Robert C. Seacord](https://nostarch.com/Effective_C)<br/>
-  I found this a good introduction and has some very good knowledge on C. I was a bit confused by the structure of the book especially the first few chapters but the content is great. You might also find it [here as a pdf](https://dokumen.pub/qdownload/effective-c-an-introduction-to-professional-c-programming-1nbsped-1718501048-9781718501041.html)
+  I found this a good introduction and has some very good knowledge on C. I was a bit confused by the structure of the book especially the first few chapters but the content is great. You might also find it [here as a pdf](https://dokumen.pub/qdownload/effective-c-an-introduction-to-professional-c-programming-1nbsped-1718501048-9781718501041.html).
 
 ### Articles
 
@@ -40,6 +43,15 @@ This is a collection of articles, books and videos I have read or watched and wo
 This website was created in 2022 so this is just what I remember of the top of my head.
 
 ### Books
+
+- ["Pro Git" by Scott Chacon and Ben Straub](https://git-scm.com/book/en/v2)<br/>
+  Hands down the best book to learn and understand git, don't just be a user. This book greatly enhances your knowledge and understanding of more complex subjects like branching merging etc. and how it works under the hood. You can read the [online version here](https://git-scm.com/book/en/v2).
+
+- ["Introducing Maven" by Balaji Varanasi](https://books.google.ch/books?id=ECe7DwAAQBAJ&source=gbs_navlinks_s)<br/>
+  Short but has everything you need to know, even how to create your own archetypes amongst other things.
+
+- ["Java: A Beginner's Guide, Seventh Edition" by Herbert Schildt](https://books.google.ch/books/about/Java_A_Beginner_s_Guide_Seventh_Edition.html?id=fY8qvgAACAAJ&source=kp_book_description&redir_esc=y)<br/>
+  Allthought Java is my strongest langauge I still managed to pick up a few things from this book.
 
 ### Articles
 

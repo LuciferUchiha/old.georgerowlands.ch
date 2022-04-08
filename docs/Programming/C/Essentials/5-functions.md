@@ -82,6 +82,98 @@ By using pointers as so called output parameters you can have functions return m
 
 ### Pointers to functions
 
+We can use pointer for functions for a multitude of things for example passing a function to a map function which applies the function to every element in the array.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LENGTH 5
+
+void map(int a[], int len, int (*f)(int))
+{
+    for (int i = 0; i < len; i++)
+    {
+        a[i] = f(a[i]);
+    }
+}
+
+int inc(int i)
+{
+    return i + 1;
+}
+
+int main()
+{
+    int i;
+    int values[LENGTH] = {88, 56, 100, 2, 25};
+
+    printf("Before: ");
+    for (i = 0; i < LENGTH; i++)
+    {
+        printf("%d ", values[i]);
+    }
+
+    map(values, LENGTH, inc);
+
+    printf("\nAfter: ");
+    for (i = 0; i < LENGTH; i++)
+    {
+        printf("%d ", values[i]);
+    }
+
+    return (0);
+}
+```
+
+```bash title="output"
+Before: 88 56 100 2 25 
+After: 89 57 101 3 26
+```
+
+Another common use case is when you want to use the `qsort` function from the standard library to sort an array.
+
+```c void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void*))```
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LENGTH 5
+
+int compareInts(const void *a, const void *b)
+{
+    return (*(int *)a - *(int *)b);
+}
+
+int main()
+{
+    int i;
+    int values[LENGTH] = {88, 56, 100, 2, 25};
+
+    printf("Before: ");
+    for (i = 0; i < LENGTH; i++)
+    {
+        printf("%d ", values[i]);
+    }
+
+    qsort(values, LENGTH, sizeof(int), compareInts);
+
+    printf("\nAfter: ");
+    for (i = 0; i < LENGTH; i++)
+    {
+        printf("%d ", values[i]);
+    }
+
+    return (0);
+}
+```
+
+```bash title="output"
+Before: 88 56 100 2 25 
+After: 2 25 56 88 100
+```
+
 ## Macros
 
 TODO:

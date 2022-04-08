@@ -4,7 +4,7 @@ description: A Brief introduction to how operating systems are structures and wh
 tags: [c, unix, operating systems, posix, system calls, kernel, kernel user mode]
 ---
 
-An operating system is a program that acts as an interface between the user and the computer hardware and controls the execution of all kinds of programs. Operating systems have kernerls which are responsible for scheduling, starting and ending programs but also provide other functionalities like networking or file systems.
+An operating system is a program that acts as an interface between the user and the computer hardware and controls the execution of all kinds of programs. Operating systems have kernels which are responsible for scheduling, starting and ending programs but also provide other functionalities like networking or file systems.
 
 ![unixStructure](/img/programming/unixStructure.png)
 
