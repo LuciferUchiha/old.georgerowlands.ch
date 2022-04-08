@@ -4,11 +4,11 @@ description: Reading and writing to files in C.
 tags: [c, file io]
 ---
 
-To interact with files in C you need to have a FILE pointer, which will let the program keep track of the memory address of the file being accessed. In C text files are sequence of characters as lines each ending with a newline (\n). Interestingly you have already been working with file I/O since the begging as C automatically opens 3 files, the standard input (keyboard), standard output and error (both being the display). You have read from and written to these files using `scanf()` and `printf()`.
+To interact with files in C you need to have a FILE pointer a so called stream, which will let the program keep track of the memory address of the file being accessed. In C text files are sequence of characters as lines each ending with a newline (\n). Interestingly you have already been working with file I/O since the begging as C automatically opens 3 files, the standard input (keyboard), standard output and error (both being the display). You have read from and written to these files using `scanf()` and `printf()`.
 
 ## Opening and closing files
 
-The FILE pointer points to the FILE struct which represents a stream. To be able to open a file and get a FILE pointer you need to use the `fopen()` function which takes the name of the file and the mode to open it with, depending on the mode certain operations are limited. The function returns a FILE pointer or if something went wrong NULL. Once you have finished working with the file or you have reached the end of the file marked with EOF (end of file, equivalent to -1) you should close it with the `fclose()` function.
+The FILE pointer points to the FILE struct which represents a stream. To be able to open a file and get a FILE pointer you need to use the `FILE *fopen(const char *restrict pathname, const char *restrict mode)` function which takes the name of the file and the mode to open it with, depending on the mode certain operations are limited. The function returns a FILE pointer or if something went wrong NULL. Once you have finished working with the file or you have reached the end of the file marked with EOF (end of file, equivalent to -1) you should close it with the `int fclose(FILE *stream)` function.
 
 ### Modes
 
@@ -19,13 +19,34 @@ The FILE pointer points to the FILE struct which represents a stream. To be able
 - w+ - Open for both reading and writing. If the file exists, its contents are overwritten. If the file does not exist, it will be created.
 - a+ - Open for both reading and appending. If the file does not exist, it will be created.
 
+## Buffers
+
+Characters that are written to a stream are normally accumulated and sent to the file in a block. Similarly, streams often retrieve input from the host environment in blocks rather per character. This is called buffering.
+
+There are three different kinds of buffering strategies:
+
+- Characters written to or read from an **unbuffered stream** are transmitted individually to or from the file as soon as possible.
+- Characters written to a **line buffered stream** are transmitted to the file in blocks when a newline character is encountered.
+- Characters written to or read from a **fully buffered stream** are transmitted to or from the file in blocks of arbitrary size.
+
+Flushing output on a buffered stream means transmitting all accumulated characters to the file. Streams can automatically flush when following happens:
+
+- When you try to do output and the output buffer is full.
+- When the stream is closed.
+- When the program terminates by calling exit.
+- When a newline is written, if the stream is line buffered.
+
+If you want to explicitly flush the buffered output you can use `int fflush (FILE *stream)`.
+
+You can bypass the stream buffering facilities altogether by using the POSIX input and output functions that operate on file descriptors instead.
+
 ## Reading
 
 To read from a text file you have 3 options:
 
-- `fscanf()`, the file alternative of scanf.
-- `fgetc()`, reads a single char (returns its int value) and increments the header by one.
-- `fgets()`, reads an entire line as a string and keeps the newline at the end.
+- `int fscanf(FILE *restrict stream, const char *restrict format, ...)`, the file alternative of scanf.
+- `int fgetc(FILE *stream)`, reads a single char (returns its int value) and increments the header by one.
+- `char *fgets(char *restrict s, int n, FILE *restrict stream)`, reads an entire line as a string and keeps the newline at the end.
 
 ```c
 #include <stdio.h>
@@ -68,14 +89,25 @@ I have 3 bananas
 
 ## Writing
 
-Very similar to reading you have the following functions for writing `fprintf()`, `fputc(`), `fputs()`. Important to note here is that the null terminator, '\0' will not be written.
+Very similar to reading you have the following functions for writing
+
+- `int fprintf(FILE *restrict stream, const char *restrict format, ...)`
+- `int fputc(int c, FILE *stream)`
+- `int fputs(const char *restrict s, FILE *restrict stream)`
+
+Important to note here is that the null terminator, '\0' will not be written.
 
 ## File positions
 
-file positioning: ftell returns position(offset in bytes) as long value, fgetpos get positon, fseek move to a certain position in file. SEEK_:SET, CUR, END, fsetpos go to certain pos.
+The file position of a stream describes where in the file the stream is currently reading or writing.
 
-## Deleting, renaming, copying and moving
+- `long int ftell (FILE *stream)` returns the current file position of the stream.
+- `int fseek (FILE *stream, long int offset, int whence)` is used to change the file position of the stream. The value of whence must be one of the constants SEEK_SET, SEEK_CUR, or SEEK_END, to indicate whether the offset is relative to the beginning of the file, the current file position, or the end of the file.
 
-renaming file with rename function prob also does the same for move becuase it can take absolute path???
+## Rename and move file
 
-deleting file with remove()
+You can rename or move files with `int rename(const char *old_filename, const char *new_filename)`. The function moves the file in between directories if needed so it can also be used to move files.
+
+## Remove file
+
+To remove/delete a file you can use `int remove(const char *pathname)`.

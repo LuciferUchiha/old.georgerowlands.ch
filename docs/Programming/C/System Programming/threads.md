@@ -1,7 +1,7 @@
 ---
-title: Introduction
-description: A Brief introduction to how operating systems are structures and what key role system calls play in them.
-tags: [c, unix, operating systems, posix, system calls, kernel, kernel user mode]
+title: Threads
+description: What are threads and how can you work with the pthread API.
+tags: [c, threads, posix, pthread]
 ---
 
 Threads are similar to process and allow a program to do multiple things at once by having multiple threads in it. A key difference between threads and process is however that threads share the same global memory and just have their private stack for local variables and function calls and are therefore not as expensive as process which have the big overhead of creating an entire new memory space. This is why threads are also often called lightweight processes.
@@ -31,7 +31,7 @@ int pthread_create(pthread_t *restrict thread,
                         const pthread_attr_t *restrict attr,
                         void *(*start_routine)(void *),
                         void *restrict arg);
-```
+ ```
 
 The first parameter is an integer that is used as an output parameter and is used to identify the thread in your operating system.
 The second parameter is for specific attributes for the thread, by passing NULL you can use the default.
@@ -46,7 +46,7 @@ A call to the join function blocks the calling thread until the thread with ID a
 
 Threads can terminate in multiple ways
 
-- By calling pthread_exit.
+- By calling `void pthread_exit(void *retval);`
 - By letting the thread function return.
 - By calling exit which will terminate the process including all its threads.
 
