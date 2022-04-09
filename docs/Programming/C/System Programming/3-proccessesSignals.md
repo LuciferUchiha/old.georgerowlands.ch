@@ -1,23 +1,36 @@
-Linux structure, kernel etc. Job of kernel? scheduling, file system, networking all works over an API called system calls
-CPU runs in kernel or user mode. difference? system call switches to kernel
-Ein System Call ist ein kontrollierter Eintrittspunkt
-in den Kernel, der seine Dienste via API bereitstellt.
-Bei System Calls geht die CPU in den Kernel-Mode.
-Argumente werden kopiert v. User- zu Kernel-Space.
-Jeder System Call hat einen Namen und eine Nr./ID
-libc vs glibc?
+---
+title: Processes and signals
+description: bablalblasblsafg
+tags: [c, processes, signals, system calls, environment variables]
+---
 
-pid_t? from sys/types.h?
+## Processes
 
-system calls just return -1 if somethign went wrong can find error code in globale variable errno of errno.h
-succesfful calls dont set errno back to NULL, output errors with perror or get string with strerror from string.h
+A program is a file containing instructions on how to create a process. Processes are instances of a running program. A program can have multiple processes and a process can be executing the same program.
 
-# File IO with systemcalls
+The kernel sees a process as a piece of user-space memory with program code, constants and initial values for variables. The kernel also keeps track of processes by storing its Process ID (PID), its virtual memory space, open file descriptors and signal handlers amongst other things.
 
-Alle System Calls für I/O beziehen sich auf einen File
-Deskriptor, ein (kleiner) positiver Integer Wert. what is deskriptor???? each process has its own set of descriptors, at least stdin 0, stdout 1, stderr 2
+The PID is a positive integer and is used to identify a process in the system. The "init" process which is responsible for starting the unix operating system has the PID=1. Every process has a parent process apart from init so processes form a tree structure with init as its root. You can check this out with the `pstree` command. If a process dies it get's adopted by init so has the PID=1.
 
-Find posix constant in unistd.h STDIN_FILENO etc.
-open, read, write and then close flags modes and errors???
+`pid_t getpid(void)` of current process.
+`pid_t getppid(void)` of parent process.
 
-file offset/positioning?
+![pstree](/img/programming/pstree.png)
+
+### Memory layout
+
+The memory of each process is split into segments: program code, initialized data, none initialized data(bss), stack and the heap.
+
+![memoryLayout](/img/programming/memoryLayout.png)
+
+Unix and many other operating systems use virtual memory for performance reasons. When using virtual memory only a so called Page is loaded into the RAM the rest is offloaded. Along with the above mentioned data structure the kernel also keep a so called page table for each process which maps the virtual memory address space to the Page frame in the physical memory, RAM. Address spaces not in use are not mapped so if a process tries to access them you receive a so called segmentation fault (SIGSEGV).
+
+![pageTable](/img/programming/pageTable.png)
+
+### Stack and stack frames
+
+Stack frames are parts of the stack which are allocated when a function is called for its arguments, local variables and CPU register copies of the external variables. If have worked with recursion you have maybe come across a "Stackoverflow" which can happen when the stack is full and no longer has any space.
+
+## Environment variables
+
+## Signals

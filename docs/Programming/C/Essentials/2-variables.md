@@ -187,7 +187,7 @@ The last possibility is using dynamically allocated memory. In C you can not def
 The `malloc()` function, short for "memory allocation", is used to dynamically allocate a single large block of memory with the specified size and returns a pointer to the block.
 
 :::warning
-When the memory is no longer needed you should free and set the pointer to NULL as you are otherwise using unnecessary memory and could also lead to memory leaks.
+When the memory is no longer needed you should release it using the `free()` function as you are otherwise using unnecessary memory. If you call free multiple times you can cause unexpected behavior which is why you should also set the pointer to NULL.
 :::
 
 :::warning
