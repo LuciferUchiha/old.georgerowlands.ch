@@ -62,7 +62,7 @@ int main()
 }
 ```
 
-## Type conversion
+### Type conversion
 
 In C++ just like in many other language you can convert data of one type to that of another. It has implicit and explicit conversion. Just as with many other languages when casting data can be lost.
 
@@ -96,7 +96,7 @@ num_int2 = 3
 num_double2 = 3.14
 ```
 
-### C-style type casting
+#### C-style type casting
 
 As the name suggests, this type of casting is same as in the C programming language and is also commonly refereed to the cast notation.
 
@@ -116,7 +116,7 @@ int main() {
 }
 ```
 
-### Function-style casting
+#### Function-style casting
 
 This is the old way of doing it in C++ before type conversion operators were introduced.
 
@@ -136,11 +136,11 @@ int main() {
 }
 ```
 
-### Type conversion operators
+#### Type conversion operators
 
 This is the way how it is done in modern C++.
 
-#### Static cast
+##### Static cast
 
 In general you use a static cast just like any other cast so far when you are certain of the data types involved in the conversion. This takes the pointer in ptr and tries to safely cast it to a pointer of type Type*. This cast is done at compile time. It will only perform the cast if the types are related. If the types are not related, you will get a compiler error.
 
@@ -158,11 +158,11 @@ int main()
 }
 ```
 
-#### Dynamic cast
+##### Dynamic cast
 
 A dynamic cast is executed at runtime, not compile time. Because this is a run-time cast, it is useful especially when combined with polymorphic classes. In fact, in certain cases the classes must be polymorphic in order for the cast to be legal.
 
-#### Constant cast
+##### Constant cast
 
 It is used to change the constant value of any object or we can say it is used to remove the constant nature of any object.
 
@@ -181,7 +181,7 @@ int main()
 }
  ```
 
-#### Reinterpret cast
+##### Reinterpret cast
 
 ???? very confussing
 
@@ -190,6 +190,10 @@ int main()
 ### Scope operator and using
 
 ::
+
+## Functions
+
+### Const functions
 
 ## Class
 
@@ -274,72 +278,36 @@ int main()
 }
 ```
 
-#### Copy constructor
+### Explicit constructor
 
-You often want to create copies of other objects (also commonly known as prototypes). You need to very careful with what you are doing then especially when you are working with pointers and don't want a shallow copy but a deep copy.
+You need to be very careful with creating constructors and often have to define a constructor as explicit otherwise something might just implicitly create an object of a certain type.
 
 ```cpp
 #include <iostream>
 using namespace std;
-
-class Person
-{
+  
+class Complex {
 private:
-    std::string last_name{};
-    std::string first_name{};
-    int* age{};
+    double real;
+    double imag;
+  
 public:
-    Person() = default;
-    Person(const std::string& last_name_param, const std::string& first_name_param, int age_param)
-        : last_name(last_name_param), first_name(first_name_param), age(new int(age_param)) //  age(source_p.get_age()) would have 2 pointers to same value
+    // Default constructor
+    explicit Complex(double r = 0.0, double i = 0.0)
+        : real(r), imag(i)
     {}
-    // copy constructor
-    Person(const Person& source_p)
-        : Person(source_p.get_last_name(), source_p.get_first_name(), *(source_p.get_age())) // delegates
-    {
-        std::cout << "Copy constructor called" << std::endl;
-    }
-
-    ~Person() {
-        delete age; // Make sure that you are not leaking memory
-    }
-
-    //Setters 
-    void set_first_name(const std::string& first_name) { this->first_name = first_name; }
-    void set_last_name(const std::string& last_name) { this->last_name = last_name; }
-    void set_age(int age) { *(this->age) = age; } // Remember to dereference
-
-    //Getters
-    const std::string& get_first_name() const { return first_name; }
-    const std::string& get_last_name() const { return last_name; }
-    int* get_age() const { return age; };
-
-    //Utilities
-    void print_info() {
-        std::cout << "Person object at : " << this
-            << " [ Last_name : " << last_name
-            << ", First_name :  " << first_name
-            << " ,age : " << *age
-            << " , age address : " << age
-            << " ]" << std::endl;
-    }
+  
+    // compare two Complex numbers
+    bool operator==(Complex rhs) { return (real == rhs.real && imag == rhs.imag); }
 };
-
+  
 int main()
 {
-    Person  p1("John", "Snow", 25);
-    p1.print_info();
-    //Create a person copy
-    Person p2(p1);
-    p2.print_info();
+    Complex com1(3.0, 0.0);
+    cout << com1 == 3.0 << endl; // if not explicit this will create a Complex object (3.0,0.0) and compare them
+    return 0;
 }
 ```
-
-#### Move constructor
-
-### Explicit constructor
-
-### Destructor
 
 ### Anonymous/temporary object
 
@@ -366,8 +334,6 @@ int main()
     return 0;
 }
 ```
-
-## Const functions
 
 ## Struct
 

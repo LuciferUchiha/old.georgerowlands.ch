@@ -118,10 +118,6 @@ When overloading the index operator it is good practice to first implement an `T
 
 ### Assignment operator
 
-#### Copy operator
-
-#### Move operator
-
 ### Increment/Decrement operator
 
 ```cpp
