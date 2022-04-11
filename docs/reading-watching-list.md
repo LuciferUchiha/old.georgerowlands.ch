@@ -36,6 +36,9 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["File I/O by university of chicago"](https://www.classes.cs.uchicago.edu/archive/2017/winter/51081-1/LabFAQ/lab2/fileio.html)<br/>
   Helped me understand how file I/O works with POSIX system calls.
 
+- ["The forgotten art of Struct Packing in C/C++" by Josh Caratelli](https://www.joshcaratelli.com/blog/struct-packing)<br/>
+  Helped me understand how structs are stored in memory.
+
 ### Videos
 
 - ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)<br/>

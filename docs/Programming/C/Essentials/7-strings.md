@@ -46,6 +46,24 @@ hello length=5 strlen=5
 hellohello length=10 strlen=10
 ```
 
+## Wide characters
+
+A wide character `wchar_t` is similar to char data type, except that it takes up twice the space and can take on much larger values as a result. A char can take 256 values which corresponds to entries in the ascii table. On the other hand, wide char can take on 65536 values which corresponds to unicode values. So whenever you see a function that has to do with strings or characters and there is a w then it most lightly has to do with wide characters. You can create wide string litrals just like normal string literal and then by adding the L prefix.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    wchar_t w = L'A';
+    wchar_t *p = L"Hello!";
+    size_t length = wcslen(p); // can't use strlen
+    printf("Wide character: %c\n", w);
+    printf("Wide string with length %ld: %S\n", length, p);
+    return 0;
+}
+```
+
 ## String functions
 
 ### Converting
