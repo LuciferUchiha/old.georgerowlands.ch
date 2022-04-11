@@ -3,6 +3,9 @@ title: Strings
 description: TO BE DONEEEEE
 tags: [cpp, strings, character arrays, unicode, utf, raw literals]
 ---
+
+Along with the C way of using strings as character arrays there are many other new things in C++.
+
 ## String class
 
 The standard C++ library provides a string class type which allows you to work with string just like in Java. By adding the s suffix teh string literal becomes a C++ string.

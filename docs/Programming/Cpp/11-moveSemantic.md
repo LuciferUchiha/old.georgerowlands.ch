@@ -1,3 +1,8 @@
+---
+title: Move Semantic
+description: TO BE DONEEEEE
+tags: [cpp, move operator, copy operator, move constructor, copy cosntructor, lvalue, rvalue, xvalue, rvalue reference]
+---
 
 When working with big objects for example an Image copying objects around can get very expensive. For example if create a factory function
 

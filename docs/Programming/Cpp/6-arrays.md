@@ -1,7 +1,7 @@
 ---
 title: Arrays
 description: TO BE DONEEEEE
-tags: [cpp, c arrays, arrays, vector, smart pointers]
+tags: [cpp, c arrays, arrays, vectors, smart pointers]
 ---
 
 ## C arrays
@@ -59,7 +59,7 @@ cout << endl;
 
 ## Cpp arrays
 
-### Array
+### Array class
 
 In C++ there is a class array which is just a wrapper around a C array of fixed length and offers some useful functions on the array.
 
@@ -78,7 +78,7 @@ int main() {
 }
 ```
 
-### Vector
+### Vector class
 
 The vector class in C++ is just like the ArrayList in Java and offers a half dynamic array that is stored on the heap.
 
