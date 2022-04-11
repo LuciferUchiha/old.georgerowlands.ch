@@ -25,7 +25,7 @@ Rvalues can be split up into 2 further groups, pure-right values which are
 - Arithmetic expressions: a + b, a < b
 - Function calls: str.substr(1, 2)
 
-and Xvalues (eXpiring). Xvalues are functions calls with an Rvalue reference as return or Array-oder Attributcalls on an Rvalue.
+and Xvalues (eXpiring). Xvalues are functions calls with an Rvalue reference as return or array indexing or attribut calls on an Rvalue.
 
 GL values that are lValues and Xvalues.
 
@@ -68,13 +68,9 @@ int main()
 }
 ```
 
-std::move does not actually do any moving it just makes it a rvalue so then teh move constructor is called instead of copy when swapping.
+## Copying and moving
 
-## Using RValues
-
-### Copy constructor
-
-You often want to create copies of other objects (also commonly known as prototypes). You need to very careful with what you are doing then especially when you are working with pointers and don't want a shallow copy but a deep copy.
+You often want to create copies of other objects (also commonly known as prototypes). You need to very careful with what you are doing then especially when you are working with pointers and don't want a shallow copy but a deep copy. Instead of creating a copy you can also create a move constructor which moves all the values from object to another. You can then also override the assignment operator to either copy or move the data depending on what is on the right side. All the move function from the standard library does is make an Rvalue out of an Lvalue.
 
 ```cpp
 #include <iostream>
@@ -83,58 +79,123 @@ using namespace std;
 class Person
 {
 private:
-    std::string last_name{};
-    std::string first_name{};
-    int* age{};
+    string last_name;
+    string first_name;
+    int* age;
+    void invalidate() {
+        this->last_name = "";
+        this->first_name = "";
+        this->age = nullptr;
+    }
 public:
-    Person() = default;
-    Person(const std::string& last_name_param, const std::string& first_name_param, int age_param)
+    explicit Person(const string& last_name_param = "", const string& first_name_param = "", int age_param = 0)
         : last_name(last_name_param), first_name(first_name_param), age(new int(age_param)) //  age(source_p.get_age()) would have 2 pointers to same value
     {}
+
     // copy constructor
-    Person(const Person& source_p)
-        : Person(source_p.get_last_name(), source_p.get_first_name(), *(source_p.get_age())) // delegates
+    Person(const Person& source)
+        : last_name(source.last_name), first_name(source.first_name), age(new int(*source.age))
     {
-        std::cout << "Copy constructor called" << std::endl;
+        cout << "Copy constructor called" << endl;
+    }
+
+    // move constructor
+    Person(Person&& source)
+        : last_name(source.last_name), first_name(source.first_name), age(source.age)
+    {
+        cout << "Move constructor called" << endl;
+        source.invalidate();
     }
 
     ~Person() {
         delete age; // Make sure that you are not leaking memory
     }
 
-    //Setters 
-    void set_first_name(const std::string& first_name) { this->first_name = first_name; }
-    void set_last_name(const std::string& last_name) { this->last_name = last_name; }
-    void set_age(int age) { *(this->age) = age; } // Remember to dereference
+    // copy assignment operator
+    void operator=(const Person& source) noexcept {
+        cout << "Copy assignment operator called" << endl;
 
-    //Getters
-    const std::string& get_first_name() const { return first_name; }
-    const std::string& get_last_name() const { return last_name; }
+        // Check for self-assignment:
+        if (this == &source)
+            return;
+
+        this->set_last_name(source.get_last_name());
+        this->set_first_name(source.get_first_name());
+        this->set_age(*source.get_age());
+    }
+
+    // move assignment operator
+    void operator=(Person&& source) noexcept {
+        cout << "Move assignment operator called" << endl;
+
+        // Check for self assignment
+        if (this == &source)
+            return;
+
+        this->set_last_name(source.get_last_name());
+        this->set_first_name(source.get_first_name());
+        this->age = source.get_age();
+        source.invalidate();
+    }
+
+    void set_first_name(const string& first_name) { this->first_name = first_name; }
+    void set_last_name(const string& last_name) { this->last_name = last_name; }
+    void set_age(int age) { *(this->age) = age; } // Remember to dereference
+    const string& get_first_name() const { return first_name; }
+    const string& get_last_name() const { return last_name; }
     int* get_age() const { return age; };
 
     //Utilities
     void print_info() {
-        std::cout << "Person object at : " << this
+        cout << "Person object at : " << this
             << " [ Last_name : " << last_name
             << ", First_name :  " << first_name
             << " ,age : " << *age
             << " , age address : " << age
-            << " ]" << std::endl;
+            << " ]" << endl;
     }
 };
 
 int main()
 {
+    cout << "Testing copy constructor" << endl;
     Person  p1("John", "Snow", 25);
     p1.print_info();
     //Create a person copy
     Person p2(p1);
     p2.print_info();
+    cout << "Testing move constructor" << endl;
+    Person p3(move(p2)); // moved, move() just makes p2 a Rvalue
+    p3.print_info();
+    //p2.print_info(); now basically dead
+
+    cout << "Testing copy operator" << endl;
+    // Person p4 = p3; will use the copy constructor because the object first needs to be constructed
+    Person p4; 
+    p4 = p3;
+    p3.print_info();
+    p4.print_info();
+    cout << "Testing move operator" << endl;
+    Person p5;
+    p5 = move(p4);
+    p5.print_info();
+    //p4.print_info(); now basically dead
 }
 ```
 
-### Move constructor
-
-#### Copy operator
-
-#### Move operator
+```bash title="Output"
+Testing copy constructor
+Person object at : 000000CDCD38F420 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBE9C70 ]
+Copy constructor called
+Person object at : 000000CDCD38F4A0 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBF0FE0 ]
+Testing move constructor
+Move constructor called
+Person object at : 000000CDCD38F520 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBF0FE0 ]
+Testing copy operator
+Copy assignment operator called
+Person object at : 000000CDCD38F520 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBF0FE0 ]
+Person object at : 000000CDCD38F5A0 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBEC190 ]
+Testing move operator
+Move assignment operator called
+Person object at : 000000CDCD38F620 [ Last_name : John, First_name :  Snow ,age : 25 , age address : 000001DF4FBEC190 ]
+```
