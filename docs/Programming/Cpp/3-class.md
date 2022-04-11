@@ -141,3 +141,26 @@ int main()
     return 0;
 }
 ```
+
+## Constant member functions
+
+Constant member functions are denoted by writting `const` at the end of the definition. If in this class function changes a member variable of the class it will generate a compiler error, however, reading of a class variables is okay inside of the function.
+
+```cpp
+#include<iostream>
+using namespace std;
+class Demo {
+    int val;
+public:
+    Demo(int x = 0): val(x) {    }
+    int getValue() const {
+        // val++; would not work
+        return val;
+    }
+};
+int main() {
+    Demo d(8);
+    cout << "The value using object d : " << d.getValue();
+    return 0;
+}
+```
