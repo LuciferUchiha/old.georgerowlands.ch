@@ -118,7 +118,9 @@ When overloading the index operator it is good practice to first implement an `T
 
 ### Assignment operator
 
-tricky, maybe also with move semantic???
+#### Copy operator
+
+#### Move operator
 
 ### Increment/Decrement operator
 

@@ -101,3 +101,7 @@ int main() {
     return 0;
 }
 ```
+
+## Binding of values
+
+??? not sure it is called this jsut splitting no?

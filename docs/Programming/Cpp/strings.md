@@ -1,4 +1,8 @@
-
+---
+title: Strings
+description: TO BE DONEEEEE
+tags: [cpp, strings, character arrays, unicode, utf, raw literals]
+---
 ## String class
 
 The standard C++ library provides a string class type which allows you to work with string just like in Java. By adding the s suffix teh string literal becomes a C++ string.

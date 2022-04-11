@@ -62,25 +62,227 @@ int main()
 }
 ```
 
+## Type conversion
+
+In C++ just like in many other language you can convert data of one type to that of another. It has implicit and explicit conversion. Just as with many other languages when casting data can be lost.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num_int1 = 9;
+    double num_double1;
+    // implicit conversion int to double
+    num_double1 = num_int1;
+    cout << "num_int1 = " << num_int1 << endl;
+    cout << "num_double1 = " << num_double1 << endl;
+
+    int num_int2;
+    double num_double2 = 3.14;
+    // implicit conversion double to int
+    num_int2 = num_double2;
+    cout << "num_int2 = " << num_int2 << endl;
+    cout << "num_double2 = " << num_double2 << endl;
+
+    return 0;
+}
+```
+
+```bash title="Output"
+num_int1 = 9
+num_double1 = 9
+num_int2 = 3
+num_double2 = 3.14
+```
+
+### C-style type casting
+
+As the name suggests, this type of casting is same as in the C programming language and is also commonly refereed to the cast notation.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num_int = 9;
+    double num_double;
+    // converting from int to double
+    num_double = (double)num_int;
+    cout << "num_int = " << num_int << endl;
+    cout << "num_double = " << num_double << endl;
+
+    return 0;
+}
+```
+
+### Function-style casting
+
+This is the old way of doing it in C++ before type conversion operators were introduced.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num_int = 9;
+    double num_double;
+    // converting from int to double
+    num_double = double(num_int);
+    cout << "num_int = " << num_int << endl;
+    cout << "num_double = " << num_double << endl;
+
+    return 0;
+}
+```
+
+### Type conversion operators
+
+This is the way how it is done in modern C++.
+
+#### Static cast
+
+In general you use a static cast just like any other cast so far when you are certain of the data types involved in the conversion. This takes the pointer in ptr and tries to safely cast it to a pointer of type Type*. This cast is done at compile time. It will only perform the cast if the types are related. If the types are not related, you will get a compiler error.
+
+```cpp
+class B {};
+class D : public B {};
+class X {};
+
+int main()
+{
+    D* d = new D;
+    B* b = static_cast<B*>(d); // this works
+    // X* x = static_cast<X*>(d); ERROR - Won't compile
+    return 0;
+}
+```
+
+#### Dynamic cast
+
+A dynamic cast is executed at runtime, not compile time. Because this is a run-time cast, it is useful especially when combined with polymorphic classes. In fact, in certain cases the classes must be polymorphic in order for the cast to be legal.
+
+#### Constant cast
+
+It is used to change the constant value of any object or we can say it is used to remove the constant nature of any object.
+
+ ```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int x = 50;
+    const int* y = &x;
+    cout << "old value is " << *y << "\n";
+    int* z = const_cast<int*>(y);
+    *z = 100;
+    cout << "new value is " << *y;
+}
+ ```
+
+#### Reinterpret cast
+
+???? very confussing
+
 ## Namespaces
 
 ### Scope operator and using
 
 ::
 
-## Class, Struct, Union
+## Class
 
 ### Constructors
 
-primitve data types dont have cosntructors so need to be initialized manually. what does explicit do?
+In C++ primitive types don't have constructors so you need to initialize them in the constructor.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Point {
+private:
+    double m_x;
+    double m_y;
+
+public:
+    // default constuctor
+    Point() = default; // or just Point(){};
+    Point(double x, double y) { // Point object is already initialized
+        m_x = x; // lots of copiessssss
+        m_y = y;
+    }
+};
+
+int main()
+{
+    Point p1(); // default constructor, very bad nothing is initialized
+    Point p2(1, 2);
+}
+```
+
+However the above example is a bad way of creating a constructor as the object is already initialized and then the values are changed, this leads to lots of member-wise copying unnecessarily used memory. Even worse is the default constructor which leaves the attributes uninitialized because as mentioned the primitives don't have a default constructor.
+
+### Initializer lists
+
+Instead in modern C++ we use initializer lists which stops the copying and everything bad mentioned above.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Point {
+private:
+    double m_x;
+    double m_y;
+
+public:
+    // default constuctor
+    Point() : m_x(0), m_y(0) {};
+    Point(double x, double y): m_x(x), m_y(y) {};
+};
+
+int main()
+{
+    Point p1(); // default constructor x and y are 0
+    Point p2(1, 2);
+}
+```
+
+### Default parameters
+
+We can improve the above constructor even more by using default parameter values. Because the arguments also don't change and we don't want them to we can add const.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Point {
+private:
+    double m_x;
+    double m_y;
+
+public:
+    Point(const double x = 0, const double y = 0): m_x(x), m_y(y) {};
+};
+
+int main()
+{
+    Point p1(); // x and y are 0
+    Point p2(1, 2);
+}
+```
 
 #### Copy constructor
 
 #### Move constructor
 
+### Explicit constructor
+
 ### Destructor
 
-### Anonymous/temporary objects
+### Anonymous/temporary object
 
 These objects have no name and are thrown away after use.
 
@@ -106,11 +308,9 @@ int main()
 }
 ```
 
-### Initializer lists
+## Const functions
 
-as constructors, function arguemtns, Range for loop
-
-## Structs
+## Struct
 
 Just like in C you have structs which are also commonly called open classes. Structs can only hold public attributes and no functions.
 
@@ -186,18 +386,55 @@ int main() {
 1088946176
 ```
 
-## Enums
+## Enum
 
 Just like in C you can use enums and they work the same way.
 
-### Enum classes
+### Enum class
 
-## Binding of values
+Enum classes or so called scoped enumerations make enumerations both strongly typed and strongly scoped. Class enums don't allow implicit conversions to int, and also don't allow comparisons between different enumerations.
 
-??? not sure it is called this jsut splitting no?
+```cpp
+#include <iostream>
+using namespace std;
 
-## Type conversion
+int main()
+{
+    enum class Color {
+        Red,
+        Green,
+        Blue
+    };
+    enum class State {
+        Good,
+        Bad
+    };
 
-normal casts, static_cast, dynamic_cast, const_cast, reinterpret_cast
+    // An enum value can be used as variable identifier
+    int Green = 10;
 
-## Enum classes
+    // Instantiating the Enum Class
+    Color x = Color::Green;
+
+    // Comparison now is completely type-safe
+    if (x == Color::Red)
+        cout << "It's Red\n";
+    else
+        cout << "It's not Red\n";
+
+    State p = State::Good;
+
+    if (p == State::Bad)
+        cout << "Something went wrong\n";
+    else
+        cout << "All is good\n";
+
+    // won't work because no implicit conversion to int
+    // if(x == p)
+    // cout<<"red is equal to good";
+    // cout<< x;
+    cout << int(x);
+
+    return 0;
+}
+```

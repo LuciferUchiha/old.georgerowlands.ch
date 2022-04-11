@@ -65,9 +65,8 @@ The same applies for returning values.
 
 ## Smart pointers
 
-<https://docs.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170>
+[Microsoft wrote I pretty good explanation](https://docs.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170) on how these work which I also used for this summary.
 
-unique, shared and weak pointers
 You declare a smart pointer on the stack, and initialize it by using a raw pointer that points to a heap-allocated object. Now the smart pointer is responsible for deleting the memory associated with it and because the smart pointer is declared on the stack this is done automatically.To access the encapsulated raw pointer you can still just use -> and * because the smart pointer class overloaded these operators.
 
 Smart pointers are designed to be just as performant as raw pointers which is why they also have the same size as the encapsulated pointer, either four bytes or eight bytes. Smart pointers also have functions. For example the reset function releases the pointer which can be useful when you want to free the memory owned by the smart pointer before the smart pointer goes out of scope.
