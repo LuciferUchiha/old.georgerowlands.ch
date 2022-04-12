@@ -1,11 +1,11 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const prismAdditionalLanguages = require('./prismLanguages')
-const math = require('remark-math')
-const katex = require('rehype-katex')
-const mermaid = require('mdx-mermaid')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const prismAdditionalLanguages = require('./prismLanguages');
+const math = require('remark-math');
+const katex = require('rehype-katex');
+const mermaid = require('mdx-mermaid');
 
 const mySocials = [
   {
@@ -20,7 +20,7 @@ const mySocials = [
     label: 'StackOverflow',
     href: 'https://stackoverflow.com/users/10994912/lucifer-uchiha?tab=profile',
   },
-]
+];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -32,7 +32,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.png',
   organizationName: 'LuciferUchiha', // Usually your GitHub org/user name.
-  projectName: 'digital-garden-v2', // Usually your repo name.
+  projectName: 'georgerowlands.ch', // Usually your repo name.
 
   presets: [
     [
@@ -43,7 +43,7 @@ const config = {
           rehypePlugins: [katex],
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/LuciferUchiha/digital-garden-v2/tree/main',
+          editUrl: 'https://github.com/LuciferUchiha/georgerowlands.ch/tree/main',
           admonitions: {
             customTypes: {
               example: 'info',
@@ -115,7 +115,7 @@ const config = {
             activeBaseRegex: '/recipes/',
           },
           {
-            href: 'https://github.com/LuciferUchiha/digital-garden-v2',
+            href: 'https://github.com/LuciferUchiha/georgerowlands.ch',
             className: 'header-github-link',
             position: 'right',
           },
@@ -149,6 +149,6 @@ const config = {
         additionalLanguages: prismAdditionalLanguages,
       },
     }),
-}
+};
 
-module.exports = config
+module.exports = config;
