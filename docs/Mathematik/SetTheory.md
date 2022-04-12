@@ -1,6 +1,14 @@
-# Basic Set theory
+---
+title: Set theory
+description: TO BE DONEEEEE
+tags: [sets]
+---
 
-**NEEDS TO BE TRANSLATED TO GERMAN**
+:::info
+
+This needs to be translated to german as all other maths subjects are in german
+
+:::
 
 A **set** is a collection of distinct objects.
 A set simply specifies the contents, the order is not important. $\{1,2,3\}$ is the same as $\{3,1,2\}$.

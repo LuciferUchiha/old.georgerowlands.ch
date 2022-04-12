@@ -1,4 +1,13 @@
-# Trigonometrische Funktionen
+---
+title: Doomsday Rule
+description: TO BE DONEEEEE
+tags: [trigonometry, cos, sin, tan, cot, kosinus, sinus, tangens, kotangens]
+---
+:::info
+
+This is work in progress
+
+:::
 
 ## Einheitskreis
 
@@ -7,19 +16,21 @@ Der Einheitskreis ist ein Kreis mit einem Radius von 1 und dessen Mittelpunkt am
 
 ### Quadrante
 
-Oftmals wird der Einheitskreis auch in 4 Teile geschnitten, die sogenannten Quadrante, welche durchnummeriert sind von 1 bis 4 beginnend mit oben rechts.
+Oftmals wird der Einheitskreis auch in 4 Teile geschnitten, die sogenannten Quadrante, welche durchnummeriert sind von 1 bis 4 beginnend mit oben rechts im gegen uhrzeigersin.
 
-## Grad
+## Einheiten
+
+### Grad
 
 Der **Grad** ist ein Winkelmass, das Gradmass. Beim Gradmass wird ein Kreis in 360 Teile geschnitten, 1 Grad entspricht also einem dieser Teile. Ein Kreis entspricht also 360 Grad.
 
-## Radian
+### Radian
 
 Der **Radian** ist ein ein Winkelmass, das Bogenmass. Beim Bogenmass betrachten wir die Länge des Bogens auf einem Kreis. 1 Radian entspricht einem Radius als Bogen. Der Umfang eines Kreises entspricht $2\pi r$  was dann auch 360 Grad entspricht. Weil der Radius des Einheitskreises 1 ist entspricht dann der Umfang des Einheitskreises $2\pi$.
 
 ![bogenmass](/img/maths/bogenmass.png)
 
-## Umrechnen Grad und Radian
+### Umrechnen Grad und Radian
 
 Wir können zwischen den 2 Winkelmasse wie gefolgt rechnen.
 
