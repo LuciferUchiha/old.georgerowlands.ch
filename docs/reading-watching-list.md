@@ -62,6 +62,9 @@ This website was created in 2022 so this is just what I remember of the top of m
 - ["Java: A Beginner's Guide, Seventh Edition" by Herbert Schildt](https://books.google.ch/books/about/Java_A_Beginner_s_Guide_Seventh_Edition.html?id=fY8qvgAACAAJ&source=kp_book_description&redir_esc=y)<br/>
   Allthought Java is my strongest langauge I still managed to pick up a few things from this book.
 
+- ["Clean code" by Robert C. Martin](https://books.google.ch/books/about/Clean_Code.html?id=hjEFCAAAQBAJ&source=kp_book_description&redir_esc=y)<br/>
+  The must read book for programmers. In the beginning I really liked it however I need to read it again at later point of time when I have more knowledge as some of the more advanced concepts like concurrent programming I have learnt yet. You might also find it [here as a pdf](https://github.com/jnguyen095/clean-code/blob/master/Clean.Code.A.Handbook.of.Agile.Software.Craftsmanship.pdf).
+
 ### Articles
 
 ### Videos
