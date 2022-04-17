@@ -47,6 +47,9 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["Advanced C Programming Course - Udemy course by Jason Fedin"](https://www.udemy.com/course/advanced-c-programming-cours)<br/>
   This is the advanced course mentioned above which definitely improves our knowledge and productivity.
 
+- [HowToGraphQL (Fundamentals)](https://www.youtube.com/watch?v=T571423fC68)<br/>
+  4 short videos explaining on the advantages of GraphQL and how it works.
+
 ## 2021
 
 This website was created in 2022 so this is just what I remember of the top of my head.
