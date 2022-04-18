@@ -58,4 +58,20 @@ while(!handler.isReady(id)){
 res = handler.getResult(id);
 ```
 
-## Challenges
+### Styles
+
+#### Remote procedure calls - RPC
+
+When using this style of communication one process calls a procedure (subroutine or service) to execute in a different address space than its own. The procedure may be on the same system or a different system connected on a network and in most cases are synchronous. System calls in the unix operating systems are an example of this.
+
+You can differentiate between Procedural RPC where the server provides a set of operations and is typically stateless for example GraphQL and Object oriented RPC where the server hosts a set of object and typically has it's own state for example RMI.
+
+#### Massage based systems
+
+In message based systems like MQTT or RabbitMQ information is exchanged through messages. These messages can either be synchronous when exchanged over TCP or UDP, or they can be asynchronous for example in the case of MQTT where you have subscriptions.
+
+![messageSystem](/img/programming/messageSystem.png)
+
+#### Shared repository
+
+Shared repository systems provide small interfaces which allow tuples to be created, read and deleted. REST would come under this category.
