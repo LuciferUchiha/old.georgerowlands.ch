@@ -24,6 +24,38 @@ Distributed systems do however come with a multitude of disadvantages.
 
 ## Client and server model
 
+Clients send requests to servers and therefore actively initialize communication with the server. In most cases Clients work with multiple servers at the same time.
+
+Servers provide some service/functionality and wait passively for requests from clients and can typically handle the requests concurrently or with queues. Server don't necessarily have to be on separate devices. One device can have multiple servers running at the same time.
+
+![clientServerModel](/img/programming/clientServerModel.png)
+
 ## Communication
+
+### Synchronous and Asynchronous
+
+Synchronous communication happens when messages between sender and receiver are exchanged in real time. An example of synchronous communication is human communication like a phone call or video meeting.
+
+Asynchronous communication happens when messages can be exchanged independent of time. It doesn’t require the receiver's immediate attention, allowing them to respond to the message at their convenience. Examples of asynchronous communication are emails, online forums etc.
+
+![syncAndAsync](/img/programming/syncAndAsync.png)
+
+Interesting you can emulate asynchronous communication with synchronized calls and vice versa.
+
+```java title="Emulation of async call"
+id = service.submit(args);
+// do something else
+if(service.isReady(id)){
+    res = service.getResult(id);
+}
+```
+
+```java title="Emulation of sync call"
+ex.submit(task, handler);
+while(!handler.isReady(id)){
+    // busy waiting
+}
+res = handler.getResult(id);
+```
 
 ## Challenges
