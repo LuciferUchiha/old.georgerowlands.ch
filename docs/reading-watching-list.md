@@ -39,6 +39,9 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["The forgotten art of Struct Packing in C/C++" by Josh Caratelli](https://www.joshcaratelli.com/blog/struct-packing)<br/>
   Helped me understand how structs are stored in memory.
 
+- ["Complete Stream Zoo"](http://underpop.online.fr/j/java/help/complete-stream-zoo-streams-and-files.html.gz)<br/>
+  Overview of Streams and Reader/Writers in Java.
+
 ### Videos
 
 - ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)<br/>
