@@ -1,43 +1,82 @@
 
-IETF = Interent Engineering Task Force goal is to make the internet work better. define interent standards and regulate interent through RFC (Request for comments)specifications.
+## IETF
 
-Most well known:
+IETF stands for Interent Engineering Task Force which is task force/organization with the goal to make the internet work better. They define internet standards and regulate the internets architecture with so called RFC specifications (Request for comments). Some of the most well known RFCs are the following
 
-- Interent Protocol
-- Email
-- Hyper Text coffee Pot Control
+- RFC 791: [Interent Protocol](https://datatracker.ietf.org/doc/html/rfc791)
+- RFC 5322: [Email (SMTP)](https://datatracker.ietf.org/doc/html/rfc5322)
+- RFC 2549: [IP over Avian Carriers (IPoAC)](https://datatracker.ietf.org/doc/html/rfc2549)
 
 ## HTTP Protocol
 
-Hypertext transfer protocol. Protocol to access satic or dynamic data on another computer. based on reliable transport layer typically TCP/IP
-Vesions 1.0, 1.1 and 2.0
+The HTTP protocol stands for Hypertext transfer protocol and is used to access static or dynamic data on another computer and is based on a reliable transport layer protocols like TCP and IP.
+
+![httpProtocol](/img/programming/httpProtocol.png)
 
 ### Request
 
-consists of request line with Method, target and version CR LF the rest consists of headers wich are key-value pairs sperated with CR LF and then the body which is a chunk of bytes
+A HTTP request consists of a request line which holds the method of the request (GET, POST etc.), the url of the target and the version of the HTTP protocol to be used followed by a carriage return line feed (CR LF). You then have the headers which are key-value pairs separated by ':' and a CR LF at the end of each one. Last but not least you have the body which is a chunk of bytes
+
+![httpRequest](/img/programming/httpRequest.png)
 
 #### Methods
 
+![httpRequestMethods](/img/programming/httpRequestMethods.png)
+
 #### Headers
+
+| Key             | Description                                                                                                                    | Example                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| Host            | specifies the host and port number of the server to which the request is being sent                                            | Host: developer.mozilla.org:8080                              |
+| Accept          | indicates which content types, expressed as MIME types, the client can understand                                              | Accept: text/html                                             |
+| Accept-Language | indicates the natural language and locale that the client prefers                                                              | Accept-Language: de-CH                                        |
+| Accept-Encoding | indicates the content encoding (usually a compression algorithm) that the client can understand                                | Accept-Encoding: gzip                                         |
+| User-Agent      | lets servers and network peers identify the application, operating system, vendor, and/or version of the requesting user agent | User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) |
+| Referer         | contains an absolute or partial address of the page that makes the request                                                     | Referer: <https://example.com/>                                 |
+| Connection      | controls whether the network connection stays open after the current transaction finishes                                      | Connection: keep-alive, Connection: close                     |
+| Cookie          | contains stored HTTP cookies associated with the server                                                                        | Cookie: PHPSESSID=298zf09hf012fh2;                            |
+| Content-Length  | indicates the size of the message body, in bytes, sent to the recipient                                                        | Content-Length: 4                                             |
+| Content-Type    | indicates the original media type of the resource (prior to any content encoding applied for sending)                          | Content-Type: text/html; charset=UTF-8                        |
 
 ### Response
 
-Status line http version, status code and message, http headers and body
+A HTTP reponse is built very similiar to a request but instead of a request line it has a status line which also holds the version of the HTTP protocol to be used followed by a status code and message.
+![httpResponse](/img/programming/httpResponse.png)
 
 #### Codes
 
+![httpReponseCodes](/img/programming/httpReponseCodes.png)
+
 #### Headers
 
-### MIMI Types
+| Key               | Description                                                                                                                               | Example                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Content-Length    | indicates the size of the message body, in bytes, sent to the recipient                                                                   | Content-Length: 4                            |
+| Content-Type      | indicates the original media type of the resource (prior to any content encoding applied for sending)                                     | Content-Type: text/html; charset=UTF-8       |
+| Content-Encoding  | lists any encodings that have been applied to the representation (message payload), and in what order                                     | Content-Encoding: gzip                       |
+| Location          | indicates the URL to redirect a page to. It only provides a meaning when served with a 3xx (redirection) or 201 (created) status response | Location: /index.html                        |
+| Date              | contains the date and time at which the message originated                                                                                | Date: Wed, 21 Oct 2015 07:28:00 GMT          |
+| Last-Modified     | contains a date and time when the origin server believes the resource was last modified                                                   | Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT |
+| Expires           | contains the date/time after which the response is considered expired                                                                     | Expires: Wed, 21 Oct 2015 07:28:00 GMT       |
+| Server            | describes the software used by the origin server that handled the request                                                                 | Server: Apache/2.4.1 (Unix)                  |
+| Transfer-Encoding | specifies the form of encoding used to safely transfer the payload body to the user                                                       | Transfer-Encoding: chunked                   |
+| Cache-Control     | control caching in browsers and shared caches                                                                                             | Cache-Control: no-cache                      |
 
-Multipurpose Internet Mail Extensions (MIME)
-Standard for sending multipart, multimedia data through internet email
-Format: media type = type subtype { “;” parameter }
+### MIME Types
+
+The Content-Type or MIME (Multipurpose Internet Mail Extensions) type specifies type of the body, like text/javascript or something else like audio, video, etc. being sent between client and server. MIME types are not limited to HTTP, they are used in many other locations.
+
+`Media-Type = type / subtype { “;” parameter }`
+
 Types: text / image / audio / video / application / message / multipart
-Subtypes starting with x are non standard subtypes
-text/ html;charset =ISO 8859 1
-application/octet stream
-image/jpeg
+
+Subtypes that start with x are non standard subtypes.
+
+For example:
+
+- Media-Type: text/html;charset =ISO 8859 1
+- Media-Type: application/octet stream
+- Media-Type: image/jpeg
 
 ### Enhancements
 
@@ -65,7 +104,3 @@ Over the years the HTTP protocol has been enhanced and newer versions have been 
 - Multiple requests can now be sent in parallel over a single TCP connections.
 - HPACK, headers are compressed and cached on the server
 - Servers can push resources together with a requested resources for example a script or css file along with a HTML page.
-
-## Web server using Java
-
-## Servlets
