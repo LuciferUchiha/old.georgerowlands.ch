@@ -18,4 +18,33 @@ There are a few different ways how threads can be bound.
 
 ## Scheduling
 
+Scheduling is done by the kernel and is the act of allocating CPU time to threads. It also has to make sure that per CPU core only one thread is running at any given time. There are mainly two scheduling models. It is up to the java implementation but we can assume that in most cases it will be preemptive.
+
+### Cooperative
+
+With cooperative scheduling the threads decide, when they should give up the processor to other threads.
+
+![cooperativeScheduling](/img/programming/cooperativeScheduling.png)
+
+### Preemptive
+
+With preemptive scheduling the jvm/kernel interrupts the threads at any time. This stops threads from unfairly hogging the processor.
+
+![preemptiveScheduling](/img/programming/preemptiveScheduling.png)
+
 ## Java threads
+
+main is a non daemon intial thread.
+Runnable is a functional interface with one function run(). Thread is a class which takes a runnable and implements Runnable in it's run function it calls the run function of the passed runnable. start() starts a new thread to execute run methods and returns immideatly.
+
+Extending Thread is possible and any easy and simple way, however it is better to implement runnable seperatly Because it is a better seperation of concerns, and you can still easly access the thred mehtods thanks to static imports.
+
+Because it is a functional interface you can also use lambdas.
+
+yield function hints the scheduler that the thread is willing to yield its use of the processor but it can just be ignored by the processor.
+
+join(x) waits for the thread to termiante for max of x seconds. setDaemon marks the thread either as deamon or user thread. Daemon threads run in background, must be set before start is called. if a process only has demon threads left then the process stops.
+
+threads can have priorities range of 1 to 10. jvm is free to implement these so could also be ignored.
+
+Threads state example from locks slide.
