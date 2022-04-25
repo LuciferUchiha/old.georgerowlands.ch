@@ -14,7 +14,7 @@ Allthough all threads share the main memory each thread has several cache levels
 ![cpuMemoryLayout](/img/programming/cpuMemoryLayout.png)
 ![memoryLayoutExample1](/img/programming/memoryLayoutExample1.png)
 
-When running the program all 6 (Amdahl's law) possible interleaving can happen so we would think that the values would be (1,0),(1,1),(0,1) but when running the program we can also get (0,0) this is due to either compiler reordering or caching.
+When running the program all 6 possible interleaving can happen so we would think that the values would be (1,0),(1,1),(0,1) but when running the program we can also get (0,0) this is due to either compiler reordering or caching.
 
 ![memoryLayoutExample2](/img/programming/memoryLayoutExample2.png)
 
