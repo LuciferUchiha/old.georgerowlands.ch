@@ -1,7 +1,7 @@
 ---
 title: Executor Framework
 description: TODO
-tags: [concurrent programming, executors, workers]
+tags: [concurrent programming, executor, workers, callable, runnable, future]
 ---
 
 The Java executor framework is used to run and manage Runnable objects, so called Tasks. It does this using so called workers or worker threads which are most often managed as part of a ThreadPool. Depending on the configuration of the pool instead of creating new threads every time the so called channel will try and reuse already created threads. Any excess tasks flowing into the channel that the threads in the pool can't handle at the minute are held in some form of data structure like a BlockingQueue. Once one of the threads has finished its task and gets free, it picks up the next task from the channel.
@@ -103,5 +103,57 @@ interface ExecutorService extends Executor {
     <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException;
     // Executes the given tasks, returning the result of one that has completed successfully if any do.
     <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException;
+}
+```
+
+## FactorialCalculator example
+
+In this example each task will return the factorial of a given number.
+
+```java
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        List<Future<Long>> resultList = new ArrayList<>();
+
+        for (long i = 1; i <= 20; i++) {
+            Future<Long> result = executor.submit(new FactorialCalculator(i));
+            resultList.add(result);
+        }
+
+        executor.shutdown();
+        executor.awaitTermination(10, TimeUnit.SECONDS);
+
+        for (int i = 0; i < resultList.size(); i++) {
+            Future<Long> result = resultList.get(i);
+            Long number = null;
+            number = result.get(); // waits for next result
+            System.out.println(i+"::\t"+number);
+        }
+
+        executor.shutdown();
+    }
+
+    private static class FactorialCalculator implements Callable<Long> {
+        private final Long number;
+
+        public FactorialCalculator(Long number) {
+            this.number = number;
+        }
+
+        @Override
+        public Long call() throws Exception {
+            long result = 1;
+            if (number == 0 || number == 1) {
+                result = 1;
+            } else {
+                for (int i = 2; i <= number; i++) {
+                    result *= i;
+                }
+            }
+            return result;
+        }
+    }
 }
 ```
