@@ -6,39 +6,48 @@ tags: [java, collections, data structures, linked list]
 
 ## Arrays vs Linked lists
 
-When implementing collections with arrays we encounter the following issues. An array needs a given size which leads us to implementing algorithms that either always when adding an element make an array that is one size larger, copying everything over and then adding the new element. Or when the array gets full we increase its size by either a fixed amount that could also possibly go up depending on how many times we have already increased the size. Meaning the array is either always full(first algorithm) or we are using to much space.
+When implementing collections with arrays we can encounter a few issues. An array uses a fixed given size which leads us to implementing algorithms that only work for that fixed amount. To solve this issue when adding elements we could also make an array that is one size larger, copy everything over and then add the new element. Another approach is when the array gets full we increase its size by either a fixed amount that could also change depending on how many times we have already increased the size. Meaning the array is either always full or we use to much space.
 
-The advantage of a linked list, which has nodes that have a value and a reference of the next node. The linked list then just needs to know the first node and can then make its way through the list. With this method the size of the collection is dynamic we can just add nodes onto the end.
+You can imagine a linked to be like a chain. It consists of nodes that have a value and a reference of the next node. The linked list then just needs to know the first node and can then make its way through the list. With this method the size of the collection is dynamic and we can add as many elements as we want (limited by memory).
 
 ![arraysVsLinkedList](/img/programming/arraysVsLinkedList.png)
 
 ## Variations
 
+There are various variations of linked lists which all have there use cases.
+
 ### Singly linked list
 
-This is default when talking about linked lists. A node has a value and a reference to the next element.
+This is the common implementation when talking about linked lists. A node has a value and a reference to the next element.
 
 ### Doubly linked list
 
-Here unlike the singly linked list a node has a value, a reference to the next element and also a reference to the previous element. This makes removing of node much easier.
+Here unlike the singly linked list a node has a value, a reference to the next element and additionally also a reference to the previous element. This makes removal of node much easier.
+
+![doublyLinkedList](/img/programming/doublyLinkedList.png)
 
 ### Circular linked list
 
-In a circular linked list the last element does not have a reference to null as the next element but the root making the list like a circle.
+In a circular linked list the last element does not have a reference to null as the next element but instead the head which allows the linked list to be visualized as a circle.
+
+![circularLinkedList](/img/programming/circularLinkedList.png)
 
 ## Implementing a linked list
 
-Just as with the all other collections there are lots of ways to implement a linked list depending on your use case.
-
 ### Add
 
-Here there are a few options. Either you can make your way to the end of the linked list and add the new element on to the end. This however has a complexity of O(n) which is not ideal. So we could keep a reference in the list of not only the root but also the tail, the last element. Another option is to just add it to the front of the list, so it becomes the new root and its reference to the next node is the old root.
+When implementing the `add(E e)` function there are a few options:
+
+- You can iterate your way through the linked list to the end and then add the new element onto the end. This however has a complexity of $O(n)$ which is not ideal for a simple operation.
+- To solve the above issue we can keep a private reference in the list of not only the head but also the tail (last element) of the linked list.
+- There is no rule saying you have to add an element at the end. You can also just add it to the front of the list, so it becomes the new head and its reference to the next node is the old head.
 
 ### Remove
 
-When removing there is only really one way of doing it and that is to find the node that holds the value to be removed (curr) whilst also remembering the previous node (prev) and then setting the reference of the prev.next to curr.next.
+When implementing the `remove(Object o)` function there is only really one way of doing it and that is to find the node that holds the value to be removed `curr` whilst also remembering the previous node `prev` and then setting the reference of the `prev.next` to `curr.next`. This can be made easier as mentioned above by storing in each node a reference to the previous element to make it a doubly linked list.
+
 ![linkedListRemove](/img/programming/linkedListRemove.png)
 
 ### Contains
 
-Here you just need to search the linked list until you either reach the end or have found the value.
+When implementing the `contains(Object o)` you have to iterate over the entire linked list to see if you find the element or reach the end.
