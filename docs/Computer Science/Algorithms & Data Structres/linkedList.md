@@ -51,3 +51,9 @@ When implementing the `remove(Object o)` function there is only really one way o
 ### Contains
 
 When implementing the `contains(Object o)` you have to iterate over the entire linked list to see if you find the element or reach the end.
+
+### Example
+
+```java title="MySingleLinkedList.java"
+// TODO
+```
