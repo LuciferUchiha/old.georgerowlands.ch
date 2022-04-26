@@ -24,6 +24,7 @@ The iterator interface also provides a `void remove()` method. This method remov
 When removing elements with the iterator we can however encounter problems when there are multiple iterators in a concurrent environment. This issue can be solved with a modification counter (modCount) which we increase by 1 whenever the underlying collection is changed, for example when adding or removing an element. When an iterator is instantiated the modCount is copied and  continuously checked if it is the same as the underlying modCount of the collection if not then a `ConcurrentModificationException` is thrown. How this works for different collections in java is [explained here](https://stackoverflow.com/a/5847949/10994912).
 
 ```java
+// TODO what is the underlying collection????
 @Override
 public Iterator < E > iterator() {
     return new MyIterator();
