@@ -1,65 +1,78 @@
-# Iterator
+---
+title: Iterators
+description: Iterators
+tags: [java, collections, data structures, iterators]
+---
 
-An iterator is an object that enables us to traverse a collection. A Iterator allows holds the value of the next element, apart from at the beginning it holds a reference to the first element. The next() returns the value pointed to by the iterator and then advances the iterator. Iterators often have the method hasNext() which returns false once it is at the end. In java the foreach syntax sugar internally uses a iterator.
+The `Iterator<E>` interface allows us to implement objects that can be used to traverse a collection that contains elements of type `E`. An iterator always holds the value of the next element, apart from at the beginning of an iteration, where it holds a reference to the first element. In java the foreach loop uses an iterator internally, meaning to use a foreach loop on an object it needs to implement the iterator interface. When implementing an iterator you often do this with an internal private final class in the collection class as you then have access to the internal structure of the collection.
 
-In java there are also ListIterators which allow you to iterate in both directions, with next() and previous().
+```java
+int[] numbers = {3, 9, 5, -5};
+for (int number : numbers) {
+    System.out.println(number);
+}
+```
 
-When implementing an iterator you often do this with an internal class in the collection class as you then have access to the internal structure of the collection.
+The `E next()` function returns the value which the iterator is pointing to and advances the iterator to the next element.
 
-## Remove
+The `boolean hasNext()`function returns false once the iterator has reached the end of the collection.
 
-Iterators also have a remove() method. This method removes the most recently returned element from the collection.
+The iterator interface also provides a `void remove()` method. This method removes the most recently returned element from the iterator.
 
 ![iteratorRemove](/img/programming/iteratorRemove.png)
 
-We can however encounter problems with removing when there are multiple iterators, for example when our application is multithreaded. This issue can be solved with a modification counter which we increase by 1 whenever we change the collection so when adding or removing. When an iterator is instantiated it copies the modCount and checks continuously if the modCounts are the same if not we throw a ConcurrentModificationException.
-
-Our Iterator then looks something like the following
+When removing elements with the iterator we can however encounter problems when there are multiple iterators in a concurrent environment. This issue can be solved with a modification counter (modCount) which we increase by 1 whenever the underlying collection is changed, for example when adding or removing an element. When an iterator is instantiated the modCount is copied and  continuously checked if it is the same as the underlying modCount of the collection if not then a `ConcurrentModificationException` is thrown. How this works for different collections in java is [explained here](https://stackoverflow.com/a/5847949/10994912).
 
 ```java
 @Override
- public Iterator<E> iterator() {
-  return new MyIterator();
- }
+public Iterator < E > iterator() {
+    return new MyIterator();
+}
 
- private class MyIterator implements Iterator<E> {
-  private Node<E> next= first, p = null, pp = null;
-  private int myModCount = modCount;
-  private boolean mayRemove = false;
+private final class MyIterator implements Iterator < E > {
+    private Node < E > next = first,
+    p = null,
+    pp = null;
+    private int myModCount = modCount;
+    private boolean mayRemove = false;
 
-  @Override
-  public boolean hasNext() {
-   return next != null;
-  }
+    @Override
+    public boolean hasNext() {
+        return next != null;
+    }
 
-  @Override
-  public E next() {
-   if (modCount != myModCount) 
-    throw new ConcurrentModificationException();
-   if (next == null) 
-    throw new NoSuchElementException();
-   E e = next.elem;
-   if (p != null) pp = p;
-   p = next;
-   next = next.next;
-   mayRemove = true;
-   return e;
-  }
+    @Override
+    public E next() {
+        if (modCount != myModCount)
+            throw new ConcurrentModificationException();
+        if (next == null)
+            throw new NoSuchElementException();
+        E e = next.elem;
+        if (p != null) pp = p;
+        p = next;
+        next = next.next;
+        mayRemove = true;
+        return e;
+    }
 
-  @Override
-  public void remove() {
-   if (modCount != myModCount) 
-    throw new ConcurrentModificationException();
-   if (!mayRemove) 
-    throw new IllegalStateException();
-   if (pp != null) pp.next = next;
-   else first = next;
-   if (next == null) last = pp;
-   p = pp;
-   mayRemove = false;
-   size--;
-   modCount++;
-   myModCount = modCount;
-  }
- }
+    @Override
+    public void remove() {
+        if (modCount != myModCount)
+            throw new ConcurrentModificationException();
+        if (!mayRemove)
+            throw new IllegalStateException();
+        if (pp != null) pp.next = next;
+        else first = next;
+        if (next == null) last = pp;
+        p = pp;
+        mayRemove = false;
+        size--;
+        modCount++;
+        myModCount = modCount;
+    }
+}
 ```
+
+## ListIterator
+
+In java there is also the `ListIterator<E>` interface which extends the `Iterator<E>` interface. This interface adds functionality  which allows for iteration in both directions, with the `E next()` and `E previous()` functions.
