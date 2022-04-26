@@ -1,4 +1,8 @@
-# Graph traversal
+---
+title: Graph Traversal
+description: Graph Traversal
+tags: [java, collections, data structures, algorithms, graphs, depth first search, breadth first search, spanning trees]
+---
 
 The goal of graph traversal is to visit each vertex in a graph. This can be done a multitude of ways.
 
@@ -92,7 +96,7 @@ If there is an no unvisited vertex in step 3 then the graph is connected.
 
 If we find an unvisited graph $w$ in step 3 we call $dfs(w)$ and repeat step 3 until there all vertices are visited. The number of $dfs()$ calls correspond to the amount of connected components.
 
-### Spanning tree
+### Spanning Trees
 
 A spanning tree is a subgraph of a graph that is a tree that contains all the vertices of the graph. For there to be a spanning tree the graph must be connected.
 

@@ -1,4 +1,8 @@
-# General definition
+---
+title: General Definition
+description: General Definition
+tags: [java, collections, data structures, algorithms, trees]
+---
 
 Trees have **nodes** that hold the data and **edges** which connect the nodes. An **empty tree** obviously has no nodes and therefore no data.
 

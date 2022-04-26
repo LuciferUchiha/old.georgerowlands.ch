@@ -1,7 +1,7 @@
 ---
-title: Stack
-description: Stack
-tags: [java, collections, data structures, stack]
+title: Stacks
+description: Stacks
+tags: [java, collections, data structures, stacks]
 ---
 
 A stack is as the name says like a stack of paper. Meaning it follows the LIFO policy (last in first out). The most common operations on queues are:
@@ -16,4 +16,4 @@ A stack is as the name says like a stack of paper. Meaning it follows the LIFO p
 
 ### Stack Using two Queues
 
-Although the most common way of implementing a stack is with a [linked list](./linkedList) it is also possible to implement a stack by using two queues. Just like when [implementing a queue with two stacks](./queue#queue-using-two-stacks) you need to decide if adding or removing an element will be expensive.
+Although the most common way of implementing a stack is with a [linked list](./linkedLists) it is also possible to implement a stack by using two queues. Just like when [implementing a queue with two stacks](./queues#queue-using-two-stacks) you need to decide if adding or removing an element will be expensive.

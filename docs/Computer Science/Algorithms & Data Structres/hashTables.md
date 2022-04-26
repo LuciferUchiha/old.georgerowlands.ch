@@ -1,6 +1,10 @@
-# Hash tables
+---
+title: Hash tables
+description: Hash tables
+tags: [java, collections, data structures, algorithms, hashing, hash tables]
+---
 
-## General requirements
+## Motivation
 
 Imagine we want to be able to access data with O(1) using the data's key.
 
@@ -14,7 +18,7 @@ $$(a.equals(b)) \Rightarrow (a.hashCode() == b.hashCode())$$
 
 So if 2 objects are the same then their hash Code must be the same as well. However if 2 hash codes are the same it does not necessarily mean that the objects are the same. If this happens we call it a collision.
 
-## Hash function
+## Hashing Function
 
 We want the index to be calculated as fast as possible. We also from the above requirements want the same key to have the same index. We also want the hash codes and therefore the indices to be evenly distributed so that as little collusions happen as possible.
 
@@ -22,7 +26,7 @@ For the beggining we just decide to do the following
 
 $$index = hash code \,\%\, table.length()$$
 
-## Hash code
+## Hash Code
 
 We went the generated hash code to be randomly spread across the entire range of an int.
 
@@ -59,7 +63,7 @@ public final class String {
 }
 ```
 
-## Java HashMap
+## HashMap
 
 A Java HashMap has always a power of 2 as size. This then leads to the map reserving twice as much memory then it actually needs in the worst case. The advantage is that it is very easy to calculate powers of 2 thanks to bit shifts. IT also allows us to change the hash function (hashCode() & 0x7FFFFFFF) % length to hashCode() & (length -1). The bitmask with 0x7FFFFFFF ensures that the hash code is positive.
 
@@ -75,7 +79,7 @@ private int indexFor(int h) {
 }
 ```
 
-## Collision resolution
+## Collision Resolution
 
 As mentioned before collisions can happen and we can't really avoid them. Which is why we need to come up with a way to deal with them.
 

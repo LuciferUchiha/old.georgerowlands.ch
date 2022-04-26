@@ -1,7 +1,7 @@
 ---
-title: Linked List
-description: Linked list
-tags: [java, collections, data structures, linked list]
+title: Linked Lists
+description: Linked lists
+tags: [java, collections, data structures, linked lists]
 ---
 
 ## Arrays vs Linked Lists

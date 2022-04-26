@@ -1,4 +1,8 @@
-# Shortest Path
+---
+title: Shortest Path
+description: Shortest Path
+tags: [java, collections, data structures, algorithms, graphs, shortest path, breadth first search, dijkstra's algorithm]
+---
 
 Before we see how to find the shortest path from vertex $a$ to vertex $b$ we need to define a few things.
 

@@ -1,4 +1,8 @@
-## Binary Tree
+---
+title: Binary Trees
+description: Binary Trees
+tags: [java, collections, data structures, algorithms, trees, binary tree, binary search tree, avl tree, balanced trees]
+---
 
 A binary tree is a tree with the order of 2. Meaning that a node is either a leaf or has left and/or right child.
 

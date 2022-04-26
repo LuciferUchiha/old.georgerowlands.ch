@@ -1,4 +1,8 @@
-# Heaps
+---
+title: Heaps
+description: Heaps
+tags: [java, collections, data structures, algorithms, heaps, priority queues, heapsort, floyd's construction]
+---
 
 ## Priority queue
 
