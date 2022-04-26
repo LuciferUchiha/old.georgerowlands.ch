@@ -4,6 +4,16 @@ description: Stack
 tags: [java, collections, data structures, stack]
 ---
 
-A Stack is like a pile of clothes or paper. Meaning it follows LIFO, last in first out. You can either push(put something on top) or pop(take something of the top). Often the operation peek/top is defined which returns the reference of the top element, so the next to be poped. A stack can be very easily implemented using a linked list. It can also be implemented using 2 Queues if you like to make life hard.
+A stack is as the name says like a stack of paper. Meaning it follows the LIFO policy (last in first out). The most common operations on queues are:
 
-## Stack using 2 Queues
+- `push(E e)`: Puts the element onto the top of the stack.
+- `E pop()`: Takes the element from the top of the stack.
+- `E peek()`: Returns the element at the top of the stack, which corresponds to the element to next be popped.
+
+![stack](/img/programming/stack.png)
+
+## Implementing a Stack
+
+### Stack Using two Queues
+
+Although the most common way of implementing a stack is with a [linked list](./linkedList) it is also possible to implement a stack by using two queues. Just like when [implementing a queue with two stacks](./queue#queue-using-two-stacks) you need to decide if adding or removing an element will be expensive.

@@ -4,6 +4,16 @@ description: Queue
 tags: [java, collections, data structures, queue]
 ---
 
-A Queue is as the name says like a queue of people. Meaning it follows FIFO, first in first out. You can either enqueue(add to the back) or dequeue(take from the front). Here the peek/element method returns the front element so the one to be next dequeued. A queue can also be very easily implemented using a linked list but it is also possible to do it with 2 Stacks.
+A queue is as the name says like a queue of people. Meaning it follows the FIFO policy (first in first out). The most common operations on queues are:
 
-## Queue using 2 Stacks
+- `enqueue(E e)`: Adds an element to the rear of the queue.
+- `E dequeue()`: Takes the element from the front of the queue.
+- `E peek()`: Returns the element at the front of the queue, which corresponds to the element to next be dequeued.
+
+![queue](/img/programming/queue.png)
+
+## Implementing a Queue
+
+### Queue Using two Stacks
+
+Although the most common way of implementing a queue is with a [linked list](./linkedList) it is also possible to implement a queue by using two stacks. Just like when [implementing a stack with two queues](./stack#stack-using-two-queues) you need to decide if adding or removing an element will be expensive.

@@ -6,7 +6,7 @@ tags: [java, collections, data structures, algorithms, bag, binary search]
 
 A bag is a data structure that can contain the same element multiple times which is why it also often called multiset. The order of adding elements is not necessarily given, this depends on the implementation. Common operations on a bag are adding elements, removing elements and searching for a specific element.
 
-## Array implementations
+## Implementing a Bag
 
 One of the simplest ways of implementing data structures is by using arrays. When implementing a data structure the time complexities can be different on whether the data is always in a sorted state or not.
 
@@ -20,7 +20,7 @@ When implementing a sorted collection in Java you can either implement your own 
 // TODO
 ```
 
-### Time complexities
+### Time Complexities
 
 | Operation        | UnsortedBag                                | SortedBag                                             |
 | ---------------- | ------------------------------------------ | ----------------------------------------------------- |

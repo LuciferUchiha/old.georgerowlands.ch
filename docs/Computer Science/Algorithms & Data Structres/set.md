@@ -6,7 +6,7 @@ tags: [java, collections, data structures, algorithms, set, binary search]
 
 A set is a data structure that can hold unique elements. It represents a mathematical set which in german is called a "Menge". This means that an element is either in the set or it isn't. Just like with a bag you have the common operations of adding elements, removing elements and searching for a specific element.
 
-## Array implementations
+## Implementing a Set
 
 ```java title="UnsortedSet.java"
 // TODO
