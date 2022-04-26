@@ -2,10 +2,10 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const prismAdditionalLanguages = require('./prismLanguages');
 const math = require('remark-math');
 const katex = require('rehype-katex');
 const mermaid = require('mdx-mermaid');
+const prismAdditionalLanguages = require('./prismLanguages');
 
 const mySocials = [
   {
