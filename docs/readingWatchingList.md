@@ -1,6 +1,6 @@
 ---
-sidebar_position: 2
-title: Reading/Watching List
+sidebar_position: 3
+title: Reading&Watching List
 description: A collection of articles, books and videos I have read or watched and would recommend to others
 ---
 
@@ -11,7 +11,7 @@ This is a collection of articles, books and videos I have read or watched and wo
 ### Books
 
 - ["The ANSI C Programming Language 2nd edition" by Brian Kernighan and Dennis Ritchie](https://books.google.ch/books?id=OpJ_0zpF7jIC&source=gbs_navlinks_s)<br/>
-  I honestly didn't finish this book as it was just very repetitive. However you could I definetly tell that it was very detailed in its explanations. It was also interesting to see what they thought about the language so many years ago and how little has changed. You might also find it [here as a pdf](https://github.com/MTJailed/C-Programming-Books/blob/master/The%20ANSI%20C%20Programming%20Language.pdf).
+  I honestly didn't finish this book as it was just very repetitive. However in what I read I could definitely tell that it was very detailed in its explanations. It was also interesting to see what they thought about the language so many years ago and how little has changed. You might also find it [here as a pdf](https://github.com/MTJailed/C-Programming-Books/blob/master/The%20ANSI%20C%20Programming%20Language.pdf).
 
 - ["Effective C" by Robert C. Seacord](https://nostarch.com/Effective_C)<br/>
   I found this a good introduction and has some very good knowledge on C. I was a bit confused by the structure of the book especially the first few chapters but the content is great. You might also find it [here as a pdf](https://dokumen.pub/qdownload/effective-c-an-introduction-to-professional-c-programming-1nbsped-1718501048-9781718501041.html).
