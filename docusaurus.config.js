@@ -121,6 +121,12 @@ const config = {
           },
         ],
       },
+      algolia: {
+        appId: '17CW5I4GY9',
+        apiKey: 'e0e81c9c8c55a38be2a1338a6921e95a',
+        indexName: 'georgerowlands',
+        searchPagePath: 'search',
+      },
       footer: {
         style: 'light',
         links: [
