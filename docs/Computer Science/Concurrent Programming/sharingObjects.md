@@ -1,7 +1,7 @@
 ---
 title: Safe object sharing
 description: TODO
-tags: [concurrent programming, synchronization]
+tags: [concurrent programming, synchronization, immutability]
 ---
 
 Instead of synchronizing objects to make sure that nothing breaks when sharing objects there are two alternatives. Either you make the object immutable then the object can never share so there shouldn't be any inconsistent state. Or you just don't share the state variable across threads.
