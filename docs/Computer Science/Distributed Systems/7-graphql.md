@@ -1,7 +1,7 @@
 ---
 title: GraphQL
 description: GraphQL
-tags: distributed systems, [graphql]
+tags: [distributed systems, graphql]
 ---
 
 ## Problems with REST
