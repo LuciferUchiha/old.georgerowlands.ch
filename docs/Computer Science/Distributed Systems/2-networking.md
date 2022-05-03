@@ -1,3 +1,9 @@
+---
+title: Networking
+description: Networking
+tags: [distributed systems, tcp/ip, sockets]
+---
+
 ## TCP/IP and OSI Model
 
 We define protocols as a means to standardize how computers interact with each other no matter the manufacturer or the parts inside. The most commonly used protocols are TCP, UDP and IP. The TCP/IP and OSI models splits protocols into four layers depending on their tasks.
@@ -30,18 +36,3 @@ There are stream Sockets which use the TCP protocol and provide a reliable byte 
 Datagram Sockets use the UDP protocol and aren't as reliable as Stream Sockets.
 
 ![sockets](/img/programming/sockets.png)
-
-## Networking in Java
-
-InetAddress class and IPv4 and IPv6 implementations.
-NetworkInterface class
-
-### Echo client
-
-### Echo server
-
-### Concurrent echo server
-
-### Closing sockets
-
-### Compress server

@@ -1,7 +1,7 @@
 ---
 title: RESTful APIs
 description: REST
-tags: [distributed systems, rest]
+tags: [distributed systems, rest, jakarta, jax-rs, jersey, openapi]
 ---
 
 REST stands for "Representational State Transfer" and is a architecture for distributed systems. The term REST originated in Roy Fielding's PhD in 2000 who was one of the main authors of the HTTP protocol specification. REST does not enforce any rules regarding how it should be implemented however it does define some design guidelines/constraints that should be followed if the system is to be truly RESTful.
