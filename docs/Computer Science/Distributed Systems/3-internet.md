@@ -21,6 +21,8 @@ A HTTP request consists of a request line which holds the method of the request 
 
 #### Methods
 
+Idempotent means that multiple identical requests will have the same outcome. So it does not matter if a request is sent once or multiple times. The following HTTP methods are idempotent: GET, HEAD, OPTIONS, TRACE, PUT and DELETE.
+
 ![httpRequestMethods](/img/programming/httpRequestMethods.png)
 
 #### Headers
