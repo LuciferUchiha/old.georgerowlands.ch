@@ -188,6 +188,29 @@ public class XStreamProvider implements MessageBodyReader<Object>, MessageBodyWr
 }
 ```
 
+#### Conditional Get
+
+For performance reasons we don't want to transfer resources if they have not changed which is why we can do conditional GETs two different ways with the help of headers.
+
+When sending a response we can add the "Last-Modified" header and then when sending a request for the same resource we can use the value in the "If-Modified-Since" Header. This can then either return with a modified value or with a 304, not modified status.
+
+We can also use the "ETag" and "If-None-Match" headers which work pretty much the same. The ETag (entity tag) value is an identifier which represents a specific version of the resource.  Common methods of ETag generation are using a hash of the resource's content or just hash of the last modification timestamp.
+
+```java
+Date lastModifiedDate = ...
+// EntityTag eTag = ...
+Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(lastModifiedDate);
+if (responseBuilder == null) {//last modified date didn't match, send new content
+    return Response.ok("dummy user list")
+                    .lastModified(lastModifiedDate)
+                    //.tag(tag)
+                    .build();
+} else {
+
+    return responseBuilder.build();  //sending 304 not modified
+}
+```
+
 ### Deployment with Jersey
 
 You need to register Jersey as the servlet dispatcher for REST requests in the `web.xml` file.
