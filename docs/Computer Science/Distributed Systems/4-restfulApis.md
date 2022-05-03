@@ -241,3 +241,45 @@ public class Server {
     }
 }
 ```
+
+### Documenting with OpenAPI
+
+The OpenAPI Specification (OAS) defines a standard interface description for REST APIs. Swagger is a set of open-source tools that are built around OpenAPI.
+
+- Swagger Annotations: Annotations that can be added to Java implementations to generate OpenAPI specifications.
+- Swagger Editor: Editor for writing OpenAPI specifications.
+- Swagger UI: Renders OpenAPI specifications into an interactive API documentation with which REST services can be tested.
+- Swagger Codegen: Generates server and clients from an OpenAPI specification.
+
+```java
+@Singleton
+@Path("/products")
+@OpenAPIDefinition(
+    info = @Info(
+        title ="Products",
+        description ="Service to manage products",
+        version = "2022.05"
+    ),
+    servers = @Server(url = "http://localhost:3001")
+)
+public class ProductResource{
+
+    @GET
+    @Path("{id}")
+    @Operation(
+        summary = "Get product by id",
+        description = "Returns a single product",
+        responses = {
+            @ApiResponse(responseCode = "200",
+                description = "Successful operation",
+                content = @Content(
+                    schema = @Schema(implementation = Product.class)
+            )),
+            @ApiResponse(responseCode = "404",
+                description = "Product not found"
+            ),
+        }
+    )
+    public Response getProduct(@PathParam("id") String id) { ... }
+}
+```
