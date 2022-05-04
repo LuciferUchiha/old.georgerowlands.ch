@@ -38,6 +38,13 @@ const config = {
     [
       '@docusaurus/preset-classic',
       {
+        sitemap: {
+          changefreq: 'daily',
+          priority: 0.5,
+        },
+      },
+      '@docusaurus/preset-classic',
+      {
         docs: {
           remarkPlugins: [math, mermaid],
           rehypePlugins: [katex],
