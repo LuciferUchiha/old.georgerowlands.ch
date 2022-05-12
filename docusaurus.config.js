@@ -38,13 +38,6 @@ const config = {
     [
       '@docusaurus/preset-classic',
       {
-        sitemap: {
-          changefreq: 'daily',
-          priority: 0.5,
-        },
-      },
-      '@docusaurus/preset-classic',
-      {
         docs: {
           remarkPlugins: [math, mermaid],
           rehypePlugins: [katex],
@@ -64,6 +57,10 @@ const config = {
         gtag: {
           trackingID: 'G-7C73QGFCVK',
           anonymizeIP: true,
+        },
+        sitemap: {
+          changefreq: 'daily',
+          priority: 0.5,
         },
       },
     ],
