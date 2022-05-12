@@ -1,22 +1,29 @@
-# Mediterranean chicken
-**Serves**: 2
-**Preparation Time**: TBD
-**Cooking Time**: TBD
+---
+title: Mediterranean Chicken
+description: Mediterranean Chicken
+tags: [chicken, bbq, marinade]
+---
+
+| Serves | Preparation Time | Cooking Time |
+| ------ | ---------------- | ------------ |
+| 4      | TBD              | TBD          |
+
 ## Ingredients
 
--   4 chicken thighs
--   1 tsp Dijon mustard
--   3 tbsp white wine vinegar
--   2 tsp chopped garlic
--   2 tsp honey
--   1 tsp sea salt
--   2-3 tbsp olive oil
--   2-3 sprigs fresh thyme
+| Ingredient              | Amount |
+| ----------------------- | ------ |
+| Chicken thighs          | 4      |
+| Mustard - dijon         | 1 tsp  |
+| Vinegar - white wine    | 3 tbsp |
+| Garlic cloves - chopped | 2      |
+| Honey                   | 2 tsp  |
+| Salt                    | 1 tsp  |
+| Oil - olive             | 3 tbsp |
+| Thyme sprigs            | 3      |
 
 ## Instructions
 
-1.  Place mustard, vinegar, garlic, thyme, honey, salt in small bowl and stir
-2. Add oil, a little at a time and whisk in.
-3. Score chicken so marinade gets in easier.
-4. Pour in zip lock bag with meat and leave in fridge to marinade 2+ hours.
-5. Cook till done.
+1. Put everything except the chicken in a large bowl and whisk well till combined.
+2. Score chicken so that the marinade soaks better.
+3. Carefully pour marinade into a zip lock bag and add chicken.
+4. Leave to marinade in the fridge for at least 2 hours.

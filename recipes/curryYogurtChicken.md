@@ -15,7 +15,7 @@ tags: [chicken, bbq, marinade]
 | Chicken thighs                      | 4       |
 | Greek yogurt - plain nonfat         | 25 cl   |
 | Lemons - zest and juice             | 1       |
-| Garlic - chopped                    | 2       |
+| Garlic cloves - chopped             | 2       |
 | Oil - avocado or extra virgin olive | 2 tbsp  |
 | Sriracha                            | 2 tbsp  |
 | Coriander - fresh and chopped       | 1/3 cup |
