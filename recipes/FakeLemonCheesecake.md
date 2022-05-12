@@ -1,22 +1,32 @@
-# Fake lemon cheesecake
-**Serves**: 12
-**Preparation Time**: TBD
-**Cooking Time**: TBD
+---
+title: Fake Lemon Cheesecake
+description: Fake Lemon Cheesecake
+tags: [dessert, cheesecake]
+---
+
+| Serves | Preparation Time | Cooking Time |
+| ------ | ---------------- | ------------ |
+| 12     | TBD              | TBD          |
+
 ## Ingredients
--   250g digestive biscuits
--   150g butter
--   5-6 lemons for juice and rind
--   400g (sweet) condensed milk, the thicc nestle one
--   3.5dl full fat cream
+
+| Ingredient                 | Amount |
+| -------------------------- | ------ |
+| Digestive biscuits         | 250 g  |
+| Butter                     | 150 g  |
+| Lemons - zest and juice    | 6      |
+| Condensed milk - sweetened | 400 g  |
+| Cream - double             | 3.5 dl |
 
 ## Instructions
-1. In plastic bag crush biscuits with rolling pin
-2. Melt butter gently in pan
-3. Add crushed biscuits with butter and mix well.
-4. Cover base of 26cm pie dish or loose bottomed tin with buiscits and press firmly down with spoon.
-5. Chill base in fridge
-6. Grate rind of 2 lemons, in bowl.
-7. Squezze 1.25dl of lemon juice sieve it and add it to bowl
-8. Add condensed milk to bowl and stir well
-9. Whip cream till stiff and fold into the lemon mix
-10. Pour lemon mix on top of base, chill for at least 3 hours
+
+1. In a plastic bag crush the biscuits with a rolling pin.
+2. In a pan gently melt the butter.
+3. Add the crushed biscuits to the melted butter and mix till combined.
+4. Cover the base of a 26 cm pie dish or loose bottomed tin with the biscuit mixture and press it firmly down with the back of a spoon.
+5. Chill the base in the fridge.
+6. Zest 2 lemons into a bowl.
+7. Squeeze the the lemons (about 1.25 dl) and pour the lemon juice through a sieve into the bowl.
+8. Add the condensed milk into the bowl and mix till combined.
+9. Whip the cream till it is stiff and then fold it into the lemon mixture.
+10. Pour the lemon mixture onto the base and let it chill for at least 3 hours.
