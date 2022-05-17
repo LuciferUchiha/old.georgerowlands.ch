@@ -70,20 +70,39 @@ Like most algorithms this algorithm works best if we map days of the week to num
 | Friday          | 5     | Fiveday    |
 | Saturday        | 6     | Six-a-day  |
 
-## Calculate Doomsday
+## Find Doomsday for a Given Year
 
-First we need to found out what the doomsday is for the century. We can either just remember the table below
+### Century Doomsday
+
+To find out which day of the week our doomsday is for given year we first need to found out what the doomsday is for the century. We can either just remember the table below
+
+| Century   | Mnemonic                                       | Doomsday  |
+| --------- | ---------------------------------------------- | --------- |
+| 1800–1899 | -                                              | Friday    |
+| 1900-1999 | "We in this day" as most people were born then | Wednesday |
+| 2000-2099 | Twosday because start with Twenty              | Tuesday   |
+| 2100-2199 | Twenty-one-day                                 | Sunday    |
 
 or calculate it using either of the following formulas where $c = \lfloor\frac{\text{year}}{100}\rfloor$
 
-$$\text{doomsday} = 5 \times (c \mod 4) \mod 7 + \text{Tuesday}$$
+$$\text{century} = 5 \times (c \mod 4) \mod 7 + \text{Tuesday}$$
 
-$$\text{doomsday} = c \mod 4 =
- \begin{cases}
- \text{Tuesday} &\text{if } = 0\\
- \text{Sunday} &\text{if } = 1\\
- \text{Friday} &\text{if } = 2\\
- \text{Wednesday} &\text{if } = 3\\
- \end{cases}$$
+$$\text{century} = c \mod 4 =
+\begin{cases}
+    \text{Tuesday} &\text{if } = 0\\
+    \text{Sunday} &\text{if } = 1\\
+    \text{Friday} &\text{if } = 2\\
+    \text{Wednesday} &\text{if } = 3\\
+\end{cases}$$
+
+### Year Doomsday
+
+The simplest way for computers to calculate the doomsday of a year $y$ is with the following formula
+
+$$\text{doomsday}=\text{Tuesday} + y + \lfloor\frac{y}{4}\rfloor-\lfloor\frac{y}{100}\rfloor+\lfloor\frac{y}{400}\rfloor$$
+
+Which is the equivalent to
+
+$$\text{doomsday}=\text{Tuesday} + 5 \times (y \mod 4) + 1 \times (y \mod 100)+ 6 \times (y \mod 400)$$
 
 ### "Odd + 11" Method
