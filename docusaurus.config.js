@@ -58,6 +58,10 @@ const config = {
           trackingID: 'G-7C73QGFCVK',
           anonymizeIP: true,
         },
+        sitemap: {
+          changefreq: 'daily',
+          priority: 0.5,
+        },
       },
     ],
   ],

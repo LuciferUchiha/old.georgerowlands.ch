@@ -1,7 +1,7 @@
 ---
 title: GraphQL
-description: TO BE DONEEEEE
-tags: [graphql]
+description: GraphQL
+tags: [distributed systems, graphql]
 ---
 
 ## Problems with REST
@@ -184,6 +184,10 @@ Wherever a SearchResult is used we might get a Human, a Droid, or a Starship. Im
 
 ### Schemas
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 ## Query language
 
 The query language is used to interact with the API. A query which describes the structure of the result is sent and a response in form of a JSON document is sent back.
@@ -365,7 +369,9 @@ query HeroForEpisode($ep: Episode!) {
 
 ### Mutations
 
-Mutations are used to modify, add or delete data on the server. Similiar to queries you can use operation names and also pass arguments
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ### Subscriptions
 

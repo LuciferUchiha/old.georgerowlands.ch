@@ -1,6 +1,6 @@
 ---
 title: General
-description: TO BE DONEEEEE
+description: General
 tags: [distributed systems]
 ---
 

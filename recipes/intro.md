@@ -1,7 +1,11 @@
 ---
 sidebar_position: 1
+title: What is this page?
 ---
 
-# Intro
+This page is for me to store my recipes and to have a quick lookup but also for me to share recipes with friends and family.
 
-This is where I store my recipes to share with friends and family.
+Plans for the future:
+
+- Recipe submissions
+- Likes & comments
