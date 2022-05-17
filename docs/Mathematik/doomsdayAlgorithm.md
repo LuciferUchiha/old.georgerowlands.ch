@@ -65,7 +65,7 @@ Like most algorithms this algorithm works best if we map days of the week to num
 | Sunday          | 0     | Sansday    |
 | Monday          | 1     | Oneday     |
 | Tuesday         | 2     | Twosday    |
-| Wednesday        | 3     | Treblesday |
+| Wednesday       | 3     | Treblesday |
 | Thursday        | 4     | Foursday   |
 | Friday          | 5     | Fiveday    |
 | Saturday        | 6     | Six-a-day  |
