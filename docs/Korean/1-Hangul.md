@@ -1,4 +1,8 @@
-# Hangul
+---
+title: Hangul
+description: Hangul
+tags: [korean, hangul, consonants, vowels, syllables]
+---
 
 Hangul is the alphabetic used for writing in South Korea. It consists of 24 letters, 14 of which are consonants and the other 10 letters are vowels. This consonants and vowels can be combined to create syllables.
 
