@@ -4,6 +4,10 @@ description: Basics
 tags: [scala]
 ---
 
+Why scala?
+
+Scala stands for scalable language.
+
 Variables:
 
 vals are immutable
@@ -63,6 +67,8 @@ return types can be infered but not with recursive becauase compilers cant figur
 can define auxilliary functions/ nested functions in functions.
 
 Recursion:
+
+In pure functional programming like haskell you dont use loops like while or for instead you use recursion. Scala also fully supports this witht the tailrec annotation.
 stack till recursion.
 
 factorial function has call stack so additional work becomes a Stackoverflow when stack runs out of space. To avoid this you write
