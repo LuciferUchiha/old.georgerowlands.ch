@@ -14,17 +14,7 @@ export default function AboutMe() {
     >
       <main>
         <h1>About me</h1>
-        <p>Hi,</p>
-        <Text>{introduction}</Text>
-        <Text>{carreerSummary}</Text>
-        <Text>{achievmentsSummary}</Text>
-        <Text>{freetimeSummary}</Text>
       </main>
     </Layout>
   );
 }
-
-const Text = styled.p`
-  width: 50vh;
-  overflow-wrap: word-break;
-`;
