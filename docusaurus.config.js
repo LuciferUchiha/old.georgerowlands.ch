@@ -4,7 +4,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const math = require('remark-math');
 const katex = require('rehype-katex');
-const myMermaid = require('mdx-mermaid');
+const mermaid = require('mdx-mermaid');
 const prismAdditionalLanguages = require('./prismLanguages');
 
 const mySocials = [
@@ -39,7 +39,7 @@ const config = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          remarkPlugins: [math, myMermaid],
+          remarkPlugins: [math, mermaid],
           rehypePlugins: [katex],
           sidebarPath: require.resolve('./sidebars.js'),
           exclude: ['**/Presentations/**'],
@@ -57,6 +57,10 @@ const config = {
         gtag: {
           trackingID: 'G-7C73QGFCVK',
           anonymizeIP: true,
+        },
+        sitemap: {
+          changefreq: 'daily',
+          priority: 0.5,
         },
       },
     ],
