@@ -13,12 +13,12 @@ export default function Home() {
     <Layout title="Home" description="The homepage of georgerowlands.ch">
       <main>
         <Container>
-          <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>
+          {/* <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly> */}
           <NameSection>
             <p>Hi, my name is</p>
             <Name>George Rowlands</Name>
             <h2>Computer Science Student</h2>
-            <ProgressBar label="Knowledge" length={15} />
+            {/* <ProgressBar label="Knowledge" length={15} /> */}
           </NameSection>
           <Canvas style={{ flexBasis: 'max-content' }}>
             <ambientLight />

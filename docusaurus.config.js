@@ -1,11 +1,11 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const math = require('remark-math')
-const katex = require('rehype-katex')
-const mermaid = require('mdx-mermaid')
-const prismAdditionalLanguages = require('./prismLanguages')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const math = require('remark-math');
+const katex = require('rehype-katex');
+const myMermaid = require('mdx-mermaid');
+const prismAdditionalLanguages = require('./prismLanguages');
 
 const mySocials = [
   {
@@ -20,7 +20,7 @@ const mySocials = [
     label: 'StackOverflow',
     href: 'https://stackoverflow.com/users/10994912/lucifer-uchiha?tab=profile',
   },
-]
+];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -39,11 +39,10 @@ const config = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          remarkPlugins: [math, mermaid],
+          remarkPlugins: [math, myMermaid],
           rehypePlugins: [katex],
           sidebarPath: require.resolve('./sidebars.js'),
           exclude: ['**/Presentations/**'],
-          // Please change this to your repo.
           editUrl: 'https://github.com/LuciferUchiha/georgerowlands.ch/tree/main',
           admonitions: {
             customTypes: {
@@ -58,10 +57,6 @@ const config = {
         gtag: {
           trackingID: 'G-7C73QGFCVK',
           anonymizeIP: true,
-        },
-        sitemap: {
-          changefreq: 'daily',
-          priority: 0.5,
         },
       },
     ],
@@ -160,6 +155,6 @@ const config = {
         additionalLanguages: prismAdditionalLanguages,
       },
     }),
-}
+};
 
-module.exports = config
+module.exports = config;
