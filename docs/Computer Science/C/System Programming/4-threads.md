@@ -149,4 +149,19 @@ int main(void)
 }
 ```
 
-## Compare threads
+## Further Operations on Threads
+
+There are further operations that you can use with threads for example:
+
+- `int pthread_equal(pthread_t t1, pthread_t t2);` which compares two threads to see whether they are the same.
+- `int pthread_detach(pthread_t thread);` by default a thread runs in joinable mode. A joinable thread will not release its resources even after termination, until some other thread calls `pthread_join()` with its ID. A Detached thread automatically releases it allocated resources on exit. No other thread needs to join it. Therefore there is also no way to determine its return value.
+- `int pthread_cancel(pthread_t thread);` sends a cancellation request to the thread. Whether the target thread reacts to the cancellation request depends on its its cancelability state and type.
+- `int pthread_kill(pthread_t thread, int sig);` sends the signal sig to thread.
+
+## Synchronization
+
+### Mutex
+
+Threads can have mutual state which is useful but you need to be careful when accesing and chaging this state. A critical section is a code block that uses a mutual variable and should only be executed atomically, so at once, by one thread, no possible interleavings. A Mutex (mutual exclusion) can garantee this to not get race conditions.
+
+### Conditional Variables
