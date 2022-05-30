@@ -92,3 +92,15 @@ def factoirial(n: Int): Int = {
 }
 
 concatenate string example
+
+scala has defualt and named arguments
+scala has additonal string functions like easier conversion to int or pre and suffix operators???
+s interpolators
+In scala you can also do string interpolation by writing s"$name and also ${age + 1} is cool"
+f interpolators
+f"$name is $height%2.2f heigh"
+raw interpoaltor
+raw"This is a \n not escaped"
+however if
+val = "this is a new \n line"
+raw"$val will not be escaped
