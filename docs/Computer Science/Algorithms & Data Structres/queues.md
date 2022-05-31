@@ -14,6 +14,10 @@ A queue is as the name says like a queue of people. Meaning it follows the FIFO 
 
 ## Implementing a Queue
 
+```java title="MyQueue.java"
+// TODO
+```
+
 ### Queue Using two Stacks
 
 Although the most common way of implementing a queue is with a [linked list](./linkedLists) it is also possible to implement a queue by using two stacks. Just like when [implementing a stack with two queues](./stacks#stack-using-two-queues) you need to decide if adding or removing an element will be expensive.

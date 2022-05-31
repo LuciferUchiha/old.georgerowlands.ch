@@ -18,7 +18,7 @@ Just like when [implementing the bag](./bags#array-implementations) we can use `
 // TODO
 ```
 
-### Time complexities
+### Time Complexities
 
 When implementing a set and bag there is also the question of whether the data should be sorted or not. Depending on the answer the time complexities will be different and the implementation changes.
 

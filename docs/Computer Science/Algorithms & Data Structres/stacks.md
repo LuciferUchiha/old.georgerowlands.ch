@@ -14,6 +14,10 @@ A stack is as the name says like a stack of paper. Meaning it follows the LIFO p
 
 ## Implementing a Stack
 
+```java title="MyStack.java"
+// TODO
+```
+
 ### Stack Using two Queues
 
 Although the most common way of implementing a stack is with a [linked list](./linkedLists) it is also possible to implement a stack by using two queues. Just like when [implementing a queue with two stacks](./queues#queue-using-two-stacks) you need to decide if adding or removing an element will be expensive.

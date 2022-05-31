@@ -46,7 +46,7 @@ We start by adding the new element to the furthest left free space on the lowest
 We already know that the min element is the root so we can remove it. We then replace it with the furthest right element on the last level and let it sink down the tree, meaning we swap it with its smaller child until it is smaller then both of its children or is a leaf. This process of sinking down the tree we call **sift down**.
 O(log n) = O(1)+O(log n)
 
-### Array representation
+### Array Representation
 
 We can also represent a Min-Heap as an array.
 ![minHeapArray](/img/programming/minHeapArray.png)

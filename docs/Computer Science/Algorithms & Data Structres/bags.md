@@ -4,7 +4,7 @@ description: Bags
 tags: [java, collections, data structures, algorithms, bags, binary search]
 ---
 
-A bag is a data structure that can contain the same element multiple times which is why it also often called multiset. The order of adding elements is not necessarily given, this depends on the implementation. Common operations on a bag are adding elements, removing elements and searching for a specific element.
+A bag is a data structure that can contain the same element multiple times which is why it is often also called a multiset. The order of adding elements is not necessarily given, this depends on the implementation. Common operations on a bag are adding elements, removing elements and searching for a specific element.
 
 ## Implementing a Bag
 
