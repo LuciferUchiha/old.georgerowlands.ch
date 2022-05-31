@@ -6,29 +6,29 @@ tags: [java, collections, data structures, algorithms, hashing, hash tables]
 
 ## Motivation
 
-Imagine we want to be able to access data with O(1) using the data's key.
+In an ideal world, we would want to be able to access data with O(1) using the data's unique identifier (key).
 
-![hashTable](/img/programming/hashTable.png)
+![hashTable]
 
-To be able to do so we need to generate a hash code from the key of the data. This in return then gives us a number. We then want to get an index in a hash table from this number by using a hash function. For this to be able to work 2 conditions need to be met. Firstly we need to be able to know if 2 objects are the same (equals()) secondly we need to be able to generate a hash code(hashCode()) from the objects key(can be a combination of attributes or just one).
+For this, to work we need to be able to generate a unique hash code from the key. From this hash code (a number) we then want to get an index in a hash table by using a hash function. For this approach to work, two conditions must be met. Firstly we need to be able to know if two objects are the same (the `equals` function) secondly we need to be able to generate a hash code from the unique identifier which can consist of a combination of attributes or just one.
 
-Importantly here is the following
+Importantly the following must be true:
 
 $$(a.equals(b)) \Rightarrow (a.hashCode() == b.hashCode())$$
 
-So if 2 objects are the same then their hash Code must be the same as well. However if 2 hash codes are the same it does not necessarily mean that the objects are the same. If this happens we call it a collision.
+So if two objects are the same then their hash Code must be the same as well. However, if two hash codes are the same it does not necessarily mean that the objects are the same, this is a so-called collision.
 
 ## Hashing Function
 
-We want the index to be calculated as fast as possible. We also from the above requirements want the same key to have the same index. We also want the hash codes and therefore the indices to be evenly distributed so that as little collusions happen as possible.
+We want to be able to calculate the index as fast as possible. From the above requirements, we also want the same keys to produce the same indices. We also want the hash codes and therefore the indices to be evenly distributed to minimize collisions.
 
-For the beggining we just decide to do the following
+For starters we could use the following hashing function:
 
 $$index = hash code \,\%\, table.length()$$
 
 ## Hash Code
 
-We went the generated hash code to be randomly spread across the entire range of an int.
+We want the generated hash code to be randomly spread across the entire range of an int.
 
 If the key is a 32-bit data type, like boolean, byte, short, int, char and float we can just take its value straight as an int.
 
