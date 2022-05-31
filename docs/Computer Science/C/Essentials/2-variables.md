@@ -1,12 +1,12 @@
 ---
 title: Variables and data types
 description: How do variables work in C and what data types are there.
-tags: [c, variables, data types, command line arguments, visibility, const, static, define, sizeof]
+tags: [c, variables, data types, command-line arguments, visibility, const, static, define, sizeof]
 ---
 
 To create a variable you first need a name. A variable name must start with a letter or underscore and then be followed by any combination of letters, underscores or digits as long as the name in the end isn't a reserved word like "int". Secondly you need a type which defines how the data is stored in memory for example `int` is an integer. When writing `int x;` you are declaring a variable which reserves the space in memory to hold the later on assigned value as it knows the amount of bytes the data type of the variable needs. Initializing a variable is giving it an initial value. This can be done as part of the declaration like for example `int a = 12;`.
 
-## Basic data types
+## Basic Data Types
 
 [A basic list of c data types](https://en.wikipedia.org/wiki/C_data_types#Main_types), how much memory they take up but this is very computer and compiler dependant. Closly tied to the amount of memory is of course the value range of a variable. These ranges can be checked by including [limits.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/limits.h.html) for integer values and [float.h](https://pubs.opengroup.org/onlinepubs/007904975/basedefs/float.h.html) for float values (part of the standard library).
 
@@ -36,7 +36,7 @@ int main(void)
 }
 ```
 
-## Boolean types
+## Boolean Types
 
 To have variables with boolean values in C we can use the `_Bool` data type which can have the values 0 (false) or 1 (true).
 
@@ -94,7 +94,7 @@ int main(void)
 }
 ```
 
-## Format specifiers
+## Format Specifiers
 
 There are lots format specifiers for outputting different data types. You can also use format specifiers to do cool things like adding leading or trailing zeros or only showing a certain amount of decimal points.
 
@@ -153,11 +153,11 @@ int main(void)
 }
 ```
 
-### static
+### Static
 
 By adding the `static` keyword to the global variable we can limit it's visibility to just this file.
 
-## Dynamically allocated memory
+## Dynamically Allocated Memory
 
 We have seen above that a lot of objects are only available inside their blocks once the block is finished they are removed. These objects are stored on the stack. If we create an object in a function we can return it and still work with it, however in C the object is copied on return which can very bad for performance if the object is very large.
 
@@ -182,7 +182,7 @@ int main()
 
 The last possibility is using dynamically allocated memory. In C you can not define an array with a certain size at runtime, if we would want to do something like that we would need dynamic memory allocation. To be able to use this in C you must include `stdlib.h`. To go back on our problem of returning a created object from a function we can create the object on the stack and then just return the address of the object.
 
-### malloc
+### Malloc
 
 The `malloc()` function, short for "memory allocation", is used to dynamically allocate a single large block of memory with the specified size and returns a pointer to the block.
 
@@ -230,7 +230,7 @@ int main()
 }
 ```
 
-### calloc
+### Calloc
 
 The `calloc()` function, short for "contiguous allocation", is very similiar to the malloc function however it dynamically allocates the specified number of blocks of memory of the specified type. The most important difference however is that it initializes each block with a default value of '0'.
 
@@ -270,9 +270,9 @@ int main()
 }
 ```
 
-## Constant values
+## Constant Values
 
-### define
+### Define
 
 With `#define` you can define key value pairs that will be substituted in the preprocessing phase. Important is that you don't write a type, an equal or a semicolon!
 
@@ -326,7 +326,7 @@ int main()
 }
 ```
 
-### const
+### Const
 
 In C90 the `const` keyword was added which does not allow the value of a variable to change, making it read-only. Using const is much more flexible then define as allows you to use a data type and it is also better for performance.
 
@@ -357,7 +357,7 @@ for example double to flaot is implicit as no data is lost however double to int
 
 (int) 25.1 + (int) 27.435
 
-### sizeof
+### Sizeof
 
 The sizeof operator is very simple and just outputs how many bytes a data type or variable takes up.
 
@@ -367,7 +367,7 @@ int x = 3;
 printf("An int takes up %ld bytes on my computer and a double %ld", sizeof(x), sizeof(double)); // 4 and 8
 ```
 
-## Command line arguments
+## Command-line Arguments
 
 When compiling you can pass arguments to the main function. The first parameter `argc` is the argument count, the second parameter `argv` is the argument vector which is an array of strings. So in other words it is an array of character arrays or an array of character pointers.
 

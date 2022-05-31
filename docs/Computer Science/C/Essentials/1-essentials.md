@@ -6,20 +6,20 @@ tags: [C, history, includes, hello world]
 
 ## History
 
-C was originally developed at Bell Labs by Dennis Ritchie in 1972 to construct utilities running on Unix later on it was also used to re-implement the kernel of the Unix operating system and has till this day been the kernel language for Unix. In 1989 C was standardized by ANSI (American National Standards Institute) to so called ANSI C or also known as C89. Later on in the same year it was adopted by the International Organization for Standardization (ISO) who then created the so called Standard C. Over the years ISO has published new standards corresponding to the year they were published in, so C90, C99, C11, C17 and are now working on C2x.
+The C programming language was originally developed at Bell Labs (like so many other things) by Dennis Ritchie in 1972 to construct utilities running on Unix. Later on, it was also used to re-implement the entire kernel of the Unix operating system and has till this day been the kernel language for Unix. In 1989 C was standardized by ANSI (American National Standards Institute) to so-called ANSI C, also known as C89. Later on, in the same year, it was then adopted by the International Organization for Standardization (ISO) to create the so-called Standard C. Over the years ISO has published new standards corresponding to the years in which they were published: C90, C99, C11, C17 and now they are working on C2x.
 
-## Running a C program
+## Running a C Program
 
-When writing a C programm there are 4 phases of programming:
+When writing a C program there are 4 phases of programming:
 
-- Editing: Which is where you actually write or modify your code.
-- Compiling: This part is actually split into 2 phase.
-  - Preprocessing: Which is where the code can still be modified by the compiler.
-  - Compilation: In the compilation is where the compiler actually checks the syntax and semantics of your code and makes sure everything is in order. The compiler then translates the code to assembly language which is then further translated into actual machine code/instructions. These machine instructions are then stored in object files that have either of the extensions `.obj` or `.o`.
+- Editing: Writing and modifying your code.
+- Compiling: This part is split into 2 phases:
+  - Preprocessing: The code can still be modified by the compiler.
+  - Compilation: The compiler checks the syntax and semantics of your code and makes sure everything is in order. The compiler then translates the code to assembly language which is then further translated into actual machine code/instructions. These machine instructions are then stored in object files that have either the extension `.obj` or `.o`.
 - Linking: The goal of this phase is to get the program into its final form for execution. The linker combines the object modules with additional libraries needed by the program to create the entire executable file which can then be run.
-- Running: This is the final phase and is self explanatory.
+- Running: This is the final phase and is self-explanatory.
 
-For more about how the compilation and linking works check out this [good article](https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d).
+For more about the compilation and linking phase check out this [article](https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d).
 
 ### First C Program
 
@@ -28,7 +28,7 @@ For more about how the compilation and linking works check out this [good articl
 
 int main(void)
 {
-    printf("Hello World");
+    printf("Hello World"); // prints "Hello World"
     return 0;
 }
 ```
@@ -53,10 +53,10 @@ The options mean the following:
 
 ## Commenting
 
-[//]: # (NEEDS TO BE WRITTEN UP)
+Comments are the same as in many other programming languages like Java (inspired by C/C++). A single-line comment starts with `//` and is written over a line. A multi-line comment is written between `/* ... */` and can span over multiple lines.
 
 ## Include
 
-The `#include <stdio.h>` is a so called preprocessor directive meaning we are telling the compiler that we want something done in the preprocessing phase. All preprocessor directives start with a `#`. The include instruction tells the compiler to "include" the contents of the "stdio.h" file. You might notice it has the `.h` extension which means it is a header file. Header files define information about functions, so called function prototypes which describe a function so the functions name, its arguments etc. The file we are including stands for standard input output which is part of the C standard library and we use the `printf` function of that file to write to the standard output, which is by default the console.
+The `#include <stdio.h>` is a preprocessor directive that tells the compiler that we want something done in the preprocessing phase. All preprocessor directives start with a `#`. The "include" instruction tells the compiler to include the contents of the "stdio.h" file. You might notice it has the `.h` extension which means it is a header file. Header files define information about functions, so-called function prototypes which describe a function so the functions name, its arguments etc. The file we are including stands for standard input output which is part of the C standard library and we use the `printf` function of that file to write to the standard output, which is by default the console.
 
 When specifying the file to be included you can either write it between double quotes or angle brackets. The difference between these two forms is subtle but important. If a header file is included using < >, the preprocessor will search a predetermined directory path to locate the header file (the folder for the standard library). If the header file is enclosed in "", the preprocessor will look first for the header file in the same directory as the source file and then in the other folders.
