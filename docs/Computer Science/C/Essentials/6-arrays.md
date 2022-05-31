@@ -1,6 +1,6 @@
 ---
 title: Arrays
-description: What are functions, how can you create and use them in C?
+description: Arrays
 tags: [C, arrays, multidimensional arrays, pointer arithmetic]
 ---
 

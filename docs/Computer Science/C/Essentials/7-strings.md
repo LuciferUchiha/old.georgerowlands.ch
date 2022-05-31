@@ -1,6 +1,6 @@
 ---
 title: Strings
-description: What are strings and how do they work internally in C
+description: Strings
 tags: [C, strings, character arrays]
 ---
 

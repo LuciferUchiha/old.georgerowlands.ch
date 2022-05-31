@@ -1,7 +1,7 @@
 ---
-title: Introduction
-description: An introduction to programming in C language and running your first program.
-tags: [C, history, includes, hello world]
+title: Introduction to C
+description: Introduction to C
+tags: [C, history, comments, preprocessor, includes, hello world]
 ---
 
 ## History

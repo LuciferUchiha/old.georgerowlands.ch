@@ -1,6 +1,6 @@
 ---
-title: Introduction
-description: A Brief introduction to how operating systems are structures and what key role system calls play in them.
+title: Introduction to System Programming
+description: Introduction to System Programming
 tags: [c, unix, operating systems, posix, system calls, kernel, kernel user mode]
 ---
 

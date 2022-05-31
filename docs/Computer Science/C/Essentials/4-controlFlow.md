@@ -1,6 +1,6 @@
 ---
-title: Control flow
-description: How to use control flow in C.
+title: Control Flow
+description: Control Flow
 tags: [C, control flow, if else, for, while, switch, break, continue, goto]
 ---
 

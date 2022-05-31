@@ -1,6 +1,6 @@
 ---
 title: Structures
-description: What are structure how can you use them to create your own types in C.
+description: Structures
 tags: [c, structs, typedef]
 ---
 

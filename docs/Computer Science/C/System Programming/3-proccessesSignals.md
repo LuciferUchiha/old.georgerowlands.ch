@@ -1,6 +1,6 @@
 ---
 title: Processes and signals
-description: bablalblasblsafg
+description: Processes and signals
 tags: [c, processes, signals, system calls, environment variables]
 ---
 

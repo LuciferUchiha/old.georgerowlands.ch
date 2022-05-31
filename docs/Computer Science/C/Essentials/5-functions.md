@@ -1,6 +1,6 @@
 ---
 title: Functions
-description: What are functions, how can you create and use them in C?
+description: Functions
 tags: [C, functions, function prototype, function pointers, qsort, map, macros]
 ---
 

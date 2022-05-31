@@ -1,7 +1,7 @@
 ---
-title: Threads
-description: What are threads and how can you work with the pthread API.
-tags: [c, threads, posix, pthread]
+title: Threads and Synchronization
+description: Threads and Synchronization
+tags: [c, threads, posix, pthread, synchronization, mutex, locks, conditional variables]
 ---
 
 Threads are similar to process and allow a program to do multiple things at once by having multiple threads in it. A key difference between threads and process is however that threads share the same global memory and just have their private stack for local variables and function calls and are therefore not as expensive as process which have the big overhead of creating an entire new memory space. This is why threads are also often called lightweight processes.

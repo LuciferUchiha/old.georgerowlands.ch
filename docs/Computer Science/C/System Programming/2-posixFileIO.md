@@ -1,6 +1,6 @@
 ---
 title: POSIX File I/O
-description: Reading and writing to files in C using POSIX API.
+description: POSIX File I/O
 tags: [c, file io, posix]
 ---
 

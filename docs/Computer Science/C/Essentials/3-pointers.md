@@ -1,6 +1,6 @@
 ---
 title: Pointers
-description: What are pointers how are they useful and how can we use them in C.
+description: Pointers
 tags: [c, pointers, void pointers, const pointers]
 ---
 

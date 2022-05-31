@@ -1,6 +1,6 @@
 ---
 title: Standard File I/O
-description: Reading and writing to files in C.
+description: Standard File I/O
 tags: [c, file io]
 ---
 
