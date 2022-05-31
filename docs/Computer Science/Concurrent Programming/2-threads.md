@@ -1,50 +1,126 @@
+---
+title: Threads
+description: Threads
+tags: [concurrent programming, threads]
+---
+
 ## Processes vs threads
 
-A process is an exectuable program which is loaded into memory. A process has it's own part of logical memory address space allocated by the OS. As seen in C we can also switch between process but this is a rather expensive operation. Processes can communicate with each other via Signals (IPC???), files or sockets.
+A process is an executable program that is loaded into memory. A process has its own logical memory address space allocated by the kernel. As seen in C we can also switch between processes but this is a rather expensive operation. Processes can communicate with each other via signals, interprocess communication - IPC, files or sockets.
 
-A thread is a single sequential flow which runs in the address space of it's process. This also means it shares the same address space with threads of the same process. It does however have it's own execution context containing amongst other things the call stack. Threads can communicate with each other via shared memory.
+A thread is a single sequential flow that runs in the address space of its process. This also means it shares the same address space with threads of the same process. It does, however, have its own execution context containing amongst other things the call stack. For comparison threads communicate with each other via shared memory which we will see is a very dangerous but practical thing.
 
 ![jvmProcess](/img/programming/jvmProcess.png)
 
 ## Threading models
 
-There are a few different ways how threads can be bound.
+Threading models define how threads are managed.
 
 - Kernel-Level (1:1): The kernel controls the threads and processes and threads are scheduled to available CPUs by the kernel. This approach is used by most current JVM implementations.
-- User-level (1:n): Threads are implemented and managed/scheduled by a runtime library, so called green threads. This allows for efficient context switching and application-specific scheduling as the kernel is not involved. This does however mean that different threads can not be scheduled on different processors.
-- Hybrid (m:n): User-level threads are assigned to a number of kernel threads.
+- User-level (1:n): Threads are implemented and managed/scheduled by a runtime library, so-called green threads. This allows for efficient context switching and application-specific scheduling as the kernel is not involved. This does however mean that different threads can not be scheduled on different processors.
+- Hybrid (m:n): User-level threads are assigned to some kernel threads.
 
 ![threadingModels](/img/programming/threadingModels.png)
 
 ## Scheduling
 
-Scheduling is done by the kernel and is the act of allocating CPU time to threads. It also has to make sure that per CPU core only one thread is running at any given time. There are mainly two scheduling models. It is up to the java implementation but we can assume that in most cases it will be preemptive.
+Scheduling is done by the kernel and is the act of allocating CPU time to threads. It also has to make sure that each CPU processor only has one thread running at any given time.
 
 ### Cooperative
 
-With cooperative scheduling the threads decide, when they should give up the processor to other threads.
+With cooperative scheduling, the threads decide when they should give up the processor to other threads. Meaning the processor never interrupts a thread to initiate a context switch from one thread to another. This can lead to threads hogging or even completely locking out the processor.
 
 ![cooperativeScheduling](/img/programming/cooperativeScheduling.png)
 
 ### Preemptive
 
-With preemptive scheduling the jvm/kernel interrupts the threads at any time. This stops threads from unfairly hogging the processor.
+With preemptive scheduling, the kernel can interrupt the running thread at any time. This stops threads from unfairly hogging the processor. It is up to the Java implementation but in most implementations, preemptive scheduling is used.
 
 ![preemptiveScheduling](/img/programming/preemptiveScheduling.png)
 
 ## Java threads
 
-main is a non daemon intial thread.
-Runnable is a functional interface with one function run(). Thread is a class which takes a runnable and implements Runnable in it's run function it calls the run function of the passed runnable. start() starts a new thread to execute run methods and returns immideatly.
+In Java a program's entry point is the main function that starts the initial thread, the main thread (non daemon). Java defines the functional interface `Runnable` which should be implemented by any class whose instance is intended to be executed by a thread.
 
-Extending Thread is possible and any easy and simple way, however it is better to implement runnable seperatly Because it is a better seperation of concerns, and you can still easly access the thred mehtods thanks to static imports.
+```java
+interface Runnable {
+    void run();
+}
+```
 
-Because it is a functional interface you can also use lambdas.
+The `Thread` class represents a thread in Java and takes a runnable whilst also implementing the Runnable interface. The `start()` function creates a new thread and then executes the `thread.run()` which executes the passed `runnable.run()` in a separate thread. The start and run functions return immediately as the rest is executed on a separate thread.
 
-yield function hints the scheduler that the thread is willing to yield its use of the processor but it can just be ignored by the processor.
+```java
+class Thread implements Runnable{
+    Thread(Runnable target){...}
+    Thread(Runnable target, String name){...}
 
-join(x) waits for the thread to termiante for max of x seconds. setDaemon marks the thread either as deamon or user thread. Daemon threads run in background, must be set before start is called. if a process only has demon threads left then the process stops.
+    void run(){...}
+    void start(){...}
+    void join(){...}
+    void join(long millis){...}
+    static void sleep(long millis){...}
+    static void yield(){...}
+    void setDaemon(boolean b){...}
+    void setPriority(int newPriority){...}
+}
+```
 
-threads can have priorities range of 1 to 10. jvm is free to implement these so could also be ignored.
+There are a few ways you can use the Thread class. You can extend the Thread class and implement the run method which is an easy and simple way to make use of threads. However, it is better to implement runnable separately and pass it to the Thread class as it is a better separation of concerns. You can still access the thread methods by using static imports. Because Runnable is a functional interface you can also use lambdas which is in my opinion the way to go for simple examples.
 
-Threads state example from locks slide.
+```java
+class ThreadExamples {
+    // Extending Thread
+    static class MyThread extends Thread {
+        public void run() {
+            System.out.println("MyThread running");
+        }
+    }
+
+    // Anonymous subclass of Thread
+    static Thread thread = new Thread() {
+        public void run() {
+            System.out.println("Anonymous MyThread running");
+        }
+    };
+
+    // Implementing Runnable
+    static class MyRunnable implements Runnable {
+        public void run() {
+            System.out.println("MyRunnable running");
+        }
+    }
+
+    // Anonymous implementation of Runnable
+    Runnable myRunnable = new Runnable() {
+        public void run() {
+            System.out.println("Anonymous MyRunnable running");
+        }
+    };
+
+    // Lambda runnable
+    static Runnable lambdaRunnable = () -> System.out.println("Lambda Runnable running");
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        Thread t2 = new Thread(new MyRunnable());
+        Thread t3 = new Thread(lambdaRunnable);
+        Thread t4 = new Thread(() -> System.out.println("Inline Lambda Runnable running"));
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        thread.start();
+    }
+}
+```
+
+The yield function hints to the scheduler that the calling thread is willing to yield its use of the processor but it can just be ignored by the processor.
+
+The join function blocks the calling thread and waits for the thread on which it was called until it terminates. A number of milliseconds can also be passed to the join function which defines the maximum amount of time to wait for the thread to terminate.
+
+With the setDaemon function, a thread can be marked as either a daemon or user thread. This function must be called before the thread is started because the type of thread can not be changed whilst it is running. If a process only has demon threads left then the process stops and therefore also the threads.
+
+Threads can have a priority which is an integer value in the range of 1 to 10 (10 being the highest priority). The JVM is free to implement these priorities which means that they can also be ignored.
+
+![javaThreadStates](/img/programming/javaThreadStates.png)
