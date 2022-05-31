@@ -15,6 +15,8 @@ Some ways to remember the symbols and their pronunciation:
 <img src="/img/korean/hangulConsonants.png" alt="hangulConsonants" width="450"/>
 <img src="/img/korean/hangulConsonantsMemory.png" alt="hangulConsonantsMemory" width="450"/>
 
+<iframe src="https://quizlet.com/704213264/flashcards/embed?i=18sigq&x=1jj1" height="500" width="100%"></iframe>
+
 ## Vowels
 
 There are two ways that a vowel can be combined with a consonant. The vowel can either be written to the right of the consonant or underneath it. All the vowels that are written to the right are based on a vertical line. The ones that are written underneath a consonant are based on a horizontal line.
