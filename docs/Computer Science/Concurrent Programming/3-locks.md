@@ -1,4 +1,8 @@
-## Interleaving
+## Interleavings
+
+Interleaving is a possible way in which a series of statements could be executed. This concept is important because in concurrent programming the interleaving of a program could influence the result. Choosing the interleaving is however not up to us but the scheduler.
+
+![interleaving](/img/programming/interleaving.png)
 
 ```java
 class Counter {
@@ -36,9 +40,9 @@ Counter example. Because the scheduler is allowed to switch context between ever
 
 ### Interleaving model
 
-Used to calculate the number of possible interleavings depending on the number of threads $n$ and the number of atomic instructions $m$.
+The interleaving model is used to calculate the number of possible interleavings depending on the number of threads $n$ and the number of atomic instructions $m$.
 
-$$interleaving = \frac{(n \cdot m)!}{(m!)^n}$$
+$$interleavings = \frac{(n \cdot m)!}{(m!)^n}$$
 
 For example if there are 2 threads and 3 atomic instructions there are 20 possible different executions. By increasing the thread amount to 4 this number skyrockets to 369'600.
 
