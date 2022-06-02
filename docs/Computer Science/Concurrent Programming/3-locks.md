@@ -4,6 +4,8 @@ Interleaving is a possible way in which a series of statements could be executed
 
 ![interleaving](/img/programming/interleaving.png)
 
+The picture above shows some possible interleaving of a program split up between two threads.
+
 ```java
 class Counter {
     private int i = 0;
@@ -34,17 +36,16 @@ public class CounterTest {
 }
 ```
 
-![counterExampleProblem](/img/programming/counterExampleProblem.png)
+If we execute the above code we could expect the result to be 400000 because there are 4 threads and each thread increases the counter 100000 times and we only output the result once all threads have terminated. However, when executing this program this is not the case we might see something like 108600 and if we execute it another time 118127. These results happen because the scheduler is allowed to switch context between every CPU operation. So we can see that read and write operations are not guaranteed to be atomic meaning it is done as one instruction by the CPU. Even writing to a value of the type double might be done in 2 parts, it might assign the first 32 bits and then the next 32 bits. In the example, the scenario below happend a few times which causes modifications to get lost.
 
-Counter example. Because the scheduler is allowed to switch context between every operation. Read and write operations are not guarantted to atomic meaning that something like the following could happen. Even when writing to a double it might do in 2 parts, first assign the first 32bit then the next 32 bit and even this could be interrupted by the sheduler.
+![counterExampleProblem](/img/programming/counterExampleProblem.png)
 
 ### Interleaving model
 
-The interleaving model is used to calculate the number of possible interleavings depending on the number of threads $n$ and the number of atomic instructions $m$.
+The interleaving model is used to calculate the number of possible interleavings (size of the set of possible interleavings) depending on the number of threads $n$ and the number of atomic instructions $m$.
 
 $$interleavings = \frac{(n \cdot m)!}{(m!)^n}$$
-
-For example if there are 2 threads and 3 atomic instructions there are 20 possible different executions. By increasing the thread amount to 4 this number skyrockets to 369'600.
+For example, if there are 2 threads and a program with 3 atomic instructions then there are 20 possible ways the program could be executed across the 2 threads. Just by increasing the number of threads to 4 the number of possible interleavings skyrockets to 369'600.
 
 ## Race conditions
 
