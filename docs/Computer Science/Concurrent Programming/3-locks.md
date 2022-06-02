@@ -129,8 +129,42 @@ synchronized g() {
 
 ### java.util Locks
 
-more flexible, locks can acquired and released in different scopes try with finally to unlock comes with more responsibility.
+Additionally to the `synchronized` keyword Java also offers some lock implementations that are more flexible. It is important to use these locks with a `try` block so that the lock can be released in the `finally` block in case any exceptions occur.
+
+```java
+interface Lock{
+    void lock() // Acquires the lock.
+    void lockInterruptibly() // Acquires the lock unless the current thread is interrupted.
+    Condition newCondition() // Returns a new Condition instance that is bound to this Lock instance.
+    boolean tryLock() // Acquires the lock only if it is free at the time of invocation.
+    boolean tryLock(long time, TimeUnit unit) // Acquires the lock if it is free within the given waiting time and the current thread has not been interrupted.
+    void unlock() // Releases the lock.
+}
+```
+
+Usage Pattern:
+
+```java
+public synchronized void inc() {
+    Lock lock = ...;
+    ...
+    lock.lock();
+    try {
+        // access resources protected by this lock
+    }
+    finally {
+        lock.unlock(); // by the same thread!
+    }
+}
+```
 
 #### Reentrant Lock
 
-implements Lock. ReentrantLock allows threads to enter into the lock on a resource more than once. When the thread first enters into the lock, a hold count is set to one. Before unlocking the thread can re-enter into lock again and every time hold count is incremented by one. For every unlocks request, hold count is decremented by one and when hold count is 0, the resource is unlocked. fairness parameter, by which the lock would abide by the order of the lock request i.e. after a thread unlocks the resource, the lock would go to the thread which has been waiting for the longest time
+The class `ReeentrantLock` implements the `Lock` interface. It offers the same functionality as when using the synchronized mechanism with some extra functions:
+
+- `int getHoldCount()` queries the number of holds on this lock by the current thread.
+- `Thread getOwner()` returns the thread that currently owns the lock, or null if not owned.
+- `Collection<Thread> getQueuedThreads()` returns a collection containing threads that are waiting to acquire this lock.
+- `int getQueueLength()` returns an estimate of the number of threads waiting to acquire this lock.
+
+A fairness parameter can also be passed with the constructor to define whether the lock is fair or not. Fair locks let threads acquire the lock in the order it was requested i.e the longest waiting thread always gets the lock (FIFO). An unfair lock is how synchronized works it lets the threads race to acquire the lock.
