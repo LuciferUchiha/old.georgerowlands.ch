@@ -1,3 +1,9 @@
+---
+title: Locking
+description: Locking
+tags: [concurrent programming, locking, locks, interleavings, mutex, mutual exclusion, race conditions, deadlock]
+---
+
 ## Interleavings
 
 Interleaving is a possible way in which a series of statements could be executed. This concept is important because in concurrent programming the interleaving of a program could influence the result. Choosing the interleaving is however not up to us but the scheduler.
@@ -25,11 +31,11 @@ public class CounterTest {
     public static void main(String[] args) {
         Counter c = new Counter();
         Runnable r = new R(c);
-        Thread t0 = new Thread(r); Thread t1 = new Thread(r);
-        Thread t2 = new Thread(r); Thread t3 = new Thread(r);
-        t0.start(); t1.start(); t2.start(); t3.start();
+        Thread t1 = new Thread(r); Thread t2 = new Thread(r);
+        Thread t3 = new Thread(r); Thread t4 = new Thread(r);
+        t1.start(); t2.start(); t3.start(); t4.start();
         try {
-            t0.join(); t1.join(); t2.join(); t3.join();
+            t1.join(); t2.join(); t3.join(); t4.join();
         } catch (InterruptedException e) {}
         System.out.println(c.getCount());
     }
@@ -56,7 +62,7 @@ A race condition can happen when a result depends on the interleaving of the pro
 
 Synchronization is a technique of managing access to shared mutable data to prevent race conditions.
 
-### Locks
+## Locks
 
 A lock or mutex (from mutual exclusion) is a mechanism to enforce mutual exclusion i.e limits access to a resource when multiple threads want to access the resource. Mutual exclusion prevents simultaneous access by only allowing one thread at a time to access a shared resource and therefore guarding critical sections against concurrent execution. By locking a certain section you are also forcing atomicity as no other thread can enter that section of code whilst another thread holds it. This can be a double-edged as it makes the program thread-safe but also means that we are not making use of concurrency.
 
@@ -64,28 +70,26 @@ A lock or mutex (from mutual exclusion) is a mechanism to enforce mutual exclusi
 
 ### Built-in Locking in Java
 
-Java has a built-in locking mechanism, the `synchronized` keyword. two parts the object that will serve as a lock and a block of code to be guarded by the lock. The lock is aqcquired when synchronized section is entered. If lock is not available because it has already been taken by another thread then thread enters a waiting queue. When the thread exits the syncronized section the lock is released. Often lock is just on the current class or instance which can be shorthanded. In the byte code this adds the memory barriers, monitorenter and monitorexit. Synchronizing is not free it comes with additional code and also means that the compiler can make fewer optimizations
+Java has a built-in locking mechanism, the `synchronized` keyword. Locking consists of two parts: The object that will serve as a lock and a block of code, the critical section, that is guarded by the lock. When a thread reaches the synchronized block and the lock is not in use the thread can acquire the lock to the block. However, if the lock is not available because it has already been taken then the thread enters the waiting list. When a thread exits a synchronized section the lock is released and there is a race to which thread gets to acquire the lock next. Often the lock is just on the current instance (`this`) or class in a static context. This is what Java does by default if you do not specify a certain lock object. Something to be careful of is using String literals as a lock as it can [cause some big issues](https://stackoverflow.com/a/463437).
 
-#### Reentrancy
+:::note
 
-a lock can be acquired multiple times by the same thread to no effect.
-lock in lock example stuff.
+Synchronizing is not free it comes with additional code (monitorenter and monitorexit are added in the byte code) and also means that the compiler can make fewer optimizations.
 
-#### Design considerations
+:::
 
-maybe not always use this sometimes better to use a specific lock object which is more explicit and can be declared private. stackoverflow bad example of lock with stirng.
+The above example could be fixed by doing one of the following:
 
-#### Lock Attack
-
-can obtain lock and never give it free.
-
-### java.util Lock
-
-more flexible, locks can acquired and released in different scopes try with finally to unlock comes with more responsibility.
-
-#### Reentrant Lock
-
-implements Lock. ReentrantLock allows threads to enter into the lock on a resource more than once. When the thread first enters into the lock, a hold count is set to one. Before unlocking the thread can re-enter into lock again and every time hold count is incremented by one. For every unlocks request, hold count is decremented by one and when hold count is 0, the resource is unlocked. fairness parameter, by which the lock would abide by the order of the lock request i.e. after a thread unlocks the resource, the lock would go to the thread which has been waiting for the longest time
+```java
+class Counter {
+    private int i = 0;
+    private final Object lock = new Object();
+    public synchronized void inc() { i++; }
+    // OR public void inc() { synchronized(this){ i++; } }
+    // OR public void inc() { synchronized(lock){ i++; } }
+    public int getCount() { return i; }
+}
+```
 
 ### Deadlock
 
@@ -105,3 +109,29 @@ Instead of having the following situation
 We can acquire the locks in lexicographical order.
 
 ![globalOrderFix](/img/programming/globalOrder.png)
+
+#### Lock Attack
+
+can obtain lock and never give it free.
+
+### Reentrancy
+
+Synchronized is also reentrant. Meaning that the same lock can be acquired multiple times by the same thread. Java does this by keeping a counter for each lock with the initial value being 0. When a thread then acquires initially acquires the lock it sets the lock-id to the current thread and increments the counter. For each further acquisition of that lock, the counter is just further incremented. Each lock release then decrements the counter and once the counter reaches 0 again the lock is completely released and made available again to the other threads. The following examples do not cause a deadlock.
+
+```java
+synchronized f() { g(); }
+synchronized g() { 
+    /* no deadlock */ 
+    synchronized(x) {
+        synchronized(x) { /* still no deadlock */ }
+    }
+}
+```
+
+### java.util Locks
+
+more flexible, locks can acquired and released in different scopes try with finally to unlock comes with more responsibility.
+
+#### Reentrant Lock
+
+implements Lock. ReentrantLock allows threads to enter into the lock on a resource more than once. When the thread first enters into the lock, a hold count is set to one. Before unlocking the thread can re-enter into lock again and every time hold count is incremented by one. For every unlocks request, hold count is decremented by one and when hold count is 0, the resource is unlocked. fairness parameter, by which the lock would abide by the order of the lock request i.e. after a thread unlocks the resource, the lock would go to the thread which has been waiting for the longest time
