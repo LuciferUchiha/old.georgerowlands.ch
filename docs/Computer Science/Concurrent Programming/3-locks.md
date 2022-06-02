@@ -93,26 +93,25 @@ class Counter {
 
 ### Deadlock
 
-A Deadlock is a situation where a thread is blocked because it is holding a resource and waiting for another resource acquired by some other thread. So in other words the necessary conditions for a deadlock to happen are
+A Deadlock is a situation where at least one thread is blocked because it is holding a resource and is waiting for another resource which is already being held by another thread that wants the other resource being held. So in other words the necessary conditions for a deadlock to happen are:
+
 – Mutual Exclusion
-– Hold and Wait, threads request additional resources while holding other resources.
+– Hold and Wait, threads are requesting additional resources whilst also holding other resources.
 – No Preemption, resources are released exclusively by threads.
-– Circular Wait, two or more processes form a circular chain where each thread waits for a
-resource that the next thread in the chain holds. Can be eliminated with global order.
+– Circular Wait, two or more threads form a circular chain where each thread waits for a
+resource that the next thread in the chain holds.
 
-#### Global order
+![deadlock](/img/programming/deadlock.png)
 
-Instead of having the following situation
+#### Global ordering
+
+One way of avoiding deadlocks is to order the way the locks are obtained so instead of having the following situation:
 
 ![globalOrder](/img/programming/globalOrder.png)
 
 We can acquire the locks in lexicographical order.
 
-![globalOrderFix](/img/programming/globalOrder.png)
-
-#### Lock Attack
-
-can obtain lock and never give it free.
+![globalOrderFix](/img/programming/globalOrderFix.png)
 
 ### Reentrancy
 
