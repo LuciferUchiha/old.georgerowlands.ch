@@ -48,3 +48,38 @@ defines how numbers, dates and times are represented
 can be set with setlocale
 
 ## Process time
+
+is the cpu time that a process has used since creation consisting of two parts. Uesr CPU time which is the amount of time spent in user mode, also commonly reffered to as virual time. And System cpu time which is the amount of time spent in kernel mode whilst doing for example system calls.
+
+times() function and tms struct. sysconf???
+
+clock() iis total time of user and kernel time. different clock resoultion???? CLOCKS_PER_SEC?
+
+### Unix Timers and Sleeping
+
+Ein Timer erlaubt es einem Prozess, Notifikationen
+für sich einzuplanen, auf einen späteren Zeitpunkt.
+Schlafen (sleeping) suspendiert einen Prozess oder
+Thread für eine zuvor festgelegte Zeitdauer.
+
+#### Interval timer
+
+with setitimer sends signal and uses itimerval struct. getitimer return remaining time.
+
+#### One-time Timer - Alarm
+
+with alarm()
+
+#### Timer precision
+
+Je nach Prozessorlast kann es sein, dass ein Prozess
+erst kurz nach Ablauf eines Timers wieder läuft.
+Dies hat aber keinen Einfluss auf das nächste Signal,
+Intervalle werden genau eingehalten, ohne Drift.
+Die Genauigkeit eines Timers ist auf modernen Linux
+Systemen durch die Frequenz der Hardware Clock
+beschränkt, und erreicht ca. eine Mikrosekunde.
+
+#### Suspend processes - sleeping
+
+sleep and nanosleep.
