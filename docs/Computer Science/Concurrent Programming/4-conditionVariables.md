@@ -1,30 +1,30 @@
 ---
-title: Condition variables
-description: TODO
+title: Condition Variables
+description: Condition Variables
 tags: [concurrent programming, synchronization]
 ---
 
-Condition variables provide a means to wait until being notified by another thread that some condition may now be true. For example in a Carpark if you are waiting to get in because it is full you want to be notified when a car exits.
+Condition variables are another mechanism for synchronizing a program. Condition variables allow threads to enter the waiting state (stop running) until they are signaled/notified by another thread that some condition maybe have been fulfilled and they can take over. The most common example used to illustrate this is a carpark. When the carpark is full you have to wait until a car drives out and it is no longer full. Once this happens you want to be notified that the carpark is no longer full so you can enter the carpark.
 
 ```java
 public class CarPark {
-    private int places;
-    public CarPark(int places) { this.places = places; }
+    private int spaces;
+    public CarPark(int spaces) { this.spaces = spaces; }
     public synchronized void enter() {
-        while(places == 0) {
-            try { this.wait(); } // waits and releases lock
+        while(spaces == 0) {
+            try { this.wait(); } // wait and releases lock
             catch (InterruptedException e) { }
         }
-        places--;
+        spaces--;
     }
     public synchronized void exit() {
-        places++;
-        this.notifyAll(); // wakes all up for race who gets lock 
+        spaces++;
+        this.notifyAll(); // wakes up all threads for race to get the lock 
     }
 }
 ```
 
-The wait and notify/notifyAll functions are implemented in the Object class and act on the lock.
+Important is that the wait and notify/notifyAll functions are called on the lock object. Because every object can be a lock object the functions are implemented in the `Object` class. Another important thing to note is that when the wait function is called the lock is released so that other threads can still do work. When the thread acquires the lock again it continues from where it was waiting.
 
 :::note
 
@@ -32,15 +32,13 @@ Make sure to use a while loop, because of interrupts or spurious wakeups.
 
 :::
 
-![threadState](/img/programming/threadState.png)
-
 ## notify() vs notifyAll()
 
-notify() wakes up one waiting thread (which then must compete for the lock) you have no control over which thread is woken up. If there are no threads waiting it is like and empty statement.
+The `notify()` function wakes up one waiting thread by random selection, which might still have to compete for the lock. If there are no threads waiting then the notify function is just like an empty statement.
 
-notifyAll() wakes up all waiting threads which must then compete for the lock.
+The `notifyAll()` function wakes up all the waiting threads which then must compete for the lock.
 
-There are two forms of waiters
+There are two forms of waiters (waiting threads):
 
 - **Uniform waiters**: All waiters are equal (wait for the same condition)
 - **One-in, one-out**: A notification on the condition variable enables at most one thread to proceed
@@ -49,11 +47,11 @@ When you are working with uniform waiters notify() is fine however it is much sa
 
 ## BlockingQueue
 
-We want to implement a BlockingQueue that is threadsafe. Here we have two conditions to be mindful of, being full and being empty as in both cases we want to block and to this there are a few ways.
+A blocking queue is a queue that blocks when you try to dequeue from it and the queue is empty, or if you try to enqueue items to it and the queue is already full. This can also be done in a Circular mechanism as seen below.
 
 ![circularBlockingQueue](/img/programming/circularBlockingQueue.png)
 
-We can either use three locks.
+There are a few ways to implement a thread-safe blocking queue. You can either use three locks, one for each condition and one for the synchronization:
 
 ```java
 public class Queue {
@@ -87,7 +85,7 @@ public class Queue {
 }
 ```
 
-Or add conditions to a lock.
+Or when working with the Lock interface we can add conditions to the lock:
 
 ```java
 public class Queue {
