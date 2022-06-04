@@ -181,3 +181,66 @@ int main(void)
 ```
 
 ## FIFO files (Named Pipes)
+
+pipes only work in same hierarchy.
+
+```c title="fifo_read.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
+
+int main(void)
+{
+    char *fifoPath = "myfifo";
+    if (mkfifo(fifoPath, S_IRUSR | S_IWUSR) == -1 && errno != EEXIST)
+    {
+        printf("Error when creating FIFO file\n");
+        return 1;
+    }
+
+    int fd = open(fifoPath, O_RDONLY); // blocks till write end is opened
+    int output;
+    if (read(fd, &output, sizeof(output)) == -1)
+    {
+        printf("Error when reading from FIFO");
+        return 4;
+    }
+    printf("PARENT: Received: %d", output);
+    remove(fifoPath);
+    return 0;
+}
+```
+
+```c title="fifo_write.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
+
+int main(void)
+{
+    char *fifoPath = "myfifo";
+    if (mkfifo(fifoPath, S_IRUSR | S_IWUSR) == -1 && errno != EEXIST)
+    {
+        printf("Error when creating FIFO file\n");
+        return 1;
+    }
+    int fd = open(fifoPath, O_WRONLY); // blocks till other end is opened
+    int input = 10;
+    if (write(fd, &input, sizeof(input)) == -1)
+    {
+        printf("Error when writing to FIFO");
+        return 3;
+    }
+    printf("CHILD: Sent: %d", input);
+    remove(fifoPath);
+    return 0;
+}
+```
