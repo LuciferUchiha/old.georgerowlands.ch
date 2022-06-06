@@ -154,14 +154,95 @@ int main(void)
 There are further operations that you can use with threads for example:
 
 - `int pthread_equal(pthread_t t1, pthread_t t2);` which compares two threads to see whether they are the same.
-- `int pthread_detach(pthread_t thread);` by default a thread runs in joinable mode. A joinable thread will not release its resources even after termination, until some other thread calls `pthread_join()` with its ID. A Detached thread automatically releases it allocated resources on exit. No other thread needs to join it. Therefore there is also no way to determine its return value.
-- `int pthread_cancel(pthread_t thread);` sends a cancellation request to the thread. Whether the target thread reacts to the cancellation request depends on its its cancelability state and type.
+- `int pthread_detach(pthread_t thread);` by default a thread runs in joinable mode. A joinable thread will not release its resources even after termination until some other thread calls `pthread_join()` with its ID. A Detached thread automatically releases its allocated resources on exit. No other thread needs to join it. Therefore there is also no way to determine its return value.
+- `int pthread_cancel(pthread_t thread);` sends a cancellation request to the thread. Whether the target thread reacts to the cancellation request depends on its cancelability state and type.
 - `int pthread_kill(pthread_t thread, int sig);` sends the signal sig to thread.
 
 ## Synchronization
 
 ### Mutex
 
-Threads can have mutual state which is useful but you need to be careful when accesing and chaging this state. A critical section is a code block that uses a mutual variable and should only be executed atomically, so at once, by one thread, no possible interleavings. A Mutex (mutual exclusion) can garantee this to not get race conditions.
+Threads can have a mutual state which is useful but you need to be careful when accessing and changing this state. A critical section is a code block that uses a mutual variable and should only be executed atomically, so at once, by one thread, so that the result does not depend on the interleaving. A mutex/lock can guarantee this behavior to avoid race conditions. For more on this, there is an entire [section dedicated to concurrent programming]().
 
-### Conditional Variables
+Mutex variables are of the type `pthread_mutex_t` and need to be initialized before they are used with `pthrad_mutex_t m = PTHREAD_MUTEX_INITIALIZER;` or the `int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);` function. To then use the lock you can use the following functions:
+
+- `int pthread_mutex_lock(pthread_mutex_t *mutex);` Acquires the lock. If the lock is already in use then this function blocks till it can acquire the lock. If called repeatedly in the same thread that already has the lock a deadlock occurs.
+- `int pthread_mutex_unlock(pthread_mutex_t *mutex);` Releases the lock. If called in a thread that has already released a lock will return an error.
+- `int pthread_mutex_trylock(pthread_mutex_t *mutex);` Tries to acquire the lock. If it can't it does not block. Instead, it returns `EBUSY`.
+- `int pthread_mutex_timedlock(pthread_mutex_t *restrict mutex, const struct timespec *restrict abstime);` Tries to acquire the lock and waits for a maximum of abstime. If it couldn't get acquire the lock in the given time it returns `ETIMEDOUT`.
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <pthread.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+pthread_t tid[2];
+int counter;
+pthread_mutex_t lock; // lock object
+
+void *incrementCounter()
+{
+    for (unsigned long i = 0; i < 1000; i++)
+    {
+        pthread_mutex_lock(&lock);
+        counter++;
+        pthread_mutex_unlock(&lock);
+    }
+    pthread_exit(NULL);
+}
+
+int main(void)
+{
+    if (pthread_mutex_init(&lock, NULL) != 0) // init lock
+    {
+        printf("\n mutex init failed\n");
+        return 1;
+    }
+    int i = 0;
+    while (i < 2)
+    {
+        int err = pthread_create(&(tid[i]), NULL, &incrementCounter, NULL);
+        if (err != 0)
+            printf("\ncan't create thread :[%s]", strerror(err));
+        i++;
+    }
+    // wait for threads to finish
+    pthread_join(tid[0], NULL);
+    pthread_join(tid[1], NULL);
+    printf("Counter: %d", counter);
+    pthread_mutex_destroy(&lock); // clean up lock
+
+    return 0;
+}
+```
+
+### Condition Variables
+
+In C we can also use [condition variables]() to further synchronize concurrent programs. Condition variables in C work just like in Java. `pthread_cond_signal` is the equivalant of `notify()` and `pthread_cond_broadcast` of `notifyAll()`.
+
+```c
+pthread_mutex_t lock; // init with PTHREAD_MUTEX_INITIALIZER
+pthread_cond_t count_nonzero; // init with PTHREAD_COND_INITIALIZER
+unsigned int count;
+
+decrementCount()
+{
+    pthread_mutex_lock(&lock);
+    while (count == 0)
+        pthread_cond_wait(&count_nonzero, &lock);
+    count = count - 1;
+    pthread_mutex_unlock(&lock);
+}
+
+incrementCount(){
+    pthread_mutex_lock(&lock);
+    count++;
+    if(count == 0){
+        pthread_cond_broadcast(&count_nonzero);
+        // pthread_cond_signal(&count_nonzero)
+    }
+    pthread_mutex_unlock(&lock);
+}
+````
