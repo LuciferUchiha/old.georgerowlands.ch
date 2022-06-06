@@ -6,9 +6,7 @@ tags: [c, ipc, processes, pipes, posix]
 
 ## POSIX Message Queues
 
-To send messages from one process to another. Each read operation reads an entire message. POSIX messages can have a payload but also a priority which could have an influence on the order of the queue.
-
-mq_open function, mq_getattr, mq_setattr, mq_attr, mq_send, mq_receive, mq_close, mq_unlink?
+/// TODOOOOOO ///
 
 ## POSIX Semaphores
 
@@ -48,7 +46,54 @@ Unnamed semaphores work the same way as named ones but they are in memory and ca
 
 ## POSIX Shared Memory
 
-POSIX Shared Memory Objekt erlaubt Prozessen
-Speicher zu teilen, ohne ein Disk File.
+With POSIX shared memory you can have shared memory between processes without using files.
 
-shm_open has size 0, ftruncate, mmap
+/// TODOOOOOO an example that actually works///
+
+```c
+#include <stdio.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(void)
+{
+    char* name = "/my_shm1";
+    int data = 10;
+
+    int fd = shm_open(name, O_CREAT | O_RDWR, S_IRUSR|S_IRGRP);
+    if (fd == -1)
+    {
+        printf("Failed to create shm object");
+        return 1;
+    }
+    ftruncate(data, sizeof(int));
+    // map shared memory to process address space
+    void *addr = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    if (addr == MAP_FAILED)
+    {
+        printf("Failed to map shm object");
+        return 2;
+    }
+
+    int id = fork();
+    if (id == -1)
+    {
+        printf("Failed to fork");
+        return 3;
+    }
+    if (id == 0) // child process
+    {
+        data = 15;
+    }
+    else // parent process
+    {
+        wait(NULL); // wait for update to take effect
+    }
+    printf("data is: %d\n", data);
+    shm_unlink(name);
+    return 0;
+}
+```
