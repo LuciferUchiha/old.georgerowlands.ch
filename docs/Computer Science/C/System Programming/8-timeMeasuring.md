@@ -98,11 +98,39 @@ With the `void tzset(void);` you can initialize the timezone which in turn sets 
 
 ## Process time
 
-is the cpu time that a process has used since creation consisting of two parts. Uesr CPU time which is the amount of time spent in user mode, also commonly reffered to as virual time. And System cpu time which is the amount of time spent in kernel mode whilst doing for example system calls.
+Process time is the cpu time that a process has used since creation. It consists of two parts: User CPU time which is the amount of time spent in user mode, also commonly referred to as virtual time. And System cpu time which is the amount of time spent in kernel mode whilst doing for example system calls.
 
-times() function and tms struct. sysconf???
+`clock_t times(struct tms *t);` returns the number of clock ticks that have elapsed since an arbitrary point in the past and stores the current process times in the parameter.
+`clock_t clock(void);` returns an approximation of processor time used so far by the program.
 
-clock() iis total time of user and kernel time. different clock resoultion???? CLOCKS_PER_SEC?
+```c
+struct tms {
+    clock_t tms_utime;  /* user time */
+    clock_t tms_stime;  /* system time */
+    clock_t tms_cutime; /* user time of children */
+    clock_t tms_cstime; /* system time of children */
+};
+```
+
+```c
+#include <time.h>
+#include <sys/times.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    long tckPerSec = sysconf(_SC_CLK_TCK);
+    long clockPerSec = CLOCKS_PER_SEC;
+    printf("Ticks per second: %ld\n", tckPerSec);
+    printf("Clocks per second: %ld\n", clockPerSec);
+    struct tms sinceStart;
+    sleep(10);
+    clock_t clock = times(&sinceStart);
+    printf("Since start: User(%ld), System(%ld)\n", sinceStart.tms_utime, sinceStart.tms_stime);
+    printf("%ld", clock/clockPerSec);
+    return 0;
+}
+```
 
 ### Unix Timers and Sleeping
 
