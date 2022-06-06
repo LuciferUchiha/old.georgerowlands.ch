@@ -379,16 +379,82 @@ void socketfork() {
 
 ## Internet Sockets
 
-Stream sockets are based on the TCP protocol. Datagram sockets are based on the UDP protocol.
+Internet sockets work very similarly to the Unix domain sockets. Stream sockets are based on the TCP protocol. Datagram sockets are based on the UDP protocol.
+
+```c
+svaddr.sin6_port = htons(PORT_NUM);
+```
 
 ### Network Byte Order
 
-no clue what the fuck this is.
+Unfortunately, not all computers store the bytes for a multibyte value like an IP address in the same order. There are two ways to store this value:
 
-IPv4 adress structs
+- Little Endian: Low-order byte is stored on the starting address (A) and higher order byte is stored on the next address (A + 1).
+- Big Endian: High-order byte is stored on the starting address (A) and lower order byte is stored on the next address (A + 1).
 
-IPv6 adress structs
+Network byte order uses the big endian system. Library functions that work with IP addresses need to be converted to this system for which there are the following functions:
+
+- `uint32_t ntohl(uint32_t netlong);` Network to host.
+- `uint16_t ntohs(uint16_t netshort);` Network to host.
+- `uint32_t htonl(uint32_t hostlong);` Host to Network.
+- `uint16_t htons(uint16_t hostshort);` Host to Network.
+
+### Address Structures
+
+To store IP addresses there are the following structs:
+
+```c
+// IPv4
+struct in_addr {
+    uint32_t s_addr; // Network Byte Order
+};
+struct sockaddr_in {
+    sa_family_t sin_family; // AF_INET
+    in_port_t sin_port; // Network Byte Order
+    struct in_addr sin_addr; // Internet Adresse
+};
+// IPv6
+struct in6_addr {
+    unsigned char s6_addr[16]; // IPv6 address
+};
+struct sockaddr_in6 {
+    sa_family_t sin6_family; // AF_INET6
+    in_port_t sin6_port; // Port Nummer
+    uint32_t sin6_flowinfo; // IPv6 Flow Info
+    struct in6_addr sin6_addr; // IPv6 Adresse
+    uint32_t sin6_scope_id; // Scope ID
+};
+```
 
 ### Loopback and Wildcard Addresses
 
+IPv4 Loopback 127.0.0.1 and Wildcard 0.0.0.0: INADDR_LOOPBACK, INADDR_ANY
+IPv6 Loopback (::1) and Wildcard (::): IN6ADDR_LOOPBACK_INIT, IN6ADDR_ANY_INIT
+
 ### Converting Addresses
+
+Converts dot notation to binary:
+
+`int inet_pton(int af, const char *restrict src, void *restrict dst);`  converts the character string src into a network address structure in the af address family, then copies the network address structure to dst. The af argument must be either AF_INET or AF_INET6. dst is written in network byte order.
+
+Converts binary to dot notation:
+
+`const char *inet_ntop(int af, const void *restrict src, char *restrict dst, socklen_t size);` converts the network address structure src in the af address family into a character string.  The resulting string is copied to the buffer pointed to by dst, which must be a non-null pointer.  The caller specifies the number of bytes available in this buffer in the argument size
+
+### Host Lookup
+
+```c
+struct addrinfo {
+    int              ai_flags;
+    int              ai_family;
+    int              ai_socktype;
+    int              ai_protocol;
+    socklen_t        ai_addrlen;
+    struct sockaddr *ai_addr;
+    char            *ai_canonname;
+    struct addrinfo *ai_next;
+};
+```
+
+`int getaddrinfo(const char *restrict node, const char *restrict service, const struct addrinfo *restrict hints, struct addrinfo **restrict res);`
+Given node and service, which identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet address. After use the struct should be freed again with `void freeaddrinfo(struct addrinfo *result)`.
