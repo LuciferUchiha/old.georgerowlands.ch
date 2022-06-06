@@ -171,6 +171,17 @@ Mutex variables are of the type `pthread_mutex_t` and need to be initialized bef
 - `int pthread_mutex_trylock(pthread_mutex_t *mutex);` Tries to acquire the lock. If it can't it does not block. Instead, it returns `EBUSY`.
 - `int pthread_mutex_timedlock(pthread_mutex_t *restrict mutex, const struct timespec *restrict abstime);` Tries to acquire the lock and waits for a maximum of abstime. If it couldn't get acquire the lock in the given time it returns `ETIMEDOUT`.
 
+With the timespec struct looking like this:
+
+```c
+struct timespec {
+    time_t tv_sec; // seconds
+    long tv_nsec; // nanoseconds
+};
+```
+
+An example of using locks:
+
 ```c
 #include <stdio.h>
 #include <string.h>

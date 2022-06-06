@@ -383,6 +383,7 @@ Internet sockets work very similarly to the Unix domain sockets. Stream sockets 
 
 ```c
 svaddr.sin6_port = htons(PORT_NUM);
+inet_pton(AF_INET6, argv[1], &svaddr.sin6_addr)
 ```
 
 ### Network Byte Order
