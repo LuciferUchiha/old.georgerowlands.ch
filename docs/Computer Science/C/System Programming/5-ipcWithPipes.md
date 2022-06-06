@@ -75,6 +75,8 @@ PARENT: You put in: 4
 
 ### Bidirectional Pipes
 
+There can be scenarios where you want bidirectional communication between two processes using pipes. This can't be done with just one pipe for this you need two pipes between the processes.
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -151,6 +153,8 @@ PARENT: Received: 10
 
 ### Simulating the "|" Pipe Operator
 
+As you might have expected it is possible to simulate the pipe operator in the shell with pipes in C.
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -207,6 +211,8 @@ int main(void)
 ```
 
 ### Synchronizing with Pipes
+
+As mentioned above pipes don't need to transfer data, they can also just be used for synchronization between processes.
 
 ```c
 #include <stdio.h>
@@ -277,7 +283,9 @@ All finished
 
 ## FIFO files (Named Pipes)
 
-pipes only work in same hierarchy.
+pipes only work in the same hierarchy so between only between a parent and its child process or between children that share the same parent. We might want to be able to communicate between two processes that are not related. For this we have FIFOs which are a variation of pipes that work very similiarly to files, and also use a file which is why they are also often reffered to as named pipes. FIFOs work the same way as pipes so they also have unidrectional communication with "first in first out" semantic, hence the name.
+
+You need to create the FIFO with the `int mkfifo(const char *filepath, mode_t mode);` function just like a file, hence it also taking the same mode parameter as when working with files. Opening the FIFO with the `open()` system call in read-only mode or write-only blocks until a second process opens the same FIFO in the other mode. So the two ends of the pipe need to exist. However, you can not open a FIFO with the `O_RDWR` mode.
 
 ```c title="fifo_read.c"
 #include <stdio.h>
@@ -339,3 +347,13 @@ int main(void)
     return 0;
 }
 ```
+
+### Non-blocking FIFO
+
+There might be cases where you don't want the open system call to block to avoid deadlocks. To avoid this you can add the `O_NONBLOCK` mode. Opening for read-only will succeed even if the write side hasn't been opened yet. However, opening for write only will return -1 and set `errno=ENXIO` unless the other end has already been opened.
+
+Using `O_NONBLOCK` does have an influence on reading and writing.
+
+If the buffer is empty then the read function returns -1 and sets `errno=EAGAIN`. If additionally the write end is already closed then EOF is returned.
+
+If the read end is not ready yet and the write function is used and fills the buffer then write return -1 and sets `errno=EAGAIN`.
