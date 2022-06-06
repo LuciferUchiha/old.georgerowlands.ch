@@ -246,3 +246,12 @@ incrementCount(){
     pthread_mutex_unlock(&lock);
 }
 ````
+
+## Errno
+
+To be able to set errno in a thread-safe manner we need to use a makro from the pthread library
+
+```c
+# define errno (*__errno_location())
+*__errno_location() = EBUSY;
+```

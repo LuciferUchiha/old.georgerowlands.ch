@@ -4,9 +4,35 @@ description: IPC with Pipes
 tags: [c, ipc, processes, pipes]
 ---
 
+Interprocess comminucation - IPC is the subject of coomunicatiing, echanging data and synchronizing between to processes.
+
+A kategorie of IPC are Datatransfers which use read and write system calls. The second category commincates via shared memory, without system calls and is therefore also faster.
+
+Datatransfers can be byte streams, message based or use special pseduoterminals. Important with all these mechanisms is that a read operation is destructive. Meaning if data has been read then it is no longer available to the others. Synchronization is done automaticallly. If there is no data available then read operation blocks.
+
+Pipes, FIFOs, Stream sockets are unlimited byte streams which means that the number bytes does not matter.
+
+Message queues and datagram sockets are messaged based. Each read operation reads one message exactly how it was written. It is not possible to only read a part of a message or multiple at once.
+
+Shared Memory and memory mappings are fast but need to be synchronized. reading is however not destructive. Often semaphores are used.
+
 ## File locks
 
+Work same as ReadWriteLock in Java.
+coordiante file access. Read locks can be shared between multiples however if a process has a write lock then no other thread can have a read or write lock.
+flock and fcntl system calls???
+
 ## Pipes
+
+A pipe "|" is a form of redirection of standard output to some other destination that can be used in shells on Unix operating systems. So for example you can redirect the stdout of a command to a file or connect it to the stdin of another command. Pipes are unidirectional i.e data flows from left to right through the pipe. The command-line programs (right side) that do the further processing are referred to as filters. You can also use pipes programmatically in C for IPC.
+
+read blocks, if pipe is closed returns 0/EOF.
+
+Just a buffer in or file kernel memory with max capacity of 64KB. If a pipe is full write blocks until on the other end data is read.
+
+pipe puts 2 file descriptors into the passed array the first (index 0) being the read end of the pipe and the other file descriptor for the write end.
+
+when finished with writing need to close it so read gets EOF and doesn't block indefinetly. If the pipe was closed on read side and the process still writes to the pipe the kernel sends a SIGPIPE signal. if the signal is ignored then write returns the error EPIPE.
 
 ```c
 #include <stdio.h>
@@ -178,6 +204,75 @@ int main(void)
     waitpid(grepForkId, NULL, 0);
     return 0;
 }
+```
+
+### Synchronizing with Pipes
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void)
+{
+    int fd[2]; /* Process synchronization pipe */
+
+    if (pipe(fd) == -1)
+    {
+        printf("Error creating pipe");
+        return 1;
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        switch (fork())
+        {
+        case -1:
+            printf("Error when forking");
+            return 2;
+        case 0:           // child process
+            close(fd[0]); // close read end
+
+            // child does some work and lets parent know when finished
+            for (int j = 0; j < 100000000; j++)
+            {
+            }
+            printf("Finished work in Process %d\n", i);
+            // notifies parent that done by decrementing file descriptor count
+            close(fd[1]);
+            exit(EXIT_SUCCESS);
+        default:
+            break; // parent continue with loop
+        }
+    }
+    printf("Finished creating all children\n");
+    close(fd[1]); // parent doesn't use write end
+    int dummy;
+    // blocks till all are finished and receives EOF
+    if (read(fd[0], &dummy, 1) != 0)
+    {
+
+        printf("Parent didn't get EOF");
+        return 3;
+    }
+    printf("All finished");
+    return 0;
+}
+```
+
+```bash title="output"
+Finished creating all children
+Finished work in Process 0
+Finished work in Process 1
+Finished work in Process 2
+Finished work in Process 4
+Finished work in Process 3
+Finished work in Process 5
+Finished work in Process 6
+Finished work in Process 7
+Finished work in Process 8
+Finished work in Process 9
+All finished
 ```
 
 ## FIFO files (Named Pipes)
