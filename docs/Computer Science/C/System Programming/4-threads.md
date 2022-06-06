@@ -162,7 +162,7 @@ There are further operations that you can use with threads for example:
 
 ### Mutex
 
-Threads can have a mutual state which is useful but you need to be careful when accessing and changing this state. A critical section is a code block that uses a mutual variable and should only be executed atomically, so at once, by one thread, so that the result does not depend on the interleaving. A mutex/lock can guarantee this behavior to avoid race conditions. For more on this, there is an entire [section dedicated to concurrent programming]().
+Threads can have a mutual state which is useful but you need to be careful when accessing and changing this state. A critical section is a code block that uses a mutual variable and should only be executed atomically, so at once, by one thread, so that the result does not depend on the interleaving. A mutex/lock can guarantee this behavior to avoid race conditions. For more on this, there is an entire [section dedicated to concurrent programming](../../Concurrent%20Programming/3-locks.md).
 
 Mutex variables are of the type `pthread_mutex_t` and need to be initialized before they are used with `pthrad_mutex_t m = PTHREAD_MUTEX_INITIALIZER;` or the `int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);` function. To then use the lock you can use the following functions:
 
@@ -220,7 +220,7 @@ int main(void)
 
 ### Condition Variables
 
-In C we can also use [condition variables]() to further synchronize concurrent programs. Condition variables in C work just like in Java. `pthread_cond_signal` is the equivalant of `notify()` and `pthread_cond_broadcast` of `notifyAll()`.
+In C we can also use [condition variables](../../Concurrent%20Programming/4-conditionVariables.md) to further synchronize concurrent programs. Condition variables in C work just like in Java. `pthread_cond_signal` is the equivalant of `notify()` and `pthread_cond_broadcast` of `notifyAll()`.
 
 ```c
 pthread_mutex_t lock; // init with PTHREAD_MUTEX_INITIALIZER
