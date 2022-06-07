@@ -67,12 +67,12 @@ With `time_t mktime(struct tm *timeptr);` you can convert broken-down time into 
 
 ### Time and Strings
 
-When not computing we want times to be in human-readable form which is why there are lots of functions to convert times to strings:
+When not computing we want times to be in a human-readable form which is why there are lots of functions to convert times to strings:
 
 - `char *ctime(const time_t *timep);` returns a 26-byte string representing the time in locale and DST: "Wed Jun 8 14:22:34 2011".
 - `char *asctime(const struct tm *t);` does the same as `ctime()` without changing the timezone or DST.
 
-Often we also want to be able to format the string for this we can use `size_t strftime(char *restrict s, size_t max, const char *restrict format, const struct tm *restrict tm);` which formats the time and stores it in s. For example "%Y-%m-%dT%H:%M:%SZ" becomes "2018-12-29T12:17:25Z" where Z is only if UTC.
+Often we also want to be able to format the string for this we can use `size_t strftime(char *restrict s, size_t max, const char *restrict format, const struct tm *restrict tm);` which formats the time and stores it in s. For example, "%Y-%m-%dT%H:%M:%SZ" becomes "2018-12-29T12:17:25Z" where Z is only if UTC.
 
 There are also cases for example when getting input from users we want to parse a string to a time for this we can use `char *strptime(const char *restrict s, const char *restrict format, struct tm *restrict tm);` which parses the string s using the format to the time and stores it in tm.
 
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
 
 ### Unix Timers and Sleeping
 
-With a timer, you can send notifications to a process after a certain time span. Sleeping suspends the process or thread for a given time span.
+With a timer, you can send notifications to a process after a certain time. Sleeping suspends the process or thread for a given time.
 
 #### Interval timer
 
@@ -221,11 +221,11 @@ int main()
 
 #### One-time Timer - Alarm
 
-With `unsigned int alarm(unsigned int seconds);` you can setup a one-time occuring timer. When the timer expires the `SIGALRM` signal is sent. An existing timer can be removed with `alarm(0);`
+With `unsigned int alarm(unsigned int seconds);` you can set up a one-time occurring timer. When the timer expires the `SIGALRM` signal is sent. An existing timer can be removed with `alarm(0);`
 
 #### Timer precision
 
-Depending on CPU use the process might only start just after being notfied. This however has no influence on the next signal (no delaying).
+Depending on CPU use the process might only start just after being notified. This however does not influence the next signal (no delaying).
 
 #### Suspend processes - sleeping
 
