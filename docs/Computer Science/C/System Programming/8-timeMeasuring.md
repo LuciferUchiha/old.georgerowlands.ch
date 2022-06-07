@@ -132,31 +132,101 @@ int main() {
 }
 ```
 
+```c
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/times.h>
+
+int main(int argc, char *argv[]) {
+    struct tms t0_buf;
+    clock_t t0 = times(&t0_buf);
+    pid_t pid = fork();
+    if (pid == 0) {
+        execvp(argv[1], argv + 1); // does not return
+    }
+    fflush(stdout);
+    wait(NULL); // wait for child to exit
+    struct tms t1_buf;
+    clock_t t1 = times(&t1_buf);
+
+    long ticks_per_s = sysconf(_SC_CLK_TCK);
+    printf("\nreal \t%ld\nuser \t%lfs\nsys \t%lfs\n",
+        (t1 - t0) / ticks_per_s,
+        (t1_buf.tms_cutime - t0_buf.tms_cutime) / (double) ticks_per_s,
+        (t1_buf.tms_cstime - t0_buf.tms_cstime) / (double) ticks_per_s);
+    return 0;
+}
+```
+
 ### Unix Timers and Sleeping
 
-Ein Timer erlaubt es einem Prozess, Notifikationen
-für sich einzuplanen, auf einen späteren Zeitpunkt.
-Schlafen (sleeping) suspendiert einen Prozess oder
-Thread für eine zuvor festgelegte Zeitdauer.
+With a timer, you can send notifications to a process after a certain time span. Sleeping suspends the process or thread for a given time span.
 
 #### Interval timer
 
-with setitimer sends signal and uses itimerval struct. getitimer return remaining time.
+With `int setitimer(int which, const struct itimerval *restrict new_value, struct itimerval *restrict old_value);` that notifies in regular intervals. You can use the following which values:
+
+- `ITIMER_REAL` counts down in real-time and sends a SIGALRM signal.
+- `ITIMER_VIRTUAL` counts down in user CPU time and sends a SIGVTALRM signal.
+- `ITIMER_PROF` counts down in system CPU time and sends a SIGPROF signal. Can be used together with the one above.
+
+```c
+ struct itimerval {
+    struct timeval it_interval; /* Interval for periodic timer */
+    struct timeval it_value;    /* Time until next notification */
+};
+
+struct timeval {
+    time_t      tv_sec;         /* seconds */
+    suseconds_t tv_usec;        /* microseconds */
+};
+```
+
+You can check the remaining time with `int getitimer(int which, struct itimerval *curr_value);`.
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
+
+void timer_handler(int signum)
+{
+    static int count = 0;
+    printf("timer expired %d times\n", ++count);
+}
+
+int main()
+{
+    struct itimerval timer;
+    signal(SIGVTALRM, timer_handler);
+
+    /* Configure the timer to expire after 250 msec... */
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 250000;
+    /* ... and every 250 msec after that. */
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 250000;
+    /* Start a virtual timer. It counts down whenever this process is
+      executing. */
+    setitimer(ITIMER_VIRTUAL, &timer, NULL);
+
+    /* Do busy work. */
+    while (1)
+        ;
+}
+```
 
 #### One-time Timer - Alarm
 
-with alarm()
+With `unsigned int alarm(unsigned int seconds);` you can setup a one-time occuring timer. When the timer expires the `SIGALRM` signal is sent. An existing timer can be removed with `alarm(0);`
 
 #### Timer precision
 
-Je nach Prozessorlast kann es sein, dass ein Prozess
-erst kurz nach Ablauf eines Timers wieder läuft.
-Dies hat aber keinen Einfluss auf das nächste Signal,
-Intervalle werden genau eingehalten, ohne Drift.
-Die Genauigkeit eines Timers ist auf modernen Linux
-Systemen durch die Frequenz der Hardware Clock
-beschränkt, und erreicht ca. eine Mikrosekunde.
+Depending on CPU use the process might only start just after being notfied. This however has no influence on the next signal (no delaying).
 
 #### Suspend processes - sleeping
 
-sleep and nanosleep.
+You can suspend a process with `unsigned int sleep(unsigned int seconds);`. Internally it is implemented with `int nanosleep(const struct timespec *req, struct timespec *rem);`.
