@@ -62,7 +62,7 @@ As one would expect you need to call the parent constructor in the initializer l
 
 ## Inheriting Constructors
 
-There is a special way to use the `using` keyword to inherit and be able to refer to the constructors of a parent. If in the below example the using is not used then the default constructor would be called and m_val would not be initialized.
+There is a special way to use the `using` keyword to inherit and be able to refer to the constructors of a parent. If in the example below `using` is not used then the default constructor would be called and m_val would not be initialized.
 
 ```c
 class A
