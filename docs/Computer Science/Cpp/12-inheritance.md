@@ -91,3 +91,25 @@ class B: public A
 The deconstructor of a child calls the deconstructor of its parent after completion. This is so that dynamically allocated attributes can be removed first. Deconstructors should also in most cases only be implemented if there are dynamically allocated attributes that need to be cleaned up.
 
 Important is that the deconstructor will also be called at the end of the block in which a static object was used.
+
+## Overload Resolution with Inheritance
+
+A common scenario is that a child overloads a parent's function. When doing so we can however run into problems for example if he have the following functions:
+
+```cpp
+void Person::foo(char c);
+void Student::foo(int i);
+```
+
+and then want to do the following:
+
+```cpp
+Student s;
+s.foo(10); // Student::foo(int i) is called
+s.foo('A'); // Student::foo(int i) is called
+```
+
+We cant see that in both cases the Student implementation gets used. This is because the compiler looks first in the child if there is a function that matches the call, and there is because the char can get implicitly casted to an int (only after it has checked all functions in the child will it scan the parent). But what if we want the char implementation of the parent to be used. There are two ways:
+
+- The child offers the parents function by writing `using Person::foo;`.
+- The parent function is explicitly called `s.Person::foo('A');`.
