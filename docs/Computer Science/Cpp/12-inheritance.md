@@ -35,7 +35,7 @@ public:
 class Student : public Person {
     int m_number;
 public:
-    Student(conststring& name, int age, int nr) : Person(name, age), m_number(nr) {} // call super constructor
+    Student(const string& name, int age, int nr) : Person(name, age), m_number(nr) {} // call super constructor
     void setNumber(int nr) { m_number = nr; }
     void printNumber() const; // no implementation
 };
@@ -44,7 +44,7 @@ public:
 ```cpp title="Student.cpp"
 // implementation
 void Student::printNumber() const {
-    cout << "Matrikelnummer: " << m_number << endl;
+    cout << "Number: " << m_number << endl;
 }
 ```
 
@@ -70,7 +70,7 @@ As one would expect you need to call the parent constructor in the initializer l
 
 ## Inheriting Constructors
 
-There is a special way to use the `using` keyword to inherit and be able to refer to the constructors of a parent. If in the below example the using is not used then the default constructor would be called and m_val would not be initialized.
+There is a special way to use the `using` keyword to inherit and be able to refer to the constructors of a parent. If in the example below `using` is not used then the default constructor would be called and m_val would not be initialized.
 
 ```c
 class A
