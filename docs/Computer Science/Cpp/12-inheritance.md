@@ -12,40 +12,32 @@ class diagram of Person and Student.
 
 In C++ the above relationship would be implemented like this:
 
-```cpp title="Person.h"
+```cpp
 class Person {
     string m_name;
     int m_age;
 public:
-    Person(const char name[], int age) : m_name(name), m_age(age) {}
-    string getName() const{ retur nm_name; }
-    void setAge(intage) { m_age= age; }
-    void print() const; // no implementation
-};
-```
-
-```cpp title="Person.cpp
-    void Person::print() const{
+    Person(const string& name, int age) : m_name(name), m_age(age) {}
+    virtual string getName() const { return m_name; } // virtual could be overwritten
+    void setName(const string& name) { m_name = name; }
+    int getAge() { return m_age; }
+    void setAge(int age) { m_age = age; }
+    void print() const {
         cout << "Name: " << m_name << endl;
-        cout << "Alter: " << m_age << endl; 
+        cout << "Alter: " << m_age << endl;
     }
-```
+};
 
-```cpp title="Student.h"
-class Student : public Person {
+class Student : Person {
     int m_number;
 public:
-    Student(conststring& name, int age, int nr) : Person(name, age), m_number(nr) {} // call super constructor
+    Student(const string& name, int age, int nr) : Person(name, age), m_number(nr) {} // call super constructor
+    int getNumber() { return m_number; }
     void setNumber(int nr) { m_number = nr; }
-    void printNumber() const; // no implementation
+    void printNumber() const {
+        cout << "Matrikelnummer: " << m_number << endl;
+    }
 };
-```
-
-```cpp title="Student.cpp"
-// implementation
-void Student::printNumber() const {
-    cout << "Matrikelnummer: " << m_number << endl;
-}
 ```
 
 ```cpp
@@ -113,3 +105,58 @@ We cant see that in both cases the Student implementation gets used. This is bec
 
 - The child offers the parents function by writing `using Person::foo;`.
 - The parent function is explicitly called `s.Person::foo('A');`.
+
+## Casting and RTTI
+
+### Converting Pointers
+
+The type of a reference or pointer variable does not have to be the same type as the object to which the variable points.
+
+```cpp
+// Till now
+Student stud("Anna", 21, 50101);
+Person pers = stud;
+// But also 
+Student* stud2 = new Student("Bob", 20, 50111);
+Person* pers2 = new Student("Anna", 21, 50101);
+pers2->print();
+Person* pers3 = stud2; // implicit up-cast
+pers3->print();
+Student* stud3 = static_cast<Student*>(pers2);
+stud3->printNumber();
+// Student* stud4 = dynamic_cast<Student*>(pers2); does not work
+```
+
+Important here to see is that when up-casting and the down-casting back to the original type the data is not lost. Just the type of the reference/pointer variable changes.
+
+### RTTI - Runtime Type Information
+
+The problem however is that when you illegally downcast like below then you get a runtime exception (or even nothing) which you want to avoid.
+
+```cpp
+Person* pers = new Person("Anna", 21);
+Student* stud = (Student*)pers;
+Student* stud2 = static_cast<Student*>(pers);
+stud->printNumber();
+stud2->printNumber();
+```
+
+To prevent this there is the RTTI system that stores the exact type of each instance. The system can be turned on and off as you wish. The dynamic_cast is based on this and works as expected on a valid down-cast. But if the down-cast is illegal it returns a nullptr instead of causing a runtime error.
+
+```cpp
+Person* pers = new Person("Anna", 21);
+Student* stud = dynamic_cast<Student*>(pers);
+cout << boolalpha << (stud == nullptr) << endl; // true
+```
+
+typeid ?????? TODODODODODOODOD
+
+### Converting Smart Pointers
+
+## Access specifiers
+
+## Interfaces
+
+## Multiple Inheritance
+
+### Diamond Problem

@@ -96,7 +96,7 @@ num_double2 = 3.14
 
 ### C-style type casting
 
-As the name suggests, this type of casting is same as in the C programming language and is also commonly refereed to the cast notation.
+As the name suggests, this type of casting is the same as in the C programming language and is also commonly referred to as the cast notation.
 
 ```cpp
 #include <iostream>
@@ -106,7 +106,7 @@ int main() {
     int num_int = 9;
     double num_double;
     // converting from int to double
-    num_double = (double)num_int;
+    num_double = (double) num_int;
     cout << "num_int = " << num_int << endl;
     cout << "num_double = " << num_double << endl;
 
@@ -140,7 +140,7 @@ This is the way how it is done in modern C++.
 
 #### Static cast
 
-In general you use a static cast just like any other cast so far when you are certain of the data types involved in the conversion. This takes the pointer in ptr and tries to safely cast it to a pointer of type Type*. This cast is done at compile time. It will only perform the cast if the types are related. If the types are not related, you will get a compiler error.
+In general, you use a static cast just like any other cast so far when you are certain of the data types involved in the conversion. This takes the pointer and tries to safely cast it. This cast is done at compile time. It will only perform the cast if the types are related. If the types are not related, you will get a compiler error.
 
 ```cpp
 class B {};
@@ -158,7 +158,7 @@ int main()
 
 #### Dynamic cast
 
-A dynamic cast is executed at runtime, not compile time. Because this is a run-time cast, it is useful especially when combined with polymorphic classes. In fact, in certain cases the classes must be polymorphic in order for the cast to be legal.
+A dynamic cast is executed at runtime, not compile time. Because this is a run-time cast, it is useful, especially when combined with polymorphic classes. In fact, in certain cases, the classes must be polymorphic for the cast to be legal.
 
 #### Constant cast
 
