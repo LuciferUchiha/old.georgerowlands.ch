@@ -28,7 +28,7 @@ public:
     }
 };
 
-class Student : Person {
+class Student : public Person {
     int m_number;
 public:
     Student(const string& name, int age, int nr) : Person(name, age), m_number(nr) {} // call super constructor
@@ -78,11 +78,11 @@ class B: public A
 };
 ```
 
-## Deconstructors
+## Destructors
 
-The deconstructor of a child calls the deconstructor of its parent after completion. This is so that dynamically allocated attributes can be removed first. Deconstructors should also in most cases only be implemented if there are dynamically allocated attributes that need to be cleaned up.
+The destructor of a child calls the destructor of its parent after completion. This is so that dynamically allocated attributes can be removed first. Destructors should also in most cases only be implemented if there are dynamically allocated attributes that need to be cleaned up.
 
-Important is that the deconstructor will also be called at the end of the block in which a static object was used.
+Important is that the destructor will also be called at the end of the block in which a static object was used.
 
 ## Overload Resolution with Inheritance
 
@@ -129,6 +129,18 @@ stud3->printNumber();
 
 Important here to see is that when up-casting and the down-casting back to the original type the data is not lost. Just the type of the reference/pointer variable changes.
 
+#### Converting Smart Pointers
+
+You can also convert smart pointers which also follow the same rules as normal pointers.
+
+```cpp
+    shared_ptr<Person> spPers = make_shared<Person>("Bob", 21);
+    shared_ptr<Person> spStud = make_shared<Student>("Anna", 20, 50010);
+    auto sp1 = static_pointer_cast<Student>(spStud);
+    auto sp2 = dynamic_pointer_cast<Student>(spStud);
+    auto sp3 = dynamic_pointer_cast<Student>(spPers); // sp3==nullptr
+```
+
 ### RTTI - Runtime Type Information
 
 The problem however is that when you illegally downcast like below then you get a runtime exception (or even nothing) which you want to avoid.
@@ -149,14 +161,155 @@ Student* stud = dynamic_cast<Student*>(pers);
 cout << boolalpha << (stud == nullptr) << endl; // true
 ```
 
-typeid ?????? TODODODODODOODOD
+You can also read the type information that the RTTI system stores by using the `typeid` operator which is very similar to `instanceof` in Java.
 
-### Converting Smart Pointers
+```cpp
+Person* pers = new Person("Bob", 21);
+Person* stud = new Student("Anna", 20, 50010);
+const type_info& typePers = typeid(*pers);
+const type_info& typeStud = typeid(*stud);
+cout << boolalpha << (typePers == typeStud) << endl; // false
+cout << "Is Person a parent of Student: "<< boolalpha << typePers.before(typeStud) << endl; // true
+```
+
+## Overriding and Shadowing
+
+Children can have functions with the same signature as a function in the parent, this in turn overrides the function in the parent with the version in the child (overriding).
+You can also define attributes in a child that have the same name as attributes in the parent. This is called shadowing and should be avoided at all costs. If this does happen then you must explicitly define when you want to use the shadowed attribute in the parent `Person::x` or `static_cast<Person*>(this)->x`.
+
+### Binding
+
+Binding is the act of assigning a function body to a function call. This can be done in two ways:
+
+- Static (early) binding happens at compile time and allows the compiler to replace the function calls with the function bodies. This is the default behavior.
+- Dynamic (late) binding happens at runtime. For this to work the `virtual` keyword must be used.
+
+So to override a parent's function in a child you must explicitly define a function as virtual meaning it can be overridden. Then when overriding you must explicitly say that you want to override a function. If a function is virtual then all of the overridden functions are also implicitly virtual.
+
+```cpp
+class Person { 
+    virtual void print() const {
+        cout << "Some printing" << endl;
+    }
+};
+class Student : public Person {
+    void print() const override { 
+        Person::print(); // Call parent print()
+        cout << "Some more printing" << endl;
+    }
+};
+```
+
+### Blocking Overriding or Inheritance
+
+You can block methods from being overridden, this is just simply done by adding the `final` modifier. This can also be used for class definitions to stop classes from being inherited. The final modifier can however only be added to virtual functions. This is done because non-virtual functions are automatically final.
+
+```cpp
+class A { virtual void foo(int i); };
+class B final : A { void foo(int i) final override {}; };
+class C : B { void foo(int i) override {}; }; // does not work
+```
 
 ## Access specifiers
 
+![cppAccessModifiersInheritance](/img/programming/cppAccessModifiersInheritance.png)
+
+## Automatically Created Functions
+
+By default when creating a class the system provides a default constructor, destructor and assignment operator which are all non-virtual. For this reason, destructors and assignment operators should be defined as virtual so that they can be overridden in the children.
+
+```cpp
+virtual ~Vehicle() = default;
+virtual Vehicle& operator=(const Vehicle& v) = default;
+```
+
 ## Interfaces
+
+In C++ there is no such thing as the `interface` type. There also isn't the `abstract` modifier. Instead, an abstract class without any implementations is the same as an interface. An abstract can't be instantiated and for a class to be abstract there must be at least one abstract function. An abstract function is a virtual function with no implementation.
+
+```cpp
+struct IVehicle{
+    virtual ~IVehicle() = default;
+    virtual void drive() = 0; // abstract (pure virtual)
+};
+class Bicycle: public IVehicle {
+public:
+    void drive() override { cout << "broom" << endl; }// Implements the abstract function
+};
+int main() {
+    IVehicle* v = new Bicycle();
+    delete v;// calls Bicycle destructor because virtual
+}
+```
 
 ## Multiple Inheritance
 
+In C++ a class can inherit from more than one class. The constructors of inherited classes are called in the same order in which they are inherited. The destructors are called in reverse order of constructors. So in the program below B’s constructor is called before A’s constructor.
+
+```cpp
+class A {
+public:
+  A()  { cout << "A's constructor called" << endl; }
+};
+  
+class B {
+public:
+  B()  { cout << "B's constructor called" << endl; }
+};
+  
+class C: public B, public A {
+public:
+  C()  { cout << "C's constructor called" << endl; }
+};
+```
+
+As you might imagine this can cause a few problems. Suppose two parent classes have the same function which is not overridden in the child class. If you then try to call the function using from the child class the compiler will show an error because it doesn't know which function to call.
+
+```cpp
+class A {
+  public:
+      void someFunction() { cout << "A" << endl; }  
+};
+class B {
+    void someFunction() { cout << "B" << endl; } 
+};
+class C : public A, public B {};
+
+int main() {
+    C obj;
+    obj.someFunction(); // error
+    // to solve it:
+    obj.A::someFunction();
+    obj.B::someFunction();
+}
+```
+
 ### Diamond Problem
+
+There is however also the so-called diamond problem which is when we have a commonly seen structure as below:
+
+![diamondProblem](/img/programming/diamondProblem.png)
+
+We then run into problems if we want to do something like this:
+
+```cpp
+Rechteck r(0, 0, 20, 50);
+RechteckMitText br(10, 5, 60, 60, "Text");
+r.zeichnen(); // Rechteck::zeichnen()
+br.zeichnen()// RechteckMitText::zeichnen()
+Position rPos = r.getPos(); // works fine
+Position brPos = br.getPos(); // Error
+GraphObj*pObj = &br; // Error
+```
+
+Because the compiler does not know which getPos to call and the partial class `GraphObj` is inherited twice. To resolve this we can use virtual inheritance which ensures that only one copy of a parent's member variable is inherited.
+
+```cpp
+class Rechteck : virtual public GraphObj {...};
+class ObjMitText: virtual public GraphObj {...};
+class RechteckMitText: public ObjMitText, public Rechteck {
+public:
+    RechteckMitText(int x, int y, int w, int h, string text)
+        : ObjMitText(-2, -2, text), Rechteck(-1, -1, w, h), GraphObj(x, y) {}
+};
+```
