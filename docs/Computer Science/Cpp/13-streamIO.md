@@ -64,7 +64,45 @@ if(cin.good()) { // short: if (cin)
 
 ### Stream Manipulators
 
-TODODODODOODODODO
+Manipulators are helper functions to control formatted input/output streams to make life easier then before with the multiple flags etc.
+
+```cpp
+// before
+cout.setf(ios::hex, ios::basefield);
+cout.setf(ios::uppercase);
+cout << i << endl;
+// after
+cout << hex << uppercase << i << endl;
+```
+
+These are all pointers to functions. For example, the implementation of `endl` looks something like this:
+
+```cpp
+ostream& endl(ostream& os){
+    os.put('\n');
+    os.flush();
+    return os;
+}
+```
+
+Some of the important manipulators are:
+
+- `setw(int i)` is used to set the field width in output operations.
+- `setfill(char c)` is used to fill the character ‘c’ on output stream.
+- `setprecision(int i)` sets val as the new value for the precision of floating-point values.
+- `setbase(int i)` is used to set the numeric base value for numeric values.
+- `showpos` forces to show a positive sign on positive numbers.
+- `noshowpos` forces not to write a positive sign on positive numbers.
+- `showbase` indicates the numeric base of numeric values.
+- `uppercase` forces uppercase letters for numeric values.
+- `nouppercase` forces lowercase letters for numeric values.
+- `fixed` uses decimal notation for floating-point values.
+- `scientific` uses scientific floating-point notation.
+- `hex` read and write hexadecimal values for integers and it works same as the setbase(16).
+- `dec` read and write decimal values for integers i.e. setbase(10).
+- `oct` read and write octal values for integers i.e. setbase(10).
+- `left` adjusts output to the left.
+- `right` adjusts output to the right.
 
 ## C++ Stream Classes
 
