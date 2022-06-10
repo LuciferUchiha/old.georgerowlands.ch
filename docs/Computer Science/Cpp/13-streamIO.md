@@ -12,15 +12,71 @@ In C++ this works over byte streams which are objects of the class `istream` for
 
 The objects `cin` and `cout` are such objects and are most commonly used. There are however also `cerr` for the standard error output and `clog` for buffered standard error output.
 
-## Formatted I/O
+## Un/Formatted I/O
+
+Formatted I/O uses the `<<` and `>>` operators. These operators either read an object and write it to a stream as a string or the opposite way around. Unformatted uses like in C the `write()` and `read()` functions.
+
+```cpp
+#include<iostream>
+using namespace std;
+int main() {
+    constexpr int nColumns = 4;
+    cout << "ASCII-Tabelle" << endl << endl;
+    for (int i = 32; i < 128; i++) {
+        cout.width(3); // Numberwidth: 3
+        cout.fill('0'); // fill with leading zeros
+        cout << i << " = 0x";
+        cout.setf(ios::hex, ios::basefield); // set to base 16
+        cout.setf(ios::uppercase); // Hexnumbers in CAPS
+        cout << i << ": ";
+        cout.unsetf(ios::hex); // change back to decimal
+        cout << (char)i << '\t'; // output char
+        if (i % nColumns == nColumns - 1)
+            cout << endl;
+    }
+}
+```
+
+Formatted input of booleans:
+
+```cpp
+cin.setf(ios::boolalpha); 
+cin >> boolValue;
+```
+
+Error handling of formatted input:
+
+```cpp
+if(cin.good()) { // short: if (cin)
+    cout << "Input is: " << i << endl;
+} else{
+    cin.clear();
+    getline(cin, s); // read entire line
+    stringstream ss(s);
+    cout << "No number was entered instead the strings: ";
+    while(ss.good()) {
+        ss >> s;
+        cout << "[" << s << "]";
+    }
+    cout << endl;
+}
+```
 
 ### Stream Manipulators
 
+TODODODODOODODODO
+
 ## C++ Stream Classes
+
+Just like in Java there are lots of different streams all with there pros and cons etc.
+
+![cppStreamHierarchie](/img/programming/cppStreamHierarchie.png)
 
 ## Stream States
 
-something iostate
+You can read the state (a number, `iostate`) of a stream with `rdstate()`. 0 means everything is good, all other numbers mean something different and depending on which of the 3 bits are set something different. `eofbit` means the end of the file has been reached, `failbit` a logical error has happend like an int should be read but "hello" was input (EOF also sets this bit). `badbit` means something went wrong when reading or writing for example hardware or OS issue.
+
+![cppIOState](/img/programming/cppIOState.png)
 
 ## File I/O
 
@@ -29,6 +85,16 @@ something iostate
 #### Unformatted
 
 Very C-like.
+
+- `peek()` returns the next character in the stream or EOF.
+- `get()` returns a character from the stream.
+- `read(char* s, streamsize n)` reads n characters from the stream.
+- `getting(istream& is, string& str)` reads characters from stream and stores them into str until a newline.
+- `ignore()` reads and discards a character.
+- `gcount()` returns the number of characters extracted by the last unformatted input operation performed on the object.
+- `unget()` Attempts to make the last character extracted from the stream once again available.
+- `put()` writes a character.
+- `write()` writes n characters.
 
 ```cpp
 #include <iostream>
@@ -42,7 +108,7 @@ void main(){
     cin >> fileName;
     inData.open(fileName, ios::in); // open file
     if( !inData ) {
-        cerr<< "Couldn't open file!" << endl;
+        cerr << "Couldn't open file!" << endl;
     } else {
         while(!inData.eof()) {
             cout << static_cast<char>(inData.get()); // read char for char.
@@ -90,3 +156,53 @@ int main() {
 ```
 
 ### Binary Files
+
+```cpp
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+#include<sstream>
+#include<string>
+
+using namespace std;
+
+struct S {
+    int value;
+    string text;
+};
+
+int main() {
+    constexpr int size= 10;
+    S array[size];
+    ofstream ofs;
+    // Array init
+    for(int i = 0; i < size; i++) {
+        stringstream strs;
+        array[i].value= i;
+        strs << setw(2) << setfill('0') << (i+1) << "._Array-Element";
+        strs >> array[i].text;
+    }
+    // open file
+    ofs.open("ouput.dat", ios::out | ios::binary);
+    if(!ofs) {
+        cerr << "Couldn't open file!" << endl;
+        return 1;
+    }
+    // write array to file, tricky
+    ofs.write((char*) array, size * sizeof(S));
+    ofs.close();
+    // open input
+    ifstream ifs;
+    ifs.open("ouput.dat", ios::in | ios::binary);
+    if(! ifs) {
+        cerr << "Couldn't open file!" << endl;
+        return 1;
+    }
+    // read element by element
+    for(S& s: array) {
+        ifs.read((char*)&s, sizeof(S));
+        cout<< s.text<< " = " << s.value<< endl;
+    }
+    ifs.close();
+}
+```
