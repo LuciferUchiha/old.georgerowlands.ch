@@ -159,6 +159,199 @@ int main() {
 
 ## Variadic Templates
 
+In C++ you can define templates that take a variadic number of arguments. This can be done by using `...`. Pattern-Matching is done at compilation.
+
+```cpp
+template<typename... Ts> class C { 
+    size_t types = sizeof...(Ts); // number of params
+};
+template<typename... Ts> void func(const Ts&... vs){
+    size_t params = sizeof...(vs); // number of params
+}
+```
+
+You can then also implement recursive templates like this:
+
+```cpp
+template<typename First, typename... Rest>
+void logging(const First& first, const Rest&... rest) {
+    cout<< '[' << sizeof...(Rest) << "] ";
+    cout<< first << ", ";
+    logging(rest...); // recursion
+}
+// last call - anchor
+template<typename T> voidlogging(constT& t) {
+    cout << "[0] " << t << endl;
+}
+```
+
 ## Perfect Forwarding
 
+If a function template forwards its arguments without changing its lvalue or rvalue characteristics, we call it perfect forwarding. So for example if we have a function like `template<typename T> void f(T&& x) { ... }` then if a lvalue is passed to it stays a lvalue in the function body. But if an rvalue is passed to it becomes an lvalue in the function body. To avoid this we use the `std::forward<t>()` function which comes into use when working with universal/forwarding references (generic rvalues). The forward function forwards lvalues as lvalues and rvalues are moved with the move function to remain rvalues.
+
+```cpp
+template<typename First, typename... Rest>
+void logging(First&& first, Rest&&... rest) {
+    cout << '[' << sizeof...(Rest) << "] ";
+    cout << forward<First>(first) << ", ";
+    logging(forward<Rest>(rest)...);
+}
+// anchor
+template<typenameT> void logging(T&& t) {
+cout<< "[0] " << forward<T>(t)<< endl;
+}
+
+```
+
 ## Template Meta Programming - TMP
+
+Template meta programming is programming with types and not values.
+
+### Manipulating Types at Compile Time
+
+You can also manipulate types at compile time with meta programming. This is for example how the move and forward functions are implemented.
+
+```cpp
+template<typename T >
+struct removeConst {
+    typedef T type;               
+};
+template<typename T >
+struct removeConst<const T> {
+    typedef T type;               
+};
+int main() {
+    static_assert(is_same<int, removeConst<int>::type>::value, "Aren't the same");
+    static_assert(is_same<int, removeConst<const int>::type>::value, "Aren't the same");
+}
+```
+
+### Calculating at Compile Time
+
+Calculating the factorial of a number is the "Hello World" of template meta programming.
+
+```cpp
+template <int N>                                                                
+struct Factorial{
+    static int const value = N * Factorial<N-1>::value;
+};
+
+// anchor
+template <>
+struct Factorial<1>{
+    static int const value = 1;
+};
+```
+
+#### Integral Constant
+
+With integral constants you can also calculate values at compile time:
+
+```cpp
+// Definition
+template<classT, T v>
+struct integral_constant{
+    static constexpr T value = v;
+    typedef T value_type;
+    typedef integral_constant<T,v> type;
+    constexpr operator T() const noexcept{ return v; }
+    constexpr T operator()() const noexcept{ return v; }
+};
+// Use
+template <int N>
+struct Factorial: integral_constant<int, N*Factorial<N-1>::value> {};
+template<>
+struct Factorial<1> : integral_constant<int, 1> {};
+```
+
+### Tag Dispatch
+
+With tag dispatching, you can add tags to calls to be able to differentiate between types for a generic function.
+
+```cpp
+template<typename T>
+bool equals(T lh, T rh) {
+    return equals(lh, rh, conditional_t<is_floating_point<T>::value, true_type, false_type>{});
+}
+
+template<typename T>
+bool equals(T lh, T rh, true_type) { // floating
+    // imprecision handling
+    return lh == rh;
+}
+
+template<typename T>
+bool equals(T lh, T rh, false_type) {
+    return lh == rh;
+}
+```
+
+### SFINAE
+
+SFINAE stands for "Substitution Failure Is Not An Error". To tell the compiler that a generic parameter is a type we use the `typename` keyword. This can also be further used to substitute types for example here:
+
+```cpp
+template<typename T>
+struct Extrema{
+    using type = typename T::value_type; // substitution
+    type m_min, m_max;
+    Extrema(constT& data)
+    : m_min(*min_element(begin(data), end(data)))
+    , m_max(*max_element(begin(data), end(data))) {}
+};
+Extrema<vector<int>> x({ 8, 3, 5, 6, 1, 3 });
+```
+
+If this substitution however doesn't work (if in the above example T does not have a `value_type` attribute) then there is no compiler error. We can then use the `enable_if` struct to be able to differentiate between generic methods just like with tag dispatching.
+
+```cpp
+template<typename T>
+enable_if<!is_floating_point<T>::value, bool> Equals(T lh, T rh) {
+    // imprecision handling
+    cout << "blabla" << endl;
+    return lh == rh;
+}
+
+template<typename T>
+enable_if<is_floating_point<T>::value, bool> Equals(T lh, T rh, false_type) { // floating
+    return lh == rh;
+}
+```
+
+Now we can also take a quick look at how `is_floating_point<T>` is implemented.
+
+```cpp
+template <class T>
+constexpr bool is_floating_point_v= _Is_any_of_v<T, float, double, long double>;
+// true if T is in Ts
+template <class T, class... Ts>
+constexpr bool _Is_any_of_v= disjunction_v<is_same<T, Ts>...>;
+// implementation of is_same
+template <class, class>
+constexpr bool is_same_v = false; // determine whether arguments are the same type
+template <class T>
+constexpr bool is_same_v<T, T> = true;
+// implementation of disjunction
+template <class First, class... Rest>
+struct disjunction<First, Rest...> : _Disjunction<First::value, First, Rest...>::type {};
+```
+
+## Concepts
+
+In C++20 there are also concepts. Just like everything else up till now a concept is a set of constraints on template parameters evaluated at compile time.
+
+```cpp
+struct S1 {};
+struct S2 { using type = int; };
+// old
+template<class T>
+constexpr bool has_type_member_f(T) { return has_type_member<T>; }
+static_assert(!has_type_member_f(S1()));
+static_assert(has_type_member_f(S2()));
+
+// new
+template<typenameT>
+concept has_type_member = requires{ typename T::type; };
+static_assert(!has_type_member<S1>);
+static_assert(has_type_member<S2>);
+```
