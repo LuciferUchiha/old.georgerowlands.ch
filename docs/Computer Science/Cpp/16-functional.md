@@ -101,29 +101,29 @@ Functors and lambdas are both instances of functional from the `<functional>` he
 using namespace std;
 
 struct Funktor {
- float m_div;
- Funktor(float f) : m_div(f) {}
- float operator()(float a, int x) const {
-  return a + x / m_div;
- }
+    float m_div;
+    Funktor(float f) : m_div(f) {}
+    float operator()(float a, int x) const {
+        return a + x / m_div;
+    }
 };
 
 struct Binding {
- float m_div;
- Binding(float f) : m_div(f) {}
- float meth(float a, int x) const {
-  return a + x / m_div;
- }
+    float m_div;
+    Binding(float f) : m_div(f) {}
+    float meth(float a, int x) const {
+        return a + x / m_div;
+    }
 };
 
 float foo(float a, int x) { return a + x / 2.0f; }
 
 int main() {
- function<float(float a, int x)> func;
- func = Funktor(2.0f);
- Binding binding(2.0f);
- func = bind(&Binding::meth, &binding, 1.0, 2); // last arguments are parameters
- func = &foo;
- func = [](float a, int x) {return a + x / 2.0f; };
+    function<float(float a, int x)> func;
+    func = Funktor(2.0f);
+    Binding binding(2.0f);
+    func = bind(&Binding::meth, &binding, 1.0, 2); // last arguments are parameters
+    func = &foo;
+    func = [](float a, int x) {return a + x / 2.0f; };
 }
 ```
