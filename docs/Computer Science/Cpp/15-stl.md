@@ -167,8 +167,92 @@ There are also unordered versions of sets and maps where the keys are not sorted
 
 ### Iterators
 
-#### Special Iterators
+Iterators in C++ do very similiar things to Iterators in Java. In C++ all they are are pointers. `begin()` / `cbegin()` return a pointer pointing to the first element and `end()` / `cend()` return a pointer that points to a fictional element after the last element.
+
+```cpp
+template<class Iter> void print(Iter it, Iter end) {
+    while(it!= end) {
+        cout << *it++<< ' ';
+    }
+    cout << endl;
+}
+```
+
+#### Move Iterator
+
+A move iterator works exactly the same as a normal iterator except that dereferencing converts the value returned by the underlying iterator into an rvalue so it can be moved.
+
+```cpp
+vector<string> source = { "Move", "iterators", "in", "C++" };
+vector<string> destination(make_move_iterator(begin(source)), make_move_iterator(end(source)));
+```
+
+#### Insert Iterators
+
+A `front_insert_iterator` prepends elements to a container for which it was constructed. The container's push_front() member function is called whenever the iterator (whether dereferenced or not) is assigned to. Similarly, there is the `back_insert_iterator` that appends to a container for which it was constructed.
+
+```cpp
+vector<int> v{1,2,3,4,5};
+deque<int> d;
+copy(v.begin(), v.end(), front_insert_iterator<deque<int>>(d)); // or front_inserter(d)
+for(int n : d)
+    cout << n << ' ';
+cout << '\n';
+```
+
+#### Reverse Iterator
+
+`reverse_iterator` is an iterator adaptor that reverses the direction of a given iterator.
+
+```cpp
+vector<int> v{1, 2, 3, 4, 5};
+for (vector<int>::reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+{
+    cout << *it; // prints 54321
+} 
+```
+
+#### Stream Iterator
+
+```cpp
+copy(to_vector.begin(), to_vector.end(), std::ostream_iterator<int>(cout, " "));
+copy_if(to_vector.begin(), to_vector.end(), ostream_iterator<int>(cout, " "), [](int x) { return x % 2 != 0; });
+```
 
 ## Algorithm
 
+The algorithms in the `algorithm` header can be used on any container, no matter the implementation since they mainly use iterators. However, if there is a function with the same name on a container as in the algorithm header then that special version for the container should be used for better efficiency.
+
+- `find<T>(begin(), end(), const T& value), find_if(begin(), end(), [](int i){ return i%2 == 0; }), find_if_not` finds the first element satisfying specific criteria
+- `nth_element(RandomIt first, RandomIt nth, RandomIt last)` is a partial sorting algorithm that rearranges elements so that the element pointed at by nth is changed to whatever element would occur in that position if [first, last) were sorted.
+All of the elements before this new nth element are less than or equal to the elements after the new nth element. Can get median with: `nth_element(v.begin(), v.begin() + v.size()/2, v.end());`
+- `ForwardIt1 search(ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last, BinaryPredicate p )` searches for the first occurrence of the sequence of elements [s_first, s_last) in the range [first, last). Elements are either compared using == or the optional binary predicate p. Returns an iterator to the beginning of the first occurrence of the sequence.
+- `ForwardIt search_n( ForwardIt first, ForwardIt last, Size count, const T& value );` searches the range [first, last) for the first sequence of count identical elements, each equal to the given value. for example 5 consecutive zeros etc.
+- `count, count_if` returns the number of elements in the range [first, last) satisfying specific criteria.
+- `T& min(const T& a, const T& b), max` returns the smaller/bigger of the given values.
+- `ForwardIt min_element( ForwardIt first, ForwardIt last ), max_element` Finds the smallest/biggest element in the range [first, last).
+- `bool lexicographical_compare( InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2 )` checks if the first range [first1, last1) is lexicographically less than the second range [first2, last2).
+- `mismatch, equal` mismatch finds the first position where two ranges differ, determines if two sets of elements are the same
+- `OutputIt copy( InputIt first, InputIt last, OutputIt d_first ), copy_if` copies the elements in the range, defined by [first, last), to another range beginning at d_first.
+- `void swap( T& a, T& b )` exchanges the given values
+- `void iter_swap( ForwardIt1 a, ForwardIt2 b )` swaps the values of the elements the given iterators are pointing to. Can implement a selection sort with it: `void selection_sort(ForwardIt begin, ForwardIt end) {for (ForwardIt i = begin; i != end; ++i)iter_swap(i, std::min_element(i, end));}`
+- `void fill( ForwardIt first, ForwardIt last, const T& value ), fill_n( OutputIt first, Size count, const T& value )` assigns the given value to the elements in the range [first, last) (to first n elements).
+- `void generate( ForwardIt first, ForwardIt last, Generator g ), generate_n` assigns each element in range [first, last) a value generated by the given function object g.
+- `void replace( ForwardIt first, ForwardIt last, const T& old_value, const T& new_value ), replace_if` Replaces all elements that are equal to old_value.
+- `replace_copy( InputIt first, InputIt last, OutputIt d_first,const T& old_value, const T& new_value ), replace_copy_if` copies the elements from the range [first, last) to another range beginning at d_first replacing all elements satisfying specific criteria with new_value.
+- `remove, remove_if, remove_copy, remove_copy_if` also works just like replace.
+- `transform( InputIt first1,InputIt last1, OutputIt d_first, UnaryOperation unary_op )` applies the given function to a range and stores the result in another range, keeping the original elements order and beginning at d_first.
+
 ## Exceptions
+
+Just like in Java some exceptions can be thrown and caught. It is best practice to only catch constant references of the exceptions. Unlike in Java, you don't explicitly say which exceptions a function will throw instead you define when a function does not throw any exceptions so that it can be better optimized.
+
+```cpp
+try{
+    throw runtime_error("example");
+} catch(const runtime_error& e) {
+    cout<< "std::runtime_error: " << e.what() << endl;
+} catch(...) {
+    cout<< "unknownexception" << endl;
+}
+```
