@@ -6,10 +6,6 @@ tags: [cpp, inheritance, interfaces, polymorphism]
 
 Works very similar to other programming languages like Java where you have super/parent classes and sub/child classes and the child inherits the attributes and functions of the parent.
 
-```mermaid
-class diagram of Person and Student.
-```
-
 In C++ the above relationship would be implemented like this:
 
 ```cpp
