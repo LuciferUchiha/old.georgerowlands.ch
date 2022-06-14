@@ -91,7 +91,7 @@ catch (bad_variant_access&) {}
 
 A Container is an object used to store other objects and taking care of the management of the memory used by the objects it contains.
 
-Attributes a Container<T> needs to have:
+Attributes a `ContainerX<T>` needs to have:
 
 - `value_type` container-element, T.
 - `reference` reference of container-element.
