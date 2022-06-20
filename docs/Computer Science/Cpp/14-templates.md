@@ -295,7 +295,7 @@ template<typename T>
 struct Extrema{
     using type = typename T::value_type; // substitution
     type m_min, m_max;
-    Extrema(constT& data)
+    Extrema(const T& data)
     : m_min(*min_element(begin(data), end(data)))
     , m_max(*max_element(begin(data), end(data))) {}
 };
