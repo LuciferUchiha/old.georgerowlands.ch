@@ -4,7 +4,7 @@ description: Threads
 tags: [concurrent programming, threads]
 ---
 
-## Processes vs threads
+## Processes vs Threads
 
 A process is an executable program that is loaded into memory. A process has its own logical memory address space allocated by the kernel. As seen in C we can also switch between processes but this is a rather expensive operation. Processes can communicate with each other via signals, interprocess communication - IPC, files or sockets.
 
@@ -38,7 +38,7 @@ With preemptive scheduling, the kernel can interrupt the running thread at any t
 
 ![preemptiveScheduling](/img/programming/preemptiveScheduling.png)
 
-## Java threads
+## Java Threads
 
 In Java a program's entry point is the main function that starts the initial thread, the main thread (non daemon). Java defines the functional interface `Runnable` which should be implemented by any class whose instance is intended to be executed by a thread.
 

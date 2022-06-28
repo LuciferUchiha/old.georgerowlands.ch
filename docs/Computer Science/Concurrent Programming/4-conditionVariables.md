@@ -32,7 +32,7 @@ Make sure to use a while loop, because of interrupts or spurious wakeups.
 
 :::
 
-## notify() vs notifyAll()
+## Notify vs NotifyAll
 
 The `notify()` function wakes up one waiting thread by random selection, which might still have to compete for the lock. If there are no threads waiting then the notify function is just like an empty statement.
 

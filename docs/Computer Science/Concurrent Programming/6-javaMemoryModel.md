@@ -12,19 +12,21 @@ The Java Memory Model (JMM) specifies guarantees that are given by the Java Virt
 
 ## Memory layout
 
-Modern CPUs dont just have the main memory they also have multiple caches and registers to make things faster however this can lead to problems.
-Allthough all threads share the main memory each thread has several cache levels. We can see these in effect in the following example.
+Modern CPUs don't just work with the main memory (RAM) they also have multiple layers of caches and registers to perform more efficiently. You can see [on this page](https://gist.github.com/hellerbarde/2843375) why it is worth having these caches and the difference in the time it takes to read depending on how far down the CPU has to reach for the data. However, this means that there can be multiple versions of the same data on different levels which can lead to issues. Additionally, as we know all threads share the main memory however each core and therefore thread has its own cache levels so there can be inconsistency inside a thread but also between threads.
 
-![cpuMemoryLayout](/img/programming/cpuMemoryLayout.png)
+<img src="/img/programming/cpuMemoryLayout.png" alt="cpuMemoryLayout" width="450"/>
+
+To illustrate this we have the program below. When running the program we expect to see the values (1,0), (1,1) and (0,1) for all 6 possible interleavings.
+
 ![memoryLayoutExample1](/img/programming/memoryLayoutExample1.png)
 
-When running the program all 6 possible interleaving can happen so we would think that the values would be (1,0),(1,1),(0,1) but when running the program we can also get (0,0) this is due to either compiler reordering or caching.
+However, when running the program we also get (0,0). This is due to either compiler reordering or caching.
 
 ![memoryLayoutExample2](/img/programming/memoryLayoutExample2.png)
 
 ## Happens before rules
 
-The JMM defines a partial order called happens-before on actions (variable read/write, monitor lock/unlock, thread start/join) to guarantee that a thread executing action B can see the results of action A (same or different thread) there must be a happens-before relationship between A and B, otherwise there is no guarantee!
+The JMM defines a relationship called happens-before on actions such as reading/writing to variables, locking/releasing monitors and starting/joining threads. These happens-before relationships guarantee that a thread executing action A can see the results of action B on the same or a different thread. If there is no such relationship then there is no guarantee!
 
 ### Rule 1
 
@@ -34,25 +36,25 @@ Each action in a thread happens-before every action in that thread that comes la
 
 ### Rule 2
 
-An unlock on a monitor lock happens-before every subsequent lock on that same monitor lock.
+Releasing a lock happens-before every subsequent lock on the same lock.
 
 ![happensBefore2](/img/programming/happensBefore2.png)
 
 ### Rule 3
 
-A write to a volatile field happens-before every subsequent read of that same field.
+A write to a volatile field happens-before every subsequent read of the same field.
 
 ![happensBefore3](/img/programming/happensBefore3.png)
 
 ### Rule 4
 
-A call to Thread.start on a thread happens-before every subsequent action in the started thread.
+A call to start a thread with `start()` happens-before every subsequent action in the started thread.
 
 ![happensBefore4](/img/programming/happensBefore4.png)
 
 ### Rule 5
 
-Actions in a thread t happens-before another thread detects its termination.
+Actions in a thread `t1` happens-before another thread detects the termination of thread `t1`.
 
 ![happensBefore5](/img/programming/happensBefore5.png)
 
@@ -64,7 +66,7 @@ The happens-before order is transitive.
 
 ## Volatile
 
-Volatile fields guarantee the visibility of writes (i.e. volatile variables are never cached). Read access to a volatile implies to get fresh values from memory. Write access to a volatile forces the thread to flush out all pending writes to the memory. Volatile variables do however have a cost because caching is no longer allowed. Important to note is also that access to a volatile variable inside a loop can be more expensive than synchronizing the entire loop.
+Volatile fields guarantee the visibility of writes (i.e. volatile variables are never cached). Read access to a volatile field implies getting fresh values from memory (slower). Write access to a volatile field forces the thread to flush all pending writes to the memory level. Volatile variables have a cost due to these things having to be done and caching no longer being allowed. Important to note is also that access to a volatile variable inside a loop can be more expensive than synchronizing the entire loop.
 
 ```java
 class MyExchanger {
@@ -84,13 +86,13 @@ class MyExchanger {
 }
 ```
 
-### Fixing long/double atomicity
+### Fixing Assignment Atomicity
 
-Depending on the implementation a long or double assignment is not atomic, it will do 32 bits at a time. To prevent this we can make the long volatile which will guaranty it to be atomic.
+Depending on the implementation a long or double assignment `double x = 3;` is not atomic, it will most lightly write 32 bits at a time. To prevent this we can make the double volatile which will guarantee the assignment to be atomic.
 
-## Double checked locking problem
+## Double-checked Locking Problem
 
-We want a Singelton with lazy initialization that is thread safe. Our first attempt would be somethings like this with getInstance being synchronized so that we don't run into problems. And this works fine however it is very expensive as for every getInstance we have the synchronization overhead.
+We want a Singleton that has lazy initialization that is also thread-safe. Our first attempt could be something like the code below with the `getInstance()` function being synchronized so that we don't run into problems. And this works fine however it is very expensive because for every getInstance we have the synchronization overhead.
 
 ```java
 public class Singleton {
@@ -105,7 +107,7 @@ public class Singleton {
 }
 ```
 
-To fix this we need to do so called double checking. We also need to make the instance volatile to prevent there being uninitialied objects.
+To fix this we need to do so-called double-checking. We also need to make the instance volatile to prevent there being uninitialized objects.
 
 ```java
 public class Singleton {

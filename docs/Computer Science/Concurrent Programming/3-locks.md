@@ -46,7 +46,7 @@ If we execute the above code we could expect the result to be 400000 because the
 
 ![counterExampleProblem](/img/programming/counterExampleProblem.png)
 
-### Interleaving model
+### Interleaving Model
 
 The interleaving model is used to calculate the number of possible interleavings (size of the set of possible interleavings) depending on the number of threads $n$ and the number of atomic instructions $m$.
 
@@ -54,7 +54,7 @@ $$interleavings = \frac{(n \cdot m)!}{(m!)^n}$$
 
 For example, if there are 2 threads and a program with 3 atomic instructions then there are 20 possible ways the program could be executed across the 2 threads. Just by increasing the number of threads to 4 the number of possible interleavings skyrockets to 369'600.
 
-## Race conditions
+## Race Conditions
 
 A race condition can happen when a result depends on the interleaving of the program across two or more threads. Critically race conditions can also happen when two or more threads are accessing shared data and at least one of them is modifying the data. This leads to unpredictable results as thread scheduling is nondeterministic.
 
@@ -103,7 +103,7 @@ resource that the next thread in the chain holds.
 
 ![deadlock](/img/programming/deadlock.png)
 
-#### Global ordering
+#### Global Ordering
 
 One way of avoiding deadlocks is to order the way the locks are obtained so instead of having the following situation:
 

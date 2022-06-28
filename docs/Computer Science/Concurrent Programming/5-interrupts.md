@@ -8,7 +8,7 @@ Blocking methods can potentially take forever if the condition they are waiting 
 
 In Java, the static function `Thread.stop()` exists but is declared deprecated as it is unsafe. It is unsafe because the Thread that it is called on releases all the locks monitors the thread was holding. Any of the objects previously protected by these released locks which were in an inconsistent state become visible to the other threads and therefore potentially result in broken behavior. So we need to use a different mechanism.
 
-## Interrupt flag
+## Interrupt Flag
 
 Internally every thread in Java has a boolean flag corresponding to its interrupted status. When the method `interrupt()` is called on a thread the flag is set to `true`. If the thread is blocked i.e it is in an invocation of `wait()`, `sleep()` or `join()` the flag is consumed/reset and an `InterruptedException` is thrown. If the thread is not blocked the flag is just set and can be polled and handled by the developer. The flag can be read with the `isInterrupted()` method. There is also the static function `Thread.interrupted()` which resets the flag and returns the old value. Important to know is that if the flag is set any subsequent `wait()`, `sleep()` or `join()` on that thread will immediately throw an `InterruptedException`.
 
