@@ -104,3 +104,54 @@ raw"This is a \n not escaped"
 however if
 val = "this is a new \n line"
 raw"$val will not be escaped
+
+class Person(val name: String, age: Int) class definition with constructor.
+
+age is a class parameter, not an attribute, name however is. is just instead of private?
+ on every isntantiatioin the body is executed {
+    println(1+3)
+    val x= 2; // is a field.
+ }
+
+ overload constructor with def this() = this("bob",0) but can just add default values for constrcutor... becuase can not have anythign else apart from call anotehr constructor
+
+   println(mary.likes("Inception"))
+  println(mary likes "Inception") // equivalent
+  // infix notation = operator notation (syntactic sugar)
+   only works if one parameter, works like operators
+   can name methods with operators to override them as all operators are methods
+
+   // prefix notation
+  val x = -1  // equivalent with 1.unary_-
+  val y = 1.unary_-
+  // unary_ prefix only works with - + ~ !
+
+    // postfix notation
+  println(mary.isAlive) can be used with functions without parameters
+
+  // apply
+  println(mary.apply())
+  println(mary()) // equivalent
+
+Scala objects:
+note is object not class. object is a type and a singelton instance.
+object Person { // type + its only instance
+    // "static"/"class" - level functionality
+    val N_EYES = 2
+    def canFly: Boolean = false
+
+    // factory method
+    def apply(mother: Person, father: Person): Person = new Person("Bobbie")
+  }
+ // COMPANIONS
+  class Person(val name: String) {
+    // instance-level functionality
+  }
+
+  new creates class instance and without new gets the singelton instance.
+
+Scala Applications = Scala object with
+def main(args: Array[String]): Unit so it can get converted to Java main
+
+scala has single class inheritance just like Java with extends
+scala also has private??? and can not be inherited
