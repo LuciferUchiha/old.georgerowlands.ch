@@ -1,10 +1,14 @@
 ---
-title: JMM - Java memory model
-description: TODO
+title: JMM - Java Memory Model
+description: JMM - Java Memory Model
 tags: [concurrent programming, synchronization]
 ---
 
-The java memory model, short JMM, specifies guarantees given by the JVM about when writes to variables become visible to other threads, which operations are atomic, and ordering of operations so under which conditions can the effects of operations appear out of order to any given thread.
+The Java Memory Model (JMM) specifies guarantees that are given by the Java Virtual Machine (JVM) relating to concurrency:
+
+- When writing operations on variables become visible to other threads
+- Which operations are atomic
+- Ordering of operations, meaning under which circumstances can the effects of operations appear out of order to any given thread.
 
 ## Memory layout
 

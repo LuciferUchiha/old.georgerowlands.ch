@@ -1,7 +1,7 @@
 ---
 title: Condition Variables
 description: Condition Variables
-tags: [concurrent programming, synchronization]
+tags: [concurrent programming, synchronization, condition variables, blocking queues]
 ---
 
 Condition variables are another mechanism for synchronizing a program. Condition variables allow threads to enter the waiting state (stop running) until they are signaled/notified by another thread that some condition maybe have been fulfilled and they can take over. The most common example used to illustrate this is a carpark. When the carpark is full you have to wait until a car drives out and it is no longer full. Once this happens you want to be notified that the carpark is no longer full so you can enter the carpark.
@@ -47,7 +47,7 @@ When you are working with uniform waiters notify() is fine however it is much sa
 
 ## BlockingQueue
 
-A blocking queue is a queue that blocks when you try to dequeue from it and the queue is empty, or if you try to enqueue items to it and the queue is already full. This can also be done in a Circular mechanism as seen below.
+A blocking queue is a queue that blocks when you try to dequeue from it and the queue is empty, or if you try to enqueue items to it and the queue is already full. This can be implemented in a Circular mechanism as seen below.
 
 ![circularBlockingQueue](/img/programming/circularBlockingQueue.png)
 
