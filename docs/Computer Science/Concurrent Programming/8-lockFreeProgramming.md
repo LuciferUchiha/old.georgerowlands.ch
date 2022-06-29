@@ -1,10 +1,10 @@
 ---
-title: Lock free programming
-description: TODO
-tags: [concurrent programming]
+title: Lock-Free Programming
+description: Lock-Free Programming
+tags: [concurrent programming, locks, atomics, cas]
 ---
 
-## Disadvantages of locks
+## Disadvantages of Locks
 
 Locks are very useful and do their job well however there are some disadvantages to them. Because of the context-switch overhead performance can suffer. However probably the worst parts are that when a thread is waiting for a lock it cannot do anything else. If a thread that holds a lock is delayed or even ends up in a deadlock then no other thread that needs the lock can progress. This can then lead to so called **priority inversion** when a high priority thread is waiting for a lock from a low priority thread and therefor gets its priority downgraded.
 
@@ -23,7 +23,7 @@ public final class Counter2 {
 }
 ```
 
-## CAS - compare and set
+## CAS - Compare and Set
 
 CPUs have an instruction called Compare and set/swap, `CAS(memory_location, expected_old_value, new_value)`. This atomically compares the content of a memory location to a given value and, if they are the same, modifies the content of that memory location to a given new value and returns if the swap was done. With this we can do something like this.
 
@@ -149,7 +149,7 @@ public class AtomicStampedReference<V> {
 }
 ```
 
-## Non-blocking algorithms
+## Non-blocking Data structures
 
 ### Stack
 

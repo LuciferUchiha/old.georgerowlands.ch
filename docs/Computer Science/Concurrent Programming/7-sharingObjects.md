@@ -6,7 +6,7 @@ tags: [concurrent programming, synchronization, immutability]
 
 There are 2 alternatives to synchronizing objects to make sure that nothing breaks when sharing objects. Either the shared object is immutable which would lead to there never being any inconsistent states between the threads. The other alternative is you just don't have a shared state variable between threads.
 
-## Immutable objects
+## Immutable Objects
 
 In principle, immutable objects aren't very complicated. You do however have to be aware of how the object is initialized when working concurrently as we don't want half- or even non-initialized objects. For example, in the example below the `account` object could be un- or partial-initialized.
 
@@ -59,7 +59,7 @@ Initialization-Safety is however only guaranteed if an object is accessed after 
 
 - Calling an alien method in the constructor. An alien methods behavior is not fully specified by the invoking class because it is either in another class or an overridable method.
 
-## Thread locals
+## Thread Locals
 
 The [DateFormat Class](https://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html) in Java is documented not to be thread-safe. Instead, it is recommended we use a fresh instance on every invocation or a separate instance for each thread.
 
