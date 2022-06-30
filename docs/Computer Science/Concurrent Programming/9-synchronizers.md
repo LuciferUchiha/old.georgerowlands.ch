@@ -4,11 +4,11 @@ description: TODO
 tags: [concurrent programming, synchronization]
 ---
 
-A synchronizer is any object that coordinates the control flow of threads based on its state. The most simplest form of synchronization being locks.
+A synchronizer is any object that coordinates and synchronizes the control flow of threads based on its state. The simplest form synchronizer we have already used, being locks.
 
 ## Semaphore
 
-A semaphore is an integer variable that represents a resource counter which can be interpreted as permits to the resource. Its main usage it to restrict the number of threads than can access some physical or logical resource.
+A semaphore is an integer variable that represents a resource counter which can also be interpreted as a number of permits to access the resource. The main usage for semaphores is to restrict the number of threads than can access some physical or logical resource.
 
 ```java
 public class Semaphore {
@@ -23,9 +23,7 @@ public class Semaphore {
 
 ![semaphoreBehavior](/img/programming/semaphoreBehavior.png)
 
-### Example
-
-It is for example perfect to implement the CarPark seen here.
+It is for example perfect to implement the CarPark Class as previously seen:
 
 ```java
 class SemaphoreCarPark implements CarPark {
@@ -46,7 +44,7 @@ class SemaphoreCarPark implements CarPark {
 
 ### SemaphoreLock
 
-With a binary semaphore you can use it as a mutex/lock. The only problem is that the lock isn't reentrant and a different thread can release the lock then the one that has acquired it.
+A binary semaphore (only holding 1 permit) can be used as a lock. The only problem with this lock is that it isn't reentrant and a different thread can release the lock that was originally acquired by a different thread.
 
 ```java
 class SemaphoreLock {
@@ -58,7 +56,7 @@ private final Semaphore mutex = new Semaphore(1);
 
 ## ReadWriteLock
 
-The motivation for a ReadWriteLock is that if we use the same lock for reading and writing then only one thread could read at the time even tho this doesn't cause any problems. To solve this a ReadWriteLock maintains a pair of locks, a lock for reading which can be held simultaneously by multiple readers and a write lock which can only be held by one thread. This leads to there being 2 possible states. Either one thread is writing or one or multiple threads are reading.
+The motivation for a ReadWriteLock is that if we use the same lock for reading and writing then only one thread can read at a time even tho there wouldn't be any problems if multiple threads could read at a time. To solve this a ReadWriteLock maintains a pair of locks, a lock for reading which can be held simultaneously by multiple readers and a write lock that can only be held by one thread. This leads to there being 2 possible states. Either one thread is writing or one or multiple threads are reading.
 
 ```java
 public interface ReadWriteLock {
@@ -68,8 +66,6 @@ public interface ReadWriteLock {
 ```
 
 ![readWriteLockBehavior](/img/programming/readWriteLockBehavior.png)
-
-### Example
 
 ```java
 class KeyValueStore {
@@ -94,7 +90,7 @@ class KeyValueStore {
 
 ## CountDownLatch
 
-A CountDownLatch delays the progress of threads until it reaches its terminal state. It main usage being to ensure that an activity does not proceed until another one-time action has completed.
+A CountDownLatch delays the progress of threads until the Latch reaches its terminal state. The main usage for a CoundDownLatch is to ensure that an activity does not proceed until another one-time action has been completed.
 
 ```java
 public class CountDownLatch {
@@ -111,8 +107,6 @@ Here there are two common scenarios. Either a thread wants to wait until some ot
 
 ![countDownLatchBehavior1](/img/programming/countDownLatchBehavior1.png)
 ![countDownLatchBehavior2](/img/programming/countDownLatchBehavior2.png)
-
-### Example
 
 ```java
 class KeyValueStore {
@@ -151,7 +145,7 @@ public class CyclicBarrier {
 
 ## Exchanger
 
-An Exchanger allows two threads to wait for each other and exchange an objects. This can be especially useful when the object is very big as it can be reused.
+An Exchanger allows two threads to wait for each other and exchange an object. This can be especially useful when the object is very big as it can be reused.
 
 ```java
 public class Exchanger<T> {
@@ -163,7 +157,7 @@ public class Exchanger<T> {
 
 ## BlockingQueue
 
-A BlockingQueue is a queue which supports operations to wait for the queue to become non-empty when retrieving an element, and wait for space to become available when storing an element. This is especially commonly used in the Product-Consumer pattern.
+A BlockingQueue is a queue that supports operations to wait for the queue to become non-empty when retrieving an element, and wait for space to become available when storing an element. This is especially commonly used in the Product-Consumer pattern.
 
 ![blockingQueueProductConsumer](/img/programming/blockingQueueProductConsumer.png)
 
