@@ -1,7 +1,7 @@
 ---
 title: Synchronizers
-description: TODO
-tags: [concurrent programming, synchronization]
+description: Synchronizers
+tags: [concurrent programming, synchronization, semaphore, read-write locks, latches, barriers]
 ---
 
 A synchronizer is any object that coordinates and synchronizes the control flow of threads based on its state. The simplest form synchronizer we have already used, being locks.
@@ -42,7 +42,7 @@ class SemaphoreCarPark implements CarPark {
 }
 ```
 
-### SemaphoreLock
+### Lock Using a Semaphore
 
 A binary semaphore (only holding 1 permit) can be used as a lock. The only problem with this lock is that it isn't reentrant and a different thread can release the lock that was originally acquired by a different thread.
 
@@ -54,7 +54,7 @@ private final Semaphore mutex = new Semaphore(1);
 }
 ```
 
-## ReadWriteLock
+## Read-Write Lock
 
 The motivation for a ReadWriteLock is that if we use the same lock for reading and writing then only one thread can read at a time even tho there wouldn't be any problems if multiple threads could read at a time. To solve this a ReadWriteLock maintains a pair of locks, a lock for reading which can be held simultaneously by multiple readers and a write lock that can only be held by one thread. This leads to there being 2 possible states. Either one thread is writing or one or multiple threads are reading.
 
@@ -88,7 +88,7 @@ class KeyValueStore {
 }
 ```
 
-## CountDownLatch
+## Countdown Latch
 
 A CountDownLatch delays the progress of threads until the Latch reaches its terminal state. The main usage for a CoundDownLatch is to ensure that an activity does not proceed until another one-time action has been completed.
 
@@ -129,7 +129,7 @@ class KeyValueStore {
 }
 ```
 
-## CyclicBarrier
+## Cyclic Barrier
 
 A CyclicBarrier allows a set of threads to all wait for each other to reach a common barrier point.
 
@@ -155,7 +155,7 @@ public class Exchanger<T> {
 
 ![exchangeBehavior](/img/programming/exchangeBehavior.png)
 
-## BlockingQueue
+## Blocking Queue
 
 A BlockingQueue is a queue that supports operations to wait for the queue to become non-empty when retrieving an element, and wait for space to become available when storing an element. This is especially commonly used in the Product-Consumer pattern.
 

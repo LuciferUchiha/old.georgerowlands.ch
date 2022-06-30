@@ -1,14 +1,14 @@
 ---
-title: Executor Framework
-description: TODO
+title: The Executor Framework
+description: The Executor Framework
 tags: [concurrent programming, executor, workers, callable, runnable, future]
 ---
 
-The Java executor framework is used to run and manage Runnable objects, so called Tasks. It does this using so called workers or worker threads which are most often managed as part of a ThreadPool. Depending on the configuration of the pool instead of creating new threads every time the so called channel will try and reuse already created threads. Any excess tasks flowing into the channel that the threads in the pool can't handle at the minute are held in some form of data structure like a BlockingQueue. Once one of the threads has finished its task and gets free, it picks up the next task from the channel.
+The Java executor framework is used to run and manage Runnable objects, so-called Tasks. It does this using so-called workers or worker threads which are most often managed as part of a ThreadPool. Depending on the configuration of the pool instead of creating new threads every time the so-called channel will try and reuse already created threads. Any excess tasks flowing into the channel that the threads in the pool can't handle at the minute are held in some form of data structure like a BlockingQueue. Once one of the threads has finished its task and gets free, it picks up the next task from the channel.
 
 ![executorFramework](/img/programming/executorFramework.png)
 
-The Executor Interface provides a single function `void execute(Runnable task)` which executes the given task and depending on the implementation will do this using a thread pools, a single thread etc.
+The Executor interface provides a single function `void execute(Runnable task)` which executes the given task and depending on the implementation will do this using a thread pool or a single thread etc.
 
 ## Custom Executors
 
@@ -34,7 +34,7 @@ class MyThreadPoolExecutor implements Executor {
 }
 ```
 
-You can also create an executor just executes the given task on the current thread.
+You can also create an executor that just executes the given task on the current thread.
 
 ```java
 class DirectExecutor implements Executor {
@@ -54,7 +54,7 @@ class ThreadPerTaskExecutor implements Executor {
 
 ## Builtin Executors
 
-The executor frameworks has some builtin executors that you can access using the factory methods in the `Executors` class. All the factories return instances of the `ExecutorService` interface which extends the `Executor` interface and adds some life-cycle management methods.
+The executor framework has some built-in executors that you can access using the factory methods in the `Executors` class. All the factories return instances of the `ExecutorService` interface which extends the `Executor` interface and adds some life-cycle management methods.
 
 ```java
 interface ExecutorService extends Executor {
@@ -108,7 +108,7 @@ interface ExecutorService extends Executor {
 
 ## FactorialCalculator example
 
-In this example each task will return the factorial of a given number.
+In this example, each task will return the factorial of a given number.
 
 ```java
 public class Main {
