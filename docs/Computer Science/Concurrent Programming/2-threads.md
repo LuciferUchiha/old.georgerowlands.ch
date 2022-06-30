@@ -8,7 +8,7 @@ tags: [concurrent programming, threads]
 
 A process is an executable program that is loaded into memory. A process has its own logical memory address space allocated by the kernel. As seen in C we can also switch between processes but this is a rather expensive operation. Processes can communicate with each other via signals, interprocess communication - IPC, files or sockets.
 
-A thread is a single sequential flow that runs in the address space of its process. This also means it shares the same address space with threads of the same process. It does, however, have its own execution context containing amongst other things the call stack. For comparison threads communicate with each other via shared memory which we will see is a very dangerous but practical thing.
+A thread is a single sequential flow that runs in the address space of its process. This also means it shares the same address space with threads of the same process. It does, however, have its personal execution context containing amongst other things the call stack. For comparison threads communicate with each other via shared memory which we will see is a very dangerous but practical thing.
 
 ![jvmProcess](/img/programming/jvmProcess.png)
 
@@ -40,7 +40,7 @@ With preemptive scheduling, the kernel can interrupt the running thread at any t
 
 ## Java Threads
 
-In Java a program's entry point is the main function that starts the initial thread, the main thread (non daemon). Java defines the functional interface `Runnable` which should be implemented by any class whose instance is intended to be executed by a thread.
+In Java, a program's entry point is the main function that starts the initial thread, the main thread (non daemon). Java defines the functional interface `Runnable` which should be implemented by any class whose instance is intended to be executed by a thread.
 
 ```java
 interface Runnable {
@@ -110,7 +110,7 @@ class ThreadExamples {
         t2.start();
         t3.start();
         t4.start();
-        thread.start();
+        // main waits for all to finish before exiting
     }
 }
 ```
@@ -124,3 +124,18 @@ With the setDaemon function, a thread can be marked as either a daemon or user t
 Threads can have a priority which is an integer value in the range of 1 to 10 (10 being the highest priority). The JVM is free to implement these priorities which means that they can also be ignored.
 
 ![javaThreadStates](/img/programming/javaThreadStates.png)
+
+### Exceptions in Java Threads
+
+If an exception is thrown in a thread and never caught the thread terminates. This is why `join()` returns and the main thread can carry on with its work, the exception itself is lost.
+
+```java
+public static void main(String[] args) throws Exception {
+    Thread t = new Thread(() -> {
+        int value = 1 / 0;
+    });
+    t.start();
+    t.join();
+    System.out.println("Main continues");
+}
+```
