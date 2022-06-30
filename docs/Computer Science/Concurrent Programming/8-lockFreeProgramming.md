@@ -6,59 +6,61 @@ tags: [concurrent programming, locks, atomics, cas]
 
 ## Disadvantages of Locks
 
-Locks are very useful and do their job well however there are some disadvantages to them. Because of the context-switch overhead performance can suffer. However probably the worst parts are that when a thread is waiting for a lock it cannot do anything else. If a thread that holds a lock is delayed or even ends up in a deadlock then no other thread that needs the lock can progress. This can then lead to so called **priority inversion** when a high priority thread is waiting for a lock from a low priority thread and therefor gets its priority downgraded.
+Locks are very useful and do their job well however they do have some disadvantages. Because of the context switching between threads, there can be an overhead and performance can suffer. However, probably the biggest disadvantage is contention. When a thread is waiting for a lock it cannot do anything else. If a thread that holds a lock is delayed or even ends up in a deadlock then no other thread that needs the lock can progress. This can then lead to **priority inversion** which is when a high priority thread is waiting for a lock held by a low priority thread and therefore its priority is effectively downgraded.
 
-This example works perfectly fine but we want to remove the locks. We can remove the one for reading by making the value volatile to have the visability garantie. However volatiles do not support read-modify-write sequences but that is what we want.
+The example below works perfectly fine but we want to remove the locks because of the previously mentioned issues. The lock for reading the value can be removed by making the value volatile so that there is a visibility guarantee. However, volatile variables do not support read-modify-write sequences which is what we are doing when incrementing the value. So we are still stuck with a lock for incrementing and we still don't have optimal performance due to the overhead of volatile variables.
 
 ```java
 public final class Counter1 {
-    private long value = 0;
-    public synchronized long getValue() { return value; }
-    public synchronized long increment() { return ++value; }
+    private int value = 0;
+    public synchronized int getValue() { return value; }
+    public synchronized int increment() { return ++value; }
 }
 public final class Counter2 {
-    private volatile long value = 0;
-    public long getValue() { return value; }
-    public synchronized long increment() { return ++value; }
+    private volatile int value = 0;
+    public int getValue() { return value; }
+    public synchronized int increment() { return ++value; }
 }
 ```
 
-## CAS - Compare and Set
+## CAS - Compare and Swap
 
-CPUs have an instruction called Compare and set/swap, `CAS(memory_location, expected_old_value, new_value)`. This atomically compares the content of a memory location to a given value and, if they are the same, modifies the content of that memory location to a given new value and returns if the swap was done. With this we can do something like this.
+CPUs have an atomic instruction called compare and swap/set, `CAS(memory_location, expected_old_value, new_value)`. This operation atomically compares the content of a memory location to a given value and if they are the same modifies the content of that memory location to a given new value and returns a boolean corresponding to if the swap was done, i.e the value at the memory location was still the same as the given old value. With this operation, we can remove all of the locks in the Counter class:
 
 ```java
 public final class CASCounter {
-    private volatile long value = 0;
+    private volatile int value = 0;
 
-    public long getValue() {
+    public int getValue() {
         return value;
     }
-    public long increment() {
+    public int increment() {
         while(true) {
-            long current = getValue();
-            long next = current + 1;
+            int current = getValue();
+            int next = current + 1;
             if (compareAndSwap(current, next)) return next;
         }
     }
 
-    // Wrapper for old sun microsystems impl.
+    // Wrapper for old sun microsystems implementation
     private static final Unsafe unsafe = Unsafe.getUnsafe();
-    private static final long valueOffset;
+    private static final int valueOffset;
     static {
         try {
-            valueOffset = unsafe.objectFieldOffset( CASCounter.class.getDeclaredField("value"));
+            valueOffset = unsafe.objectFieldOffset(CASCounter.class.getDeclaredField("value"));
         } catch (Exception ex) { throw new Error(ex); }
     }
-    private boolean compareAndSwap(long expectedVal, long newVal) {
-        return unsafe.compareAndSwapLong(this, valueOffset, expectedVal, newVal);
+    private boolean compareAndSwap(int expectedVal, int newVal) {
+        return unsafe.compareAndSwap(this, valueOffset, expectedVal, newVal);
     }
 }
 ```
 
+This pattern is also commonly referred to as optimistic locking. It is optimistic because the code gets the old value, modifies it and optimistically hopes that in the meantime the value hasn't changed and then tries to swap the old and new value if the old value is still the same. If the value has changed in the meantime by maybe another thread then it just tries again and again until it works.
+
 ## Atomics
 
-Java also added Atomic Scalars which all support CAS and atomic arithmetic operations for int/long. For doubles or floats etc you can use `Double.doubleToRawLongBits()` and then convert back with `Double.longBitsToDouble()`.
+Java added Atomic Scalars which support CAS and atomic arithmetic operations for int/long. For doubles or floats etc you can use `Double.doubleToRawLongBits()` and then convert back with `Double.longBitsToDouble()`.
 
 ![javaAtomic](/img/programming/javaAtomic.png)
 
@@ -77,7 +79,39 @@ class AtomicInteger extends Number {
 }
 ```
 
-It can however get a bit tricky when there are multiple values for example in the NumberRange example
+The Counter example would then look something like this:
+
+```java
+public final class AtomicCounter {
+    private final AtomicInteger value = new AtomicInteger(0);
+    public int getValue() { 
+        return value.get(); 
+    }
+    public int increment() { 
+        while (true) {
+            int oldValue = value.get();
+            int newValue = oldValue + 1;
+            if (value.compareAndSet(oldValue, newValue)) return newValue;
+        }
+    }
+}
+```
+
+Or even shorter:
+
+```java
+public final class AtomicCounter {
+    private final AtomicInteger value = new AtomicInteger(0);
+    public int getValue() { 
+        return value.get(); 
+    }
+    public int increment() { 
+        return value.incrementAndGet();
+    }
+}
+```
+
+It can however get a bit tricky when there are multiple values for example:
 
 ```java
 public class NumberRange {
@@ -87,8 +121,8 @@ public class NumberRange {
     public int getLower() { return lower.get(); }
     public void setLower(int newLower) {
         while (true) {
-            int l = lower.get(), u = upper.get();
-            if (newLower > u) throw new IllegalArgumentException();
+            int l = lower.get(), u = upper.get(); // get current values
+            if (newLower > u) throw new IllegalArgumentException(); // check preconditions
             if (lower.compareAndSet(l, newLower)) return;
         }
     }
@@ -99,7 +133,7 @@ public class NumberRange {
 }
 ```
 
-So instead we could do something like this
+So instead we can work with AtomicReferences:
 
 ```java
 public class NumberRange {
@@ -114,9 +148,9 @@ public class NumberRange {
     public void setLower(int newLower){
         while(true) {
             Pair oldp = values.get();
-            if(newLower > oldp.upper) throw new IllegalArgumentException();
+            if(newLower > oldp.upper) throw new IllegalArgumentException(); // could also check preconditions in constructor
             Pair newp = new Pair(newLower, oldp.upper);
-            if(values.compareAndSet(oldp, newp)) return; // uses == comparison
+            if(values.compareAndSet(oldp, newp)) return; // uses == comparison, which is why should work with immutable
         }
     }
 }
@@ -124,18 +158,18 @@ public class NumberRange {
 
 ### ABA Problem
 
-The ABA problem occurs in lock-free algorithms when a variable which was read has been changed by another thread.
+The ABA problem occurs in lock-free programming when a variable that was read has been changed by another thread in the following order:
 
-```A -> B -> A```
+`A -> B -> A`
 
-The CAS operation will compare its A with A and think that "nothing has changed" even though the second thread did work that violates that assumption. For example
+The CAS operation will compare its A with A and think that "nothing has changed" even though the second thread did work which violates that assumption. For example
 
-1. Thread T1 reads value A from shared memory
-2. T1 is preempted, allowing thread T2 to run
-3. T2 modifies the shared memory value A to value B and back to A before preemption
+1. Thread T1 reads value A from shared memory.
+2. T1 is put to sleep, allowing thread T2 to run.
+3. T2 modifies the shared memory value A to value B and back to A before going to sleep.
 4. T1 begins execution again, sees that the shared memory value has not changed and continues.
 
-For this reason there is the AtomicStampedReference.
+For this reason, Java provides the AtomicStampedReference Class which holds an object reference and a stamp internally. The reference and stamp can be swapped using a single atomic compare-and-swap operation, via the compareAndSet() method.
 
 ```java
 public class AtomicStampedReference<V> {
@@ -149,7 +183,23 @@ public class AtomicStampedReference<V> {
 }
 ```
 
+```java
+private final AtomicStampedReference<Integer> account = new AtomicStampedReference<>(100, 0); // initial value=100 stamp=0
+
+public int deposit(int funds) {
+        int[] stamp = new int[1];
+        while(true){
+            int oldValue = account.get(stamp);
+            int newValue = oldValue + funds;
+            int newStamp = stamp[0] + 1;
+            if(account.compareAndSet(oldValue, newValue, stamp[0], newStamp);)
+        }
+    }
+```
+
 ## Non-blocking Data structures
+
+With the Atomic Scalars in Java, you can then also implement some simple data structures.
 
 ### Stack
 
@@ -186,11 +236,11 @@ public class ConcurrentStack<E> {
 
 ### Queue
 
-The tricky part with the queue is that there are two things to watch the head and the tail which has to get moved. In this implementation a dummy node is used meaning that there are 3 invariants
+The tricky part of implementing a non-blocking queue is that two things need to be watched, the head and the tail. In the implementation below a dummy node is used. This then leads to there being 3 states that the tail can be in:
 
-- tail refers to dummy (i.e. to the same node as head) OR
-- tail refers to the last element OR
-- tail refers to second-last element (in the middle of an update)
+- The tail refers to the dummy i.e. to the same node as the head then the queue is empty.
+- The tail refers to the last element.
+- The tail refers to the second last element, which can only happen in the middle of an update.
 
 ```java
 public class ConcurrentQueue <E> {
