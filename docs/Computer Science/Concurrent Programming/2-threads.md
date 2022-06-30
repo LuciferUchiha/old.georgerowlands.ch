@@ -127,7 +127,7 @@ Threads can have a priority which is an integer value in the range of 1 to 10 (1
 
 ### Exceptions in Java Threads
 
-If an exception is thrown in a thread and never caught the thread terminates. This is why `join()` returns and the main thread can carry on with its work, the exception itself is lost.
+If an exception is thrown in a thread it can be caught and handled inside the thread. However, if the exception is never caught the thread will just terminate. This is why `join()` returns and the main thread can carry on with its work, the exception itself is lost.
 
 ```java
 public static void main(String[] args) throws Exception {
