@@ -159,3 +159,165 @@ public class Main {
 ```
 
 ## Fork-Join
+
+If we try and implement a divide and conquer algorithm like the merge-sort with executors we run into some issues, especially because we create a lot of threads that are waiting and not doing anything.
+
+```java
+public class MergeSortTask implements Runnable {
+    public final int[] elems, temp;
+    private final int start, end;
+
+    private final ExecutorService ex;
+
+    public MergeSortTask(int[] elems, ExecutorService ex) {
+        this.elems = elems;
+        this.start = 0;
+        this.end = elems.length;
+        this.temp = new int[end];
+        this.ex = ex;
+    }
+
+    public MergeSortTask(int[] elems, int[] temp, int start, int end, ExecutorService es) {
+        this.elems = elems;
+        this.temp = temp;
+        this.start = start;
+        this.end = end;
+        this.ex = es;
+    }
+
+    @Override
+    public void run() {
+        if (end - start <= 1) {
+            return;
+        } else {
+            int mid = (start + end) / 2;
+
+            MergeSortTask left = new MergeSortTask(elems, temp, start, mid, ex);
+            MergeSortTask right = new MergeSortTask(elems, temp, mid, end, ex);
+
+            Future<?> lf = ex.submit(left);
+            Future<?> rf = ex.submit(right);
+            try {
+                //print("Waiting for subtasks");
+                lf.get();
+                rf.get();
+                //print("Subtasks are ready");
+            } catch (Exception e) {
+            }
+            merge(elems, temp, start, mid, end);
+        }
+    }
+
+    private static void merge(int[] elem, int[] tmp, int leftPos, int rightPos, int rightEnd) {
+        if (elem[rightPos - 1] <= elem[rightPos]) return;
+
+        int leftEnd = rightPos;
+        int tmpPos = leftPos;
+        int numElements = rightEnd - leftPos;
+
+        while (leftPos < leftEnd && rightPos < rightEnd)
+            if (elem[leftPos] <= elem[rightPos])
+                tmp[tmpPos++] = elem[leftPos++];
+            else
+                tmp[tmpPos++] = elem[rightPos++];
+
+        while (leftPos < leftEnd)
+            tmp[tmpPos++] = elem[leftPos++];
+
+        while (rightPos < rightEnd)
+            tmp[tmpPos++] = elem[rightPos++];
+
+        rightEnd--;
+        for (int i = 0; i < numElements; i++, rightEnd--)
+            elem[rightEnd] = tmp[rightEnd];
+    }
+
+    private static int[] randomInts(int n) {
+        int[] l = new int[n];
+        Random rnd = new Random();
+
+        for (int i = 0; i < l.length; i++) {
+            l[i] = rnd.nextInt(1000);
+        }
+        return l;
+    }
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int SIZE = 4;
+        int[] data = randomInts(SIZE);
+
+        System.out.println("Unsorted: " + Arrays.toString(data));
+
+        ExecutorService es = Executors.newCachedThreadPool();
+
+        MergeSortTask ms = new MergeSortTask(data, es);
+        Future<?> f = es.submit(ms);
+        f.get();
+
+        es.shutdownNow();
+        System.out.println("Sorted: " + Arrays.toString(data));
+    }
+}
+```
+
+Instead it is better to do the work sequential after a certain threshold has been reached, this is the so-called sequential threshold.
+
+```java
+...
+public void run() {
+    if(r – l <= 1000) Arrays.sort(is); return;
+    else {
+         int mid = (start + end) / 2;
+
+        MergeSortTask left = new MergeSortTask(elems, temp, start, mid, ex);
+        MergeSortTask right = new MergeSortTask(elems, temp, mid, end, ex);
+...
+```
+
+### Fork-Join Framework
+
+For this reason, there is the fork-join framework which supports the methodology of forking work and then joining it together at the end. The Framework create a limited number of worker threads according to the CPU. Then each worker thread maintains a private double-ended work queue. When forking a worker pushes the new task to the head of its queue. When the worker is waiting or idle it pops a task off the head of its queue and executes it instead of sleeping. If a worker's queue is empty, it steals a task off the tail of another randomly chosen worker.
+
+![forkJoinStealing](/img/programming/forkJoinStealing.png)
+
+```java
+// RecursiveAction has no result; RecursiveTask<V> returns Result V
+public class ForkJoinMergeSort extends RecursiveAction {
+    public final int[] is, tmp; 
+    private final int l, r;
+
+    public ForkJoinMergeSort(int[] is, int[] tmp, int l, int r) {
+        this.is = is; this.tmp = tmp; this.l = l; this.r = r;
+    }
+
+    protected void compute() {
+        if (r - l<= 100000) Arrays.sort(is, l, r);
+        else {
+            int mid = (l + r) / 2;
+            ForkJoinMergeSort left = new ForkJoinMergeSort(is, tmp, l, mid);
+            ForkJoinMergeSort right = new ForkJoinMergeSort(is, tmp, mid, r);
+            left.fork();
+            right.invoke();
+            left.join();
+            merge(is, tmp, l, mid, r);
+        }
+    }
+    private void merge(int[ ] es, int[ ] tmp, int l, int m, int r) { ... }
+
+    private static int[] randomInts(int n) { ... }
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int SIZE = 4;
+        int[] data = randomInts(SIZE);
+        int[] tmp = new int[data.length];
+
+        System.out.println("Unsorted: " + Arrays.toString(data));
+
+        ForkJoinPool fjPool = new ForkJoinPool();
+        ForkJoinMergeSort ms = new ForkJoinMergeSort(data,tmp,0,data.length);
+        fjPool.invoke(ms);
+        fjPool.shutdown();
+        System.out.println("Sorted: " + Arrays.toString(data));
+    }
+}
+```
