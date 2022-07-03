@@ -168,6 +168,28 @@ atomic { implicit txn =>
 println(last.single.get) // outer because inner was rolled back
 ```
 
+You do have to be aware of some things tho for example the following will only output the value 0:
+
+```scala
+Object Main extends App {
+    val balance: Ref[Int] = Ref(0)
+    def pay(amount: Int) : Unit = atomic { implicit tx =>
+        Txn.afterCommit(_ => println("Transfer:" + amount))
+        balance += amount
+        if(balance() < 0){
+            throw new RuntimeException
+        }
+    }
+
+    val t1 = new Thread(() => { atomic { implicit tx
+        pay(2)
+        pay(-4)
+    }})
+    t1.start()
+    println(balance.single.get)
+}
+```
+
 ### Lifecycle Callbacks
 
 The STM also offers some callback functions for certain lifecycle states:
