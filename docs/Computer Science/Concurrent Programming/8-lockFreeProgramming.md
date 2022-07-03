@@ -111,7 +111,9 @@ public final class AtomicCounter {
 }
 ```
 
-It can however get a bit tricky when there are multiple values for example:
+### Atomic References
+
+We might not just want to work with integers, we want to be able to work with any object. For this reason, there is the AtomicReference class. For example, it can get a bit tricky when there are multiple integer values if we wanted to implement a range:
 
 ```java
 public class NumberRange {
@@ -155,6 +157,26 @@ public class NumberRange {
     }
 }
 ```
+
+:::warning
+
+Be careful when using integer literals because the JVM does some special things, like caching small integer literals which leads to the following program having unexpected behavior.
+
+```java
+static AtomicReference<Integer> as;
+public static void main(String[] args) throws Exception {
+    new Thread(() -> {
+        as = new AtomicReference<>(1);
+        as.compareAndSet(1,2);
+    }).start();
+
+    new Thread(() -> System.out.println(as.get())).start();
+}
+```
+
+We would expect to get a NullPointerException or the value 1 but not the value 2. Because the value 1 gets auto-boxed twice with Integer.valueOf() to different objects the compareAndSet should fail. But it doesn't 2 is also a possible output because the JVM caches small integer values.
+
+:::
 
 ### ABA Problem
 
