@@ -159,13 +159,13 @@ object Future {
 }
 // Usage:
 val inverseFuture : Future[Matrix] = Future {
-  fatMatrix.inverse() // non-blocking long lasting computation
+    fatMatrix.inverse() // non-blocking long lasting computation
 }(executionContext)
 
 // or in short
 import scala.concurrent.ExecutionContext.Implicits.global
 val inverseFuture : Future[Matrix] = Future {
-  fatMatrix.inverse()
+    fatMatrix.inverse()
 }
 ```
 
@@ -173,12 +173,12 @@ Let’s assume we want to fetch a list of recent posts and display them. We can 
 
 ```scala
 val f: Future[List[String]] = Future {
-  session.getRecentPosts()
+    session.getRecentPosts()
 }
 
 f.onComplete {
-  case Success(posts) => for (post <- posts) println(post)
-  case Failure(t) => println("An error has occurred: " + t.getMessage)
+    case Success(posts) => for (post <- posts) println(post)
+    case Failure(t) => println("An error has occurred: " + t.getMessage)
 }
 ```
 
@@ -186,11 +186,11 @@ Registering a `foreach` callback has the same semantics as onComplete, with the 
 
 ```scala
 val f: Future[List[String]] = Future {
-  session.getRecentPosts
+    session.getRecentPosts
 }
 
 f.foreach { posts =>
-  for (post <- posts) println(post)
+    for (post <- posts) println(post)
 }
 ```
 
@@ -198,16 +198,16 @@ Given a future and a mapping function for the value of the future you can produc
 
 ```scala
 val rateQuote = Future {
-  connection.getCurrentValue(USD)
+    connection.getCurrentValue(USD)
 }
 
 val purchase = rateQuote map { quote =>
-  if (isProfitable(quote)) connection.buy(amount, quote)
-  else throw new Exception("not profitable")
+    if (isProfitable(quote)) connection.buy(amount, quote)
+    else throw new Exception("not profitable")
 }
 
 purchase foreach { amount =>
-  println("Purchased " + amount + " USD")
+    println("Purchased " + amount + " USD")
 }
 ```
 
@@ -222,10 +222,10 @@ val usdQuote = Future { connection.getCurrentValue(USD) }
 val chfQuote = Future { connection.getCurrentValue(CHF) }
 
 val purchase = usdQuote flatMap {
-  usd =>
-  chfQuote
-    .withFilter(chf => isProfitable(usd, chf))
-    .map(chf => connection.buy(amount, chf))
+    usd =>
+        chfQuote
+            .withFilter(chf => isProfitable(usd, chf))
+            .map(chf => connection.buy(amount, chf))
 }
 ```
 
@@ -258,9 +258,9 @@ trait Subscription {
 
 // Observable[String] emitting some HTML strings
 getDataFromNetwork()
-.drop(7)
-.filter(s => s.startsWith("h"))
-.take(12)
-.map(s => toJson(s))
-.subscribe(j => println(j)) // instead of foreach
+    .drop(7)
+    .filter(s => s.startsWith("h"))
+    .take(12)
+    .map(s => toJson(s))
+    .subscribe(j => println(j)) // instead of foreach
 ```

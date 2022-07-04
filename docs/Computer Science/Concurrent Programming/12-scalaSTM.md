@@ -82,42 +82,42 @@ Single-operation memory transactions may be performed without an explicit atomic
 ```scala
 object CheatSheet extends App {
 
-  val x = Ref(10) // allocate a Ref[Int]
-  val y = Ref.make[String]() // type-specific default, holds no reference
-  val z = x.single // Ref.View[Int]
+    val x = Ref(10) // allocate a Ref[Int]
+    val y = Ref.make[String]() // type-specific default, holds no reference
+    val z = x.single // Ref.View[Int]
 
-  // can perform single operations on Ref.View objects
-  z.set(11) // will act as if in atomic block
-  println(z())
-  val success = z.compareAndSet(11, 12)
-  val old = z.swap(13) // old: Int
-  println(old)
+    // can perform single operations on Ref.View objects
+    z.set(11) // will act as if in atomic block
+    println(z())
+    val success = z.compareAndSet(11, 12)
+    val old = z.swap(13) // old: Int
+    println(old)
 
-  // println(x()) can only be done in atomic block
+    // println(x()) can only be done in atomic block
 
-  atomic { implicit txn =>
-    val i = x() // read
-    y() = "x was " + i // write
-    z() = 10
-    val eq = atomic { implicit txn => // nested atomic
-      x() == z() // both Ref and Ref.View can be used inside atomic
+    atomic { implicit txn =>
+        val i = x() // read
+        y() = "x was " + i // write
+        z() = 10
+        val eq = atomic { implicit txn => // nested atomic
+        x() == z() // both Ref and Ref.View can be used inside atomic
+        }
+        assert(eq)
+        y.set(y.get + ", long-form access")
     }
-    assert(eq)
-    y.set(y.get + ", long-form access")
-  }
 
-  // atomic transformation
-  z.transform {
-    _ max 20
-  }
-  val pre = y.single.getAndTransform {
-    _.toUpperCase
-  }
-  val post = y.single.transformAndGet {
-    _.filterNot {
-      _ == ' '
+    // atomic transformation
+    z.transform {
+        _ max 20
     }
-  }
+    val pre = y.single.getAndTransform {
+        _.toUpperCase
+    }
+    val post = y.single.transformAndGet {
+        _.filterNot {
+        _ == ' '
+        }
+    }
 }
 ```
 
@@ -154,15 +154,15 @@ If an exception occurs inside an atomic block it can be caught and handled insid
 ```scala
 val last = Ref("none")
 atomic { implicit txn =>
-  last() = "outer"
-  try {
-    atomic { implicit txn =>
-      last() = "inner"
-      throw new RuntimeException
+    last() = "outer"
+    try {
+        atomic { implicit txn =>
+            last() = "inner"
+            throw new RuntimeException
+        }
+    } catch {
+        case _: RuntimeException =>
     }
-  } catch {
-    case _: RuntimeException =>
-  }
 }
 
 println(last.single.get) // outer because inner was rolled back
