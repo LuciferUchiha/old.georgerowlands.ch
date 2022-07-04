@@ -168,7 +168,7 @@ atomic { implicit txn =>
 println(last.single.get) // outer because inner was rolled back
 ```
 
-You do have to be aware of some things tho for example the following will only output the value 0:
+You do have to be aware of some things tho for example the following will only output the value 0. This is because transactions are compositional meaning the inner transactions only commit once the outer transaction has committed:
 
 ```scala
 Object Main extends App {
@@ -181,7 +181,7 @@ Object Main extends App {
         }
     }
 
-    val t1 = new Thread(() => { atomic { implicit tx
+    val t1 = new Thread(() => { atomic { implicit tx =>
         pay(2)
         pay(-4)
     }})
