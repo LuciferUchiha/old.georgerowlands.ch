@@ -10,7 +10,7 @@ tags: [c, ipc, processes, pipes, posix]
 
 ## POSIX Semaphores
 
-You can find a detailed explanation of what a semaphore is [here](../../Concurrent%20Programming/synchronizers.md).
+You can find a detailed explanation of what a semaphore is [here](../../Concurrent%20Programming/9-synchronizers.md).
 
 ### Named Semaphores
 

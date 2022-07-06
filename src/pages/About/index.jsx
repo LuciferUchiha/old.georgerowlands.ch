@@ -13,7 +13,7 @@ export default function AboutMe() {
     'I have also been playing football for my local club since I was young. Now I am a trainer for the same club helping teach, pass down the knowledge and further the next generation of players. My passion for football continues and I learn a lot also from the fellow trainers, participate in the club management meetings and step in as a referee sometimes';
   return (
     <Layout title="About me" description="About me">
-      <main>
+      <main className={styles.main}>
         <div>
           <div>
             <img src="/img/cleanPortrait.png" alt="cleanPortrait" className={styles.portrait} />

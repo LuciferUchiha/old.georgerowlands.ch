@@ -1,3 +1,7 @@
+.main {
+  display: flex;
+}
+
 .portrait {
   width: 30rem;
   position: relative;
@@ -28,8 +32,4 @@
   img.portrait {
     width: 22rem;
   }
-}
-
-.container {
-  display: flex;
 }
