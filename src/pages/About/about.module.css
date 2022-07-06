@@ -1,0 +1,35 @@
+.portrait {
+  width: 30rem;
+  position: relative;
+}
+
+.portraitTag {
+  background: var(--ifm-color-primary);
+  color: #e3e3e3;
+  display: inline-block;
+  position: absolute;
+  overflow: hidden;
+  left: 3rem;
+  top: 42rem;
+  text-align: left;
+  width: 30rem;
+  padding: 0.8rem 0rem 0.8rem 1rem;
+  font-family: var(--ifm-heading-font-family);
+  font-weight: var(--ifm-heading-font-weight);
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 576px) {
+  h1.portraitTag {
+    font-size: 2rem;
+    left: 3rem;
+    top: 32rem;
+  }
+  img.portrait {
+    width: 22rem;
+  }
+}
+
+.container {
+  display: flex;
+}

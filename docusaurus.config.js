@@ -109,8 +109,6 @@ const config = {
             position: 'left',
             label: 'Digital Garden',
           },
-
-          { to: 'projects/', label: 'Projects', position: 'right' },
           { to: 'about/', label: 'About', position: 'right' },
           {
             to: '/recipes/intro', // To highlight the navbar item, you must link to a document, not a top-level directory
