@@ -14,7 +14,7 @@ The key concept is that actors are completely isolated from each other and they 
 
 ![actorModel](/img/programming/actorModel.png)
 
-## Akka
+## Scala Akka
 
 Actors in Scala are implemented with the akka library. Akka is very popular because it is very simple and self-explanatory but also because it has very high performance. It can send up to 50 million messages per second and 2.5 million actors take up 1 GB on the heap.
 
@@ -177,7 +177,7 @@ class TimeOutActor extends Actor {
 }
 ```
 
-#### Ask Operator
+#### Ask Pattern
 
 Akka also supports Futures. So you can send a message and receive a future containing the answer of the actor. This is done using the ask `?` operator.
 
