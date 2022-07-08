@@ -1,10 +1,19 @@
-.main {
+.aboutContainer {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  column-gap: 20px;
 }
 
 .portrait {
+  overflow: hidden;
+}
+
+.portraitImage {
+  overflow: hidden;
   width: 30rem;
   position: relative;
+  margin-right: 3rem; /* Because of left shift of tag*/
 }
 
 .portraitTag {
@@ -24,12 +33,24 @@
 }
 
 @media screen and (max-width: 576px) {
-  h1.portraitTag {
+  .portraitTag {
     font-size: 2rem;
     left: 3rem;
     top: 32rem;
   }
-  img.portrait {
+  .portraitImage {
     width: 22rem;
   }
+}
+
+.ofInterest {
+  color: var(--ifm-color-primary);
+}
+
+.content {
+  padding: 0rem 1rem;
+  word-wrap: break-word;
+  width: max-content;
+  max-width: 70rem;
+  align-self: center;
 }
