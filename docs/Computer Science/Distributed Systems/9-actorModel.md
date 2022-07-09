@@ -160,10 +160,16 @@ Or save each config in a separate file like `foo.conf` and then read the config 
 If you for some reason don't have an ActorRef to a distrubted actor or want to make use of wildcards you can do this with the `actorSelection()` function:
 
 ```java
-ActorSelection actor = as.actorSelection("akka://PrintApplication@127.0.0.1:25520/user/PrintServer");
+ActorSelection actor = as.actorSelection("akka://PrintApplication@127.0.0.1:25520/user/PrintServer"); // PrintApplication is the name of the system. user is always there for some reason.
 ActorSelection actor = as.actorSelection("akka://PrintApplication@127.0.0.1:25520/user/*/PrintServer"); // all printServer no matter the parent Actor
 ```
 
 ## Ask Pattern
 
-With futures and echo example
+In the Java version of Akka you can also use the ask pattern. This can be used when you expect an answer to a sent message. Instead of using the ask `?` operator, there is the `ask(ActorRef ref, Object msg, long timeout)` method defined in the `akka.pattern.Patterns` package as a static method which returns an **Akka Future** not to mixed up with the normal Java Future. The Future is either a Success Object containing the response message or a Failure containing an AskTimeoutException.
+
+```java
+Timeout timeout = new Timeout(5, TimeUnit.SECONDS);
+Future<Object> res = Patterns.ask(actor, message, timeout);
+return (String) Await.result(res, timeout.duration()); // blocking
+```
