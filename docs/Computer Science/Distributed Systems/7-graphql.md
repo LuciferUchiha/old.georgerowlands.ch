@@ -432,7 +432,33 @@ public class Rating {
 }
 ```
 
-The common pattern is then to have a Repository??? and resolvers???
+The common pattern is then to have repositories to persist the data and resolvers to map the queries to the repositories.
+
+```java
+@Component
+public class Query implements GraphQLQueryResolver {
+    @Autowired
+    private ShopRepository shopRepository;
+    public Collection<Product> products() {
+        return shopRepository.getAllProducts();
+    }
+    public Optional<Product> product(String id) {
+        return shopRepository.getProductById(id);
+    }
+}
+@Component
+public class Mutation implements GraphQLMutationResolver {
+    @Autowired
+    private ShopRepository shopRepository;
+    public Product createProduct(String t, String d, String u) {
+        return shopRepository.createProduct(t, d, u);
+    }
+    public Rating rateProduct(String pId, String cId, int score, String comment) {
+        return shopRepository.rateProduct(pId, cId, score, comment);
+    }
+}
+...
+```
 
 ## Tools
 
