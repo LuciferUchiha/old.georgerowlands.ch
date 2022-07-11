@@ -181,4 +181,208 @@ public class ElectionNode extends AbstractActor {
 
 ## Distributed Hash Tables
 
+Distributed system that provides a lookup service like a hash table. Key Value pairs are stored in the nodes of a DHT
+Any participating node can efficiently retrieve the value associated with a given key. The tricky part is figuring out which node is responsible for which key? How do we handle changes to the network topology? Nodes can join or leave the network at any time.
+
+### Consistent Hashing
+
+The goal of consistent hashing is to minimize the number of remaps if nodes are added or removed i.e. if the table is resized we only want $\frac{n}{m}$keys need to be remapped on average with $n$ = number of keys and $m$ = number of nodes.
+Keys and Nodes are mapped to the same ID space (Integers) Nodes: hash(IP), Keys: hash(key). Hash Functions:
+
+- SHA 1 => 160bit $2^160$ possible nodes
+- Java => 32bit $2^32$ possible nodes
+
+Each object (keys and nodes) is mapped to a point on a circle for example: if we use 6bit objects then we have the ID space: 0 .. $2^6 - 1$ = 63). Each key is stored at its successor, i.e. in the node with the next higher or equal ID. This has the following advantages:
+
+- All nodes store roughly the same number of keys if the hash function is uniform.
+- If a node joins or leaves, only a fraction of the keys need to be moved to a different node, i.e. only the successor
+of a node is involved.
+
+This technique can be implemented in different ways. Either we have a complete graph so each node knows the location of every other node which leads to a lookup complexity of $O(1)$ but storage of the routing table takes up $O(n)$ with $n$ being the number of nodes.
+
+```java
+record Put(Object key, Object value) {} // used to initate a put
+record Put2(Object key, Object value) {} // used to store at dest node
+record Get(Object key) {} // used to initate a get
+record Get2(Object key) {} // used to get at dest node
+record Result(int id, Object value) {} // used to return result
+record AddNode(int id, ActorRef actor) {} // initiates an add node
+record Partition(int id) {} // used to partition a node
+record PartitionAnswer(Map < Object, Object > map) {}
+// answer to a partition request
+record Print() {} // debugging, i.e. print node info on console
+public class HashNode extends AbstractActor {
+    private final int id; // id of this node
+    // references to all actors
+    private final TreeMap < Integer, ActorRef > actors = new TreeMap < > ();
+    // data stored in this node
+    private final Map < Object, Object > values = new HashMap < > ();
+    public HashNode(int id) {
+        this.id = id;
+    }
+    public Receive createReceive() {
+        return receiveBuilder()
+            .match(Map.class, actors -> {
+                this.actors.putAll(actors);
+            })
+            .match(Get.class, msg -> {
+                var keys = actors.navigableKeySet();
+                var key = keys.ceiling(msg.key().hashCode());
+                // ceiling returns the least element in this set
+                // greater than or equal to the given element,
+                // or null if there is no such element.
+                if (key == null) key = keys.first();
+                actors.get(key).tell(new Get2(msg.key()), getSender());
+            })
+            .match(Get2.class, msg -> {
+                getSender().tell(new Result(id, values.get(msg.key())),
+                    getSelf());
+            })
+            .matchAny(msg -> {
+                unhandled(msg);
+            })
+            .build();
+    }
+}
+```
+
+Or we can have a cyclic graph so each node only knows the location of its successor, this leads to a lookup complexity of $O(n)$ but storage only uses $O(1)$.
+
+```java
+record Put(Object key, Object value) {} // used to initate a put
+record Put2(Object key, Object value, int previousId) {}
+// used to distrbibute put in the ring
+record Get(Object key) {} // used to initate a get
+record Get2(Object key, int previousId, int counter) {}
+// used to distribute get in the ring
+record Result(int id, Object value, int counter) {}
+record SetNext(int nextId, ActorRef next) {}
+record AddNode(int newId, ActorRef newActor) {}
+record Partition(int id) {} // used to partition a node, i.e. return
+// all elements <= id
+record PartitionAnswer(Map < Object, Object > map) {}
+record Print(ActorRef start) {} // print node info on console
+public class HashNode extends AbstractActor {
+    private final int id; // id of this node
+    private ActorRef next; // next node in the ring
+    private int nextId; // id of next node in ring
+    private Map < Object, Object > values = new HashMap < > (); // data
+    public HashNode(int id) {
+        this.id = id;
+    }
+    public Receive createReceive() {
+        return receiveBuilder()
+            .match(SetNext.class, msg -> {
+                next = msg.next();nextId = msg.nextId();
+            })
+            .match(Put.class, msg -> {
+                next.tell(new Put2(msg.key(), msg.value(), this.id), null);
+            })
+            .match(Get.class, msg -> {
+                next.tell(new Get2(msg.key(), this.id, 1), getSender());
+            })
+            .match(Put2.class, msg -> {
+                int hash = msg.key().hashCode();
+                if (between(hash, msg.previousId(), this.id)) {
+                    values.put(msg.key(), msg.value());
+                } else {
+                    next.tell(new Put2(msg.key(), msg.value(), this.id), null);
+                }
+            })
+            .match(Get2.class, msg -> {
+                int hash = msg.key().hashCode();
+                if (between(hash, msg.previousId(), this.id)) {
+                    getSender().tell(new Result(id, values.get(msg.key()),
+                        msg.counter()), getSelf());
+                } else {
+                    next.tell(new Get2(msg.key(), id, msg.counter() + 1),
+                        getSender());
+                }
+            })
+    }
+}
+```
+
 ### Chord Algorithm
+
+The chord algorithm and protocol implements a distributed hash table with a lookup time of log(N) and is based on Consistent Hashing. It uses so called finger tables. In these tables every node knows up to $m$ other nodes, and the distance of the nodes it knows increases exponentially (m is the bit length
+of the hash function). Meaning the The i-th entry (0..m-1) in the table of node n contains a reference to the successor $((n + 2^i ) \mod 2^m)$ the first entry of the finger table is the immediate successor. Example: 16 node Chord network (m = 4).
+
+#### Lookup
+
+The finger table is used to find the predecessor of the node which stores a given key.
+
+1. Node 10 is asked to look up key 5 => Finger table refers to node 43.
+2. Node 43 is asked to look up key 5 => Finger table refers to node 1
+3. Node 1 is asked to look up 5 => Key is between 2 and 10 (1 < 5 <= 10), so Node 10 contains the searched key and its associated value
+
+```cmd
+n.find_successor(id)
+if id in (n, successor] then // n < id && id <= successor
+return successor // this is the node which contains key id
+else
+    // forward the query around the circle
+    n0 = closest_preceding_node(id)
+return n0.find_successor(id)
+// search the local table for the highest predecessor of id
+n.closest_preceding_node(id)
+for (int i = m - 1; i >= 0; i--)
+    do
+        if (finger[i] in (n, id)) then
+    return finger[i]
+return n
+```
+
+#### Join
+
+If a new node joins, the following invariants must be maintained:
+
+- Each node refers to its immediate successor => ensures correctness
+- Each ( key,value ) pair is stored in successor(hash(key)) => ensures correctness
+- The finger table of each node should be correct => keeps query operation fast
+
+```java
+record Put(Object key, Object value) {} // used to distribute in ring
+record Put2(Object key, Object value) {} // put in destination node
+record Get(Object key, int counter) {} // used to distribute in ring
+record Get2(Object key, int counter) {} // get in destination node
+record Result(int id, Object value, int counter) {}
+record Partition(int id) {} // used to partition a node, i.e. return
+// all elements <= id
+record PartitionAnswer(Map < Object, Object > map) {}
+record Print() {} // debugging, i.e. print node info on console
+
+public class HashNode extends AbstractActor {
+    private final int id; // id of this node
+    private int next; // id of next node
+    private TreeMap < Integer, ActorRef > fingerTable;
+    private Map < Object, Object > values = new HashMap < > ();
+    public HashNode(int id) {
+        this.id = id;
+    }
+    public Receive createReceive() {
+        return receiveBuilder()
+            .match(TreeMap.class, fingerTable -> {
+                this.fingerTable = fingerTable;
+            })
+            .match(Integer.class, next -> this.next = next)
+            .match(Get.class, msg -> {
+                int hash = msg.key().hashCode();
+                if (between(hash, id, next)) {
+                    fingerTable.get(next).tell(
+                        new Get2(msg.key(), msg.counter() + 1), getSender());
+                } else {
+                    var set = fingerTable.navigableKeySet();
+                    var prev = set.lower(hash);
+                    if (prev == null) prev = set.last();
+                    fingerTable.get(prev).tell(
+                        new Get(msg.key(), msg.counter() + 1), getSender());
+                }
+            })
+            .match(Get2.class, msg -> {
+                getSender().tell(new Result(this.id,
+                    values.get(msg.key()), msg.counter()), getSelf());
+            })
+    }
+}
+```
