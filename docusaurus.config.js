@@ -42,7 +42,7 @@ const config = {
           remarkPlugins: [math, mermaid],
           rehypePlugins: [katex],
           sidebarPath: require.resolve('./sidebars.js'),
-          exclude: ['**/Presentations/**'],
+          exclude: ['**/4-servlets.md', '**/6-websockets.md', '**/10-distributedAlgorithms.md'],
           editUrl: 'https://github.com/LuciferUchiha/georgerowlands.ch/tree/main',
           admonitions: {
             customTypes: {
