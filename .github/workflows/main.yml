@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: LuciferUchiha/docusaurus-link-action@v0.1
+        uses: LuciferUchiha/docusaurus-link-action@v0.2
         with:
           who-to-greet: 'Me Mario'
       # Use the output from the `hello` step
