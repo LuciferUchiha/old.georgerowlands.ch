@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback, useState } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
 import { ForceGraph3D } from 'react-force-graph';
+import SpriteText from 'three-spritetext';
 import styled from 'styled-components';
 import * as text from './linkNetwork.json';
 
@@ -34,9 +35,12 @@ function NetworkGraph() {
         graphData={myData}
         onNodeClick={handleClick}
         backgroundColor="rgba(0,0,0,0)"
-        nodeColor={() => (colorMode === 'dark' ? lightColor : darkColor)}
-        nodeLabel="id"
-        nodeOpacity={1}
+        nodeThreeObject={(node) => {
+          const sprite = new SpriteText(node.id);
+          sprite.color = colorMode === 'dark' ? lightColor : darkColor;
+          sprite.textHeight = 8;
+          return sprite;
+        }}
         linkColor={() => (colorMode === 'dark' ? lightColor : darkColor)}
       />
     </Container>
