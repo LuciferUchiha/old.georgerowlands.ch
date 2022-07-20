@@ -105,6 +105,7 @@ const config = {
             label: 'Digital Garden',
           },
           { to: 'about/', label: 'About', position: 'right' },
+          { to: 'statistics/', label: 'Statistics', position: 'right' },
           {
             to: '/recipes/intro', // To highlight the navbar item, you must link to a document, not a top-level directory
             position: 'right',

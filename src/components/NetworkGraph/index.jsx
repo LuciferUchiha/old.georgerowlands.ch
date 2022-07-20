@@ -2,7 +2,7 @@ import React, { useMemo, useCallback, useState } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
 import { ForceGraph3D } from 'react-force-graph';
 import SpriteText from 'three-spritetext';
-import styled from 'styled-components';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import * as text from './linkNetwork.json';
 
 function NetworkGraph() {
@@ -12,43 +12,45 @@ function NetworkGraph() {
   // sort out colors
   const lightColor = '#FFFFFF';
   const darkColor = '#1B1B1B';
-  const { colorMode, setColorMode } = useColorMode();
+  const { isDarkTheme } = useColorMode();
 
-  // get parent width
+  // get parent sizes
   const [width, setWidth] = useState(null);
-  const div = useCallback((node) => {
-    if (node !== null) {
-      setWidth(node.getBoundingClientRect().width);
+  const [height, setHeight] = useState(null);
+  const div = useCallback((ele) => {
+    if (ele !== null && window !== undefined) {
+      setWidth(ele.getBoundingClientRect().width);
+      setHeight(ele.getBoundingClientRect().height);
     }
   }, []);
 
   const handleClick = useCallback((node) => {
-    window.location.href = node.url;
+    if (window !== undefined) window.location.href = node.url;
   }, []);
 
   return (
-    <Container ref={div}>
-      <ForceGraph3D
-        width={width}
-        height={width}
-        showNavInfo={false}
-        graphData={myData}
-        onNodeClick={handleClick}
-        backgroundColor="rgba(0,0,0,0)"
-        nodeThreeObject={(node) => {
-          const sprite = new SpriteText(node.id);
-          sprite.color = colorMode === 'dark' ? lightColor : darkColor;
-          sprite.textHeight = 8;
-          return sprite;
-        }}
-        linkColor={() => (colorMode === 'dark' ? lightColor : darkColor)}
-      />
-    </Container>
+    <BrowserOnly>
+      {() => (
+        <div ref={div}>
+          <ForceGraph3D
+            width={width * 0.8}
+            height={(width / 16) * 8}
+            showNavInfo={false}
+            graphData={myData}
+            onNodeClick={handleClick}
+            backgroundColor="rgba(0,0,0,0)"
+            nodeThreeObject={(node) => {
+              const sprite = new SpriteText(node.id);
+              sprite.color = isDarkTheme ? lightColor : darkColor;
+              sprite.textHeight = 8;
+              return sprite;
+            }}
+            linkColor={() => (isDarkTheme ? lightColor : darkColor)}
+          />
+        </div>
+      )}
+    </BrowserOnly>
   );
 }
-
-const Container = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-`;
 
 export default NetworkGraph;
