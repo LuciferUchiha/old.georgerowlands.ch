@@ -1,12 +1,10 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import styled from 'styled-components';
-import { Canvas } from '@react-three/fiber';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
 import ProgressBar from '../components/ProgressBar';
 import Rain from '../components/Rain';
-import Box from '../components/Box';
 
 export default function Home() {
   return (
@@ -20,11 +18,6 @@ export default function Home() {
             <h2>Computer Science Student</h2>
             <ProgressBar label="Knowledge" length={15} />
           </NameSection>
-          <Canvas style={{ flexBasis: 'max-content' }}>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <Box position={[1.2, 0, 0]} />
-          </Canvas>
         </Container>
       </main>
     </Layout>
