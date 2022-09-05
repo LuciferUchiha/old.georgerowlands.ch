@@ -8,6 +8,6 @@ tags: [electronics, electrical circuits, voltage, current, charge, ac/dc, resist
 
 ## Current
 
-## Resistence
+## Resistance
 
 ## AC and DC
