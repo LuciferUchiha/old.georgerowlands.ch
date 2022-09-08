@@ -42,6 +42,9 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["Complete Stream Zoo"](http://underpop.online.fr/j/java/help/complete-stream-zoo-streams-and-files.html.gz)<br/>
   Overview of Streams and Reader/Writers in Java.
 
+- ["Complete Stream Zoo"](http://underpop.online.fr/j/java/help/complete-stream-zoo-streams-and-files.html.gz)<br/>
+  Good, concise makefile tutorial that helped me learn and summarize [how to use makefiles](Computer%20Science/Make/makefiles.md).
+
 ### Videos
 
 - ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)<br/>
