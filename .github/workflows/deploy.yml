@@ -25,8 +25,6 @@ jobs:
           make install
       - name: Update notebooks
         run: make update
-      - name: Build website
-        run: npm run build
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2
         env:
