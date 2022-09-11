@@ -42,8 +42,11 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["Complete Stream Zoo"](http://underpop.online.fr/j/java/help/complete-stream-zoo-streams-and-files.html.gz)<br/>
   Overview of Streams and Reader/Writers in Java.
 
-- ["Complete Stream Zoo"](http://underpop.online.fr/j/java/help/complete-stream-zoo-streams-and-files.html.gz)<br/>
+- ["Learn Makefiles by Theicfire"](https://makefiletutorial.com/)<br/>
   Good, concise makefile tutorial that helped me learn and summarize [how to use makefiles](Computer%20Science/Make/makefiles.md).
+  
+- ["An Introduction to Modern CMake by Cliutils"](https://cliutils.gitlab.io/modern-cmake/chapters/intro/running.html)<br/>
+  Extensive CMake Tutorial.
 
 ### Videos
 

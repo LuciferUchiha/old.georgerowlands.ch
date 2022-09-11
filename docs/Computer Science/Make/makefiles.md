@@ -14,7 +14,7 @@ The series of instructions for a Makefile or written in a file called `Makefile`
 
 Just like all programming languages, there is a hello world example for Makefiles as well.
 
-```makefile title="makefile"
+```makefile title="Makefile"
 hello:
     echo "Hello, World"
 ```
@@ -64,7 +64,7 @@ int main(void){
 }
 ```
 
-```makefile title="makefile"
+```makefile title="Makefile"
 main:
     gcc main.c -o main
 ```
@@ -80,7 +80,7 @@ make: `main' is up to date.
 
 Some people that are spoilt from their IDEs might now expect that if we change `main.c` and run the Makefile again that it will get recompiled, this however is not the case. This is what the dependencies are for.
 
-```makefile title="makefile"
+```makefile title="Makefile"
 main: main.c
     gcc main.c -o main
 ```
