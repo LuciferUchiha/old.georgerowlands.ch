@@ -29,8 +29,7 @@
     "react-force-graph": "^1.41.12",
     "rehype-katex": "^5.0.0",
     "remark-math": "^3.0.1",
-    "styled-components": "^5.3.3",
-    "three-spritetext": "^1.6.5"
+    "styled-components": "^5.3.3"
   },
   "browserslist": {
     "production": [
