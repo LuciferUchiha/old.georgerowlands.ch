@@ -1,5 +1,6 @@
 nbdoc==0.0.82
 pandas==1.4.4
+matplotlib==3.5.3
 jupyter==1.0.0
 jupyterlab==3.4.6
 altair==4.2.0
