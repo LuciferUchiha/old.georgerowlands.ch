@@ -4,37 +4,27 @@ The intent of the command pattern is to turn commands into stand-alone objects s
 
 ## Structure
 
-```mermaid
-classDiagram
- CommandInterface <-- Invoker
- CommandInterface <|-- ConcreteCommand
- Receiver <-- ConcreteCommand
-    class Invoker{
-        setCommand()
-  execute()
-    }
- class CommandInterface{
-        execute()
-  undo()
-    }
- class ConcreteCommand{
-  execute() = receiver.action()
-  undo()
-    }
- class Receiver{
-  action()
-    }
-```
-
 ```plantuml
 @startuml
 !theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
 
-Bob -> Alice :  normal
-Bob <- Alice :  $success("success: Hi Bob")
-Bob -x Alice :  $failure("failure")
-Bob ->> Alice : $warning("warning")
-Bob ->> Alice : $info("finished")
+Command <-- Invoker  : calls
+Command <|-- CommandImpl
+Receiver <-- CommandImpl : calls
+
+class Invoker {
+    void setCommand(Command c)
+    void execute()
+}
+
+interface Command{
+    void execute()
+    void undo()
+}
+
+class Receiver{
+    action()
+}
 
 @enduml
 ```

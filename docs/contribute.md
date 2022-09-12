@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 title: Want to contribute?
 description: Want to contribute?
 tags: [Digital Garden]

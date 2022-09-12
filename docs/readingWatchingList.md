@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 title: Reading & Watching List
 description: A collection of articles, books and videos I have read or watched and would recommend to others
 ---

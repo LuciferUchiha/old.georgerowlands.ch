@@ -1,0 +1,21 @@
+---
+sidebar_position: 2
+title: Features of this Garden
+description: Features of this Garden
+tags: [Digital Garden, Docusaurus]
+---
+
+Custom plantuml theme with procedures. TODO: SVGs so that can copy text.
+
+```plantuml
+@startuml
+!theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
+
+Bob -> Alice :  normal
+Bob <- Alice :  $success("success: Hi Bob")
+Bob -x Alice :  $failure("failure")
+Bob ->> Alice : $warning("warning")
+Bob ->> Alice : $info("finished")
+
+@enduml
+```

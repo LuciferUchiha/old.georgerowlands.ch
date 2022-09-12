@@ -5,7 +5,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const math = require('remark-math');
 const katex = require('rehype-katex');
-const mermaid = require('mdx-mermaid');
 
 const remarkSimplePlantumlPlugin = require('./src/util/remarkSimplePlantumlPlugin');
 const prismAdditionalLanguages = require('./prismLanguages');
@@ -42,7 +41,7 @@ const config = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          remarkPlugins: [math, mermaid, remarkSimplePlantumlPlugin],
+          remarkPlugins: [math, remarkSimplePlantumlPlugin],
           rehypePlugins: [katex],
           sidebarPath: require.resolve('./sidebars.js'),
           /* Dont wanna delete but also not proud of them */
