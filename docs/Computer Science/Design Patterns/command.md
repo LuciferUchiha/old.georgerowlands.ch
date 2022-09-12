@@ -29,11 +29,11 @@ classDiagram
 ```plantuml
 @startuml
 !theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
-Object <|-- ArrayList
 
-Object : equals()
-ArrayList : Object elementData
-ArrayList : size()
+Bob -> Alice :  hello
+Bob <- Alice :  $success("success: hello B.")
+Bob -x Alice :  $failure("failure")
+Bob ->> Alice : $warning("warning")
 
 @enduml
 ```

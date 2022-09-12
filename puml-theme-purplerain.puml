@@ -32,19 +32,19 @@
 !$FAILURE = "#C71C22"
 
 !procedure $success($msg)
-  <font color=$SUCCESS><b>$msg
+  <font color=$SUCCESS>$msg
 !endprocedure
 
 !procedure $info($msg)
-  <font color=$INFO><b>$msg
+  <font color=$INFO>$msg
 !endprocedure
 
 !procedure $warning($msg)
-  <font color=$WARNING><b>$msg
+  <font color=$WARNING>$msg
 !endprocedure
 
 !procedure $failure($msg)
-  <font color=$FAILURE><b>$msg
+  <font color=$FAILURE>$msg
 !endprocedure
 
 <style>
