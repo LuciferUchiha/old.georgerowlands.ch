@@ -26,6 +26,18 @@ classDiagram
     }
 ```
 
+```plantuml
+@startuml
+!theme purplerain from /src/theme/
+Object <|-- ArrayList
+
+Object : equals()
+ArrayList : Object elementData
+ArrayList : size()
+
+@enduml
+```
+
 ## Example
 
 ```java
