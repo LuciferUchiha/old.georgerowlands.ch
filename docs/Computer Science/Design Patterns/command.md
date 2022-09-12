@@ -30,10 +30,11 @@ classDiagram
 @startuml
 !theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
 
-Bob -> Alice :  hello
-Bob <- Alice :  $success("success: hello B.")
+Bob -> Alice :  normal
+Bob <- Alice :  $success("success: Hi Bob")
 Bob -x Alice :  $failure("failure")
 Bob ->> Alice : $warning("warning")
+Bob ->> Alice : $info("finished")
 
 @enduml
 ```

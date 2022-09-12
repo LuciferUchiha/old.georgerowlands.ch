@@ -26,10 +26,10 @@
   !$FONT_NAME_MONOSPACED = "Courier"
 !endif
 
-!$SUCCESS = "#73A839"
-!$INFO = "#007BFE"
-!$WARNING = "#DD5600"
-!$FAILURE = "#C71C22"
+!$SUCCESS = "#0be670"
+!$INFO = "#0976e7"
+!$WARNING = "#e6700b"
+!$FAILURE = "#e63c39"
 
 !procedure $success($msg)
   <font color=$SUCCESS>$msg
