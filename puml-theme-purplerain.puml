@@ -11,20 +11,41 @@
 !endif
 
 !if %not(%variable_exists("$FGCOLOR"))
-  !$FGCOLOR = "black"
+  !$FGCOLOR = "#7f39fb"
 !endif
 
 !if %not(%variable_exists("$HYPERLINK_COLOR"))
-  !$HYPERLINK_COLOR = "blue"
+  !$HYPERLINK_COLOR = "#bb86fc"
 !endif
 
 !ifndef $FONT_NAME
-  !$FONT_NAME = "Verdana"
+  !$FONT_NAME = "System-ui"
 !endif
 
 !ifndef $FONT_NAME_MONOSPACED
   !$FONT_NAME_MONOSPACED = "Courier"
 !endif
+
+!$SUCCESS = "#73A839"
+!$INFO = "#007BFE"
+!$WARNING = "#DD5600"
+!$FAILURE = "#C71C22"
+
+!procedure $success($msg)
+  <font color=$SUCCESS><b>$msg
+!endprocedure
+
+!procedure $info($msg)
+  <font color=$INFO><b>$msg
+!endprocedure
+
+!procedure $warning($msg)
+  <font color=$WARNING><b>$msg
+!endprocedure
+
+!procedure $failure($msg)
+  <font color=$FAILURE><b>$msg
+!endprocedure
 
 <style>
   root {

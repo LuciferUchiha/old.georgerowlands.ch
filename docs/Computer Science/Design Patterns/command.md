@@ -28,7 +28,7 @@ classDiagram
 
 ```plantuml
 @startuml
-!theme purplerain from /src/theme/
+!theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
 Object <|-- ArrayList
 
 Object : equals()
