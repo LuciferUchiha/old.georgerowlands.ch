@@ -24,6 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           make install
       - name: Update notebooks
+        continue-on-error: true
         run: make update
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2

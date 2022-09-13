@@ -102,7 +102,7 @@ pyplot.show()
 
 <CodeOutputBlock lang="python">
 
-    2022-09-13 15:20:23.755367: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+    2022-09-13 17:52:40.078671: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
     To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 
 
@@ -112,7 +112,7 @@ pyplot.show()
 
 
     
-![png](_1-imageClassification_files/output_4_2.png)
+![png](_1-ImageClassification_files/output_4_2.png)
     
 
 
