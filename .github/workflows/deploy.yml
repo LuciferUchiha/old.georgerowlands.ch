@@ -26,6 +26,7 @@ jobs:
       - name: Update notebooks
         run: make update
       - name: Invoke deployment hook
+        if: success() || failure()
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
