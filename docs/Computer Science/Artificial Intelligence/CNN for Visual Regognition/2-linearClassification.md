@@ -15,6 +15,4 @@ score function that maps the pixel values of an image to confidence scores for e
 
 For example, in CIFAR-10 we have a training set of N = 50,000 images, each with D = 32 x 32 x 3 = 3072 pixels, and K = 10, since there are 10 distinct classes (dog, cat, car, etc). We will now define the score function f:RD↦RK that maps the raw image pixels to class scores.
 
-simplest possible function, a linear mapping: $f(x_i,W,b)=Wx_i+
-
-image xi has all of its pixels flattened out to a single column vector of shape [D x 1]. The matrix W (of size [K x D]), and the vector b (of size [K x 1]) are the parameters of the function.
+simplest possible function, a linear mapping: $f(x_i,W,b)=Wx_i+b$
