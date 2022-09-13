@@ -340,17 +340,9 @@ plt.show()
 <CodeOutputBlock lang="python">
 
 ```
-    ---------------------------------------------------------------------------
-
-    ModuleNotFoundError                       Traceback (most recent call last)
-
-    Cell In [85], line 1
-    ----> 1 from matplotlib import pyplot as plt
-          2 plt.plot(range(20), range(20))
-          3 plt.plot(range(10), [x+1 for x in range(10)])
-
-
-    ModuleNotFoundError: No module named 'matplotlib'
+    
+![png](_jupyterDocusaurusTutorial_files/output_33_0.png)
+    
 ```
 
 </CodeOutputBlock>

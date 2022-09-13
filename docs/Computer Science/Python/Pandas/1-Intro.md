@@ -20,7 +20,7 @@ In simple words you can imagine a Series as a column.
 
 
 ```python
-series_list = pd.Series([1, 2, 3, 4, 5, 6])
+series_list = pd.Series([1, 2, 3, 4, 5, 6, 7])
 series_list
 ```
 
@@ -33,6 +33,7 @@ series_list
     3    4
     4    5
     5    6
+    6    7
     dtype: int64
 ```
 
@@ -99,7 +100,7 @@ series_np
     3    40
     4    50
     5    60
-    dtype: int32
+    dtype: int64
 ```
 
 </CodeOutputBlock>
@@ -144,7 +145,7 @@ series_index
     2     4
     3     8
     4    16
-    dtype: int32
+    dtype: int64
 ```
 
 </CodeOutputBlock>
@@ -163,7 +164,7 @@ series_string_index
     c    3
     d    4
     e    5
-    dtype: int32
+    dtype: int64
 ```
 
 </CodeOutputBlock>
