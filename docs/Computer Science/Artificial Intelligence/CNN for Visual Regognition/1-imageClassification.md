@@ -105,7 +105,7 @@ pyplot.show()
 
 <CodeOutputBlock lang="python">
 
-    2022-09-13 18:15:49.827634: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+    2022-09-16 17:50:56.094313: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
     To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 
 
@@ -131,7 +131,7 @@ nn.train(trainX_rows, trainy)
 #print("accuracy: %f", np.mean(YpredTest == testy))
 ```
 
-more impressive than guessing at random (which would give 10% accuracy since there are 10 classes), but nowhere near human performance (which is estimated at about 94%) or near state-of-the-art Convolutional Neural Networks that achieve about 95%.
+>more impressive than guessing at random (which would give 10% accuracy since there are 10 classes), but nowhere near human performance (which is estimated at about 94%) or near state-of-the-art Convolutional Neural Networks that achieve about 95%.
 nother common choice could be to instead use the L2 distance, which has the geometric interpretation of computing the euclidean distance between two vectors.
 pixelwise difference as before, but this time we square all of them, add them up and finally take the square root this gives bigger differences more wheight.
 distances = np.sqrt(np.sum(np.square(self.Xtr - X[i,:]), axis = 1))
