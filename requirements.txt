@@ -1,3 +1,5 @@
+ipykernel==6.15.2
+nbdev==1.2.0
 nbdoc==0.0.54
 pandas==1.4.4
 jupyter==1.0.0

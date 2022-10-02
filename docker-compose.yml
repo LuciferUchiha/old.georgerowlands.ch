@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  frontend:
+    image: georgerowlands.ch/frontend
+    command: ['npm', 'run', 'start']
+    build:
+      dockerfile: ./docker/Dockerfile.frontend
+    ports:
+      - '3000:3000'
+      - '8888:8888'
