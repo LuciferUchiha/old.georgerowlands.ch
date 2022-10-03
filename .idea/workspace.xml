@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c47d6241-8ca1-47f0-bcbc-aff7bbc0cfd8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/CNN for Visual Regognition/1-imageClassification.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/CNN for Visual Regognition/1-imageClassification.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/CNN for Visual Regognition/1-imageClassification.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/CNN for Visual Regognition/1-imageClassification.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/Data Mining/findingSimiliarItems.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/Data Mining/findingSimiliarItems.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/Data Mining/tfidf.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/Data Mining/tfidf.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/Dockerfile.frontend" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Dockerfile.frontend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/jupyterDocusaurusTutorial.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/jupyterDocusaurusTutorial.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/jupyterDocusaurusTutorial.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Artificial Intelligence/jupyterDocusaurusTutorial.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/1-Intro.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/1-Intro.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/2-Filtering.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/2-Filtering.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/3-Sorting.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/3-Sorting.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/4-AddingAndDeleting.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Computer Science/Python/Pandas/4-AddingAndDeleting.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

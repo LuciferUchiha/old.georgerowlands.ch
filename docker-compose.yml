@@ -1,9 +1,12 @@
 version: '3.9'
 services:
   frontend:
-    command: 'sh -c "npm run start -- --host 0.0.0.0 & jupyter lab --ip=0.0.0.0 --port=8888 --allow-root & watchmedo shell-command --command nbdoc_build --pattern="*.ipynb" --recursive --drop & wait"'
+    command: 'sh -c "npm run start -- --host 0.0.0.0 & jupyter lab --config ./jupyter_lab_config.py & watchmedo shell-command --command nbdoc_build --pattern="*.ipynb" --recursive --drop & wait"'
     build:
       dockerfile: ./docker/Dockerfile.frontend
     ports:
       - '3000:3000'
       - '8888:8888'
+    volumes:
+      - ./:/app
+      - /app/node_modules
