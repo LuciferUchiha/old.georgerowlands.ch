@@ -1,8 +1,7 @@
 version: '3.9'
 services:
   frontend:
-    image: georgerowlands.ch/frontend
-    command: ['npm', 'run', 'start']
+    command: 'sh -c "npm run start & jupyter lab & watchmedo shell-command --command nbdoc_build --pattern="*.ipynb" --recursive --drop & wait"'
     build:
       dockerfile: ./docker/Dockerfile.frontend
     ports:

@@ -369,13 +369,13 @@ alt.Chart(source).mark_circle(size=60).encode(
 
 
 ```html
-<div id="altair-viz-6f52b08b403b4d629e605cedfd623941"></div>
+<div id="altair-viz-e39d57761cd44eda9dac16e55a13d5b3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6f52b08b403b4d629e605cedfd623941") {
-      outputDiv = document.getElementById("altair-viz-6f52b08b403b4d629e605cedfd623941");
+    if (outputDiv.id !== "altair-viz-e39d57761cd44eda9dac16e55a13d5b3") {
+      outputDiv = document.getElementById("altair-viz-e39d57761cd44eda9dac16e55a13d5b3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
