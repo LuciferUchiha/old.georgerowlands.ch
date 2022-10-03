@@ -1,9 +1,9 @@
 version: '3.9'
 services:
   frontend:
-    command: 'npm run build'
     build:
       dockerfile: ./docker/Dockerfile.frontend
+    command: 'npm run build'
     ports:
       - '3000:3000'
     volumes:
