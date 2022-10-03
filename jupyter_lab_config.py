@@ -1,7 +1,7 @@
 # Configuration file for lab.
 
 c = get_config()  # noqa
-
+c.FileContentsManager.checkpoints_kwargs = {'root_dir': '/temp'}
 #------------------------------------------------------------------------------
 # Application(SingletonConfigurable) configuration
 #------------------------------------------------------------------------------

@@ -7,8 +7,6 @@
 .docusaurus
 .cache-loader
 
-**/*/.ipynb_checkpoints/**/*
-
 # Misc
 .DS_Store
 .env.local
