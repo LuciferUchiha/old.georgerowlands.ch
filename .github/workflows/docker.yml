@@ -13,11 +13,10 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v2
-
-      - name: Build
-        run: |
-          cd docker
-          docker compose up
+      - name: build
+        uses: isbang/compose-action@v1.2.0
+        with:
+          compose-file: "./docker/docker-compose.yml"
     
       - name: Push
         uses: s0/git-publish-subdir-action@develop
