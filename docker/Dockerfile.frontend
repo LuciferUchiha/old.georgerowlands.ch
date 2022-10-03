@@ -4,7 +4,8 @@ EXPOSE 3000 8888
 # Install python dependencies
 COPY requirements.txt /app/
 RUN pip3 install -r requirements.txt
-RUN jupyter labextension install @jupyterlab/vega5-extension
+# Extensions for nbdocs and onedark theme
+RUN jupyter labextension install @jupyterlab/vega5-extension & jupyter labextension install jupyterlab_onedarkpro
 # Install node dependencies
 COPY package.json /app/
 RUN npm install
