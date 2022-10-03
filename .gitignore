@@ -27,6 +27,7 @@ yarn-error.log*
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/georgerowlands.ch.iml
 
 # Generated files
 .idea/**/contentModel.xml
