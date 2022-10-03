@@ -1,6 +1,6 @@
 ---
 title: Record Classes
-description: Record Classes
+
 tags: [java, records, immutability]
 ---
 

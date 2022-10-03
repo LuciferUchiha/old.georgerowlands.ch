@@ -1,6 +1,5 @@
 ---
 title: Linear Classification
-description: Linear Classification
 tags: [linear classification]
 ---
 

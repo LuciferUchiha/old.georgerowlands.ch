@@ -1,6 +1,5 @@
 ---
 title: TF-IDF
-description: TF-IDF
 tags: [tfidf, nlp]
 ---
 

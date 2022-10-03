@@ -1,6 +1,5 @@
 ---
 title: Linked Lists
-description: Linked lists
 tags: [java, collections, data structures, linked lists]
 ---
 

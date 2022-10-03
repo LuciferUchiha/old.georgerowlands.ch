@@ -1,6 +1,5 @@
 ---
 title: Structures
-description: Structures
 tags: [c, structs, typedef]
 ---
 

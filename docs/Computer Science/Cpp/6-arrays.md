@@ -1,6 +1,6 @@
 ---
 title: Arrays
-description: TO BE DONEEEEE
+
 tags: [cpp, c arrays, arrays, vectors, smart pointers]
 ---
 

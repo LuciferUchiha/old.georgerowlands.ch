@@ -1,6 +1,5 @@
 ---
 title: Synchronizers
-description: Synchronizers
 tags: [concurrent programming, synchronization, semaphore, read-write locks, latches, barriers]
 ---
 

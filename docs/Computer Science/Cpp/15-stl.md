@@ -1,6 +1,6 @@
 ---
 title: Standard Template Library - STL
-description: Standard Template Library - STL
+
 tags: [cpp, templates]
 ---
 

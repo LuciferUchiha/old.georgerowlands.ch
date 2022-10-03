@@ -1,6 +1,5 @@
 ---
 title: Essentials
-description: A extensive and detailed summary on the basics of programming with C# including examples.
 tags: [C Sharp, Types, Classes, Properties]
 ---
 

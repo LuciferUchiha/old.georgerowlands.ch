@@ -1,6 +1,5 @@
 ---
 title: The Executor Framework
-description: The Executor Framework
 tags: [concurrent programming, executor, workers, callable, runnable, future]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: General
-description: General
+
 tags: [distributed systems]
 ---
 

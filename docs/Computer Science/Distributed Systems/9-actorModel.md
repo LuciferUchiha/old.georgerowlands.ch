@@ -1,6 +1,6 @@
 ---
 title: Actor Model
-description: Actor Model
+
 tags: [distributed systems, akka, actor model, concurrent programming]
 ---
 

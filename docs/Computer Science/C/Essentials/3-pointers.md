@@ -1,6 +1,5 @@
 ---
 title: Pointers
-description: Pointers
 tags: [c, pointers, void pointers, const pointers]
 ---
 

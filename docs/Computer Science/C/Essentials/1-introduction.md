@@ -1,6 +1,5 @@
 ---
 title: Introduction to C
-description: Introduction to C
 tags: [C, history, comments, preprocessor, includes, hello world]
 ---
 

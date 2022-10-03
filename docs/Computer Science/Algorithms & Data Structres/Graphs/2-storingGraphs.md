@@ -1,6 +1,5 @@
 ---
 title: Storing Graphs
-description: Storing Graphs
 tags: [java, collections, data structures, algorithms, graphs, adjacency matrix, adjacency list, edge table]
 ---
 

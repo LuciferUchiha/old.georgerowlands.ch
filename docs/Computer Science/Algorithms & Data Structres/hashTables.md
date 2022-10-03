@@ -1,6 +1,5 @@
 ---
 title: Hash Tables
-description: Hash Tables
 tags: [java, collections, data structures, algorithms, hashing, hash tables]
 ---
 

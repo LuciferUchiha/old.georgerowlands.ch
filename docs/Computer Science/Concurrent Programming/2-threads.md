@@ -1,6 +1,5 @@
 ---
 title: Threads
-description: Threads
 tags: [concurrent programming, threads]
 ---
 

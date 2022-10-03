@@ -1,6 +1,6 @@
 ---
 title: Templates
-description: Templates
+
 tags: [cpp, templates, generics]
 ---
 

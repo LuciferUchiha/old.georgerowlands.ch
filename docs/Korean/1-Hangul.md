@@ -1,6 +1,6 @@
 ---
 title: Hangul
-description: Hangul
+
 tags: [korean, hangul, consonants, vowels, syllables]
 ---
 

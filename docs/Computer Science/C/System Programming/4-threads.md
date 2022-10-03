@@ -1,6 +1,5 @@
 ---
 title: Threads and Synchronization
-description: Threads and Synchronization
 tags: [c, threads, posix, pthread, synchronization, mutex, locks, conditional variables]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Arrays
-description: Arrays
 tags: [C, arrays, multidimensional arrays, pointer arithmetic]
 ---
 

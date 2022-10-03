@@ -1,6 +1,6 @@
 ---
 title: Kovarianz
-description: Kovarianz
+
 tags: [wahrscheinlichkeit]
 ---
 

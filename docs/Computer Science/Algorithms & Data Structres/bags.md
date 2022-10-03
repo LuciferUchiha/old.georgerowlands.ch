@@ -1,6 +1,5 @@
 ---
 title: Bags
-description: Bags
 tags: [java, collections, data structures, algorithms, bags, binary search]
 ---
 

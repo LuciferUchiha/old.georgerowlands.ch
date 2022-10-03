@@ -1,6 +1,6 @@
 ---
 title: Enums
-description: TO BE DONEEEEE
+
 tags: [cpp]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Finding Similar Items
-description: Finding Similar Items
 tags: [lsh, shingles, jaccard]
 ---
 

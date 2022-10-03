@@ -1,6 +1,6 @@
 ---
 title: Pizza Roll
-description: Pizza Roll
+
 tags: [beef]
 ---
 

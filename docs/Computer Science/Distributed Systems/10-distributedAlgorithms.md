@@ -1,6 +1,6 @@
 ---
 title: Distributed Algorithms
-description: Distributed Algorithms
+
 tags: [distributed systems, collections, data structures, algorithms, hashing, hash tables]
 ignore: true
 ---

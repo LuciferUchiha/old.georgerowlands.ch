@@ -1,6 +1,5 @@
 ---
 title: Binary Trees
-description: Binary Trees
 tags: [java, collections, data structures, algorithms, trees, binary tree, binary search tree, avl tree, balanced trees]
 ---
 

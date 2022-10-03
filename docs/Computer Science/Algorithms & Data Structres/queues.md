@@ -1,6 +1,5 @@
 ---
 title: Queues
-description: Queues
 tags: [java, collections, data structures, queues]
 ---
 

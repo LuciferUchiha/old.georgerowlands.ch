@@ -1,6 +1,5 @@
 ---
 title: Introduction
-description: A brief introduction on .Net and how it works with assemblies and namespaces
 tags: [C Sharp, .Net, Assemblies, Namespaces]
 ---
 

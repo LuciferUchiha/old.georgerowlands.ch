@@ -1,6 +1,5 @@
 ---
 title: Sets
-description: Sets
 tags: [java, collections, data structures, algorithms, sets, binary search]
 ---
 

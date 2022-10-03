@@ -1,6 +1,6 @@
 ---
 title: GraphQL
-description: GraphQL
+
 tags: [distributed systems, graphql]
 ---
 

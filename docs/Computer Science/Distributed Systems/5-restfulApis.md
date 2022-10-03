@@ -1,6 +1,6 @@
 ---
 title: RESTful APIs
-description: REST
+
 tags: [distributed systems, rest, jakarta, jax-rs, jersey, openapi]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Functional C++
-description: Functional C++
+
 tags: [cpp, functional programming, functors, lambdas]
 ---
 

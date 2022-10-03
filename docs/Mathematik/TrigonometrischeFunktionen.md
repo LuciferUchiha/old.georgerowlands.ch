@@ -1,6 +1,6 @@
 ---
 title: Trigonometrische funktionen
-description: TO BE DONEEEEE
+
 tags: [trigonometry, cos, sin, tan, cot, kosinus, sinus, tangens, kotangens]
 ---
 :::info

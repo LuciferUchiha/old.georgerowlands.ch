@@ -1,7 +1,6 @@
 ---
 sidebar_position: 4
 title: Reading & Watching List
-description: A collection of articles, books and videos I have read or watched and would recommend to others
 ---
 
 This is a collection of articles, books and videos I have read or watched and would recommend to others. Most of them will be software development related but not necessarily. This is also a very useful lookup/bookmarking tool as I might remember that I've read something about a certain subject but not where.

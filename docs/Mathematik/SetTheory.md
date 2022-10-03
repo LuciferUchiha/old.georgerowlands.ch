@@ -1,6 +1,6 @@
 ---
 title: Set theory
-description: TO BE DONEEEEE
+
 tags: [sets]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Iterators
-description: Iterators
 tags: [java, collections, data structures, iterators, modcount]
 ---
 

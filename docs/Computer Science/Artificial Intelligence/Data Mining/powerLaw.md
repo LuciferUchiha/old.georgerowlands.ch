@@ -1,6 +1,5 @@
 ---
 title: Power Law
-description: Power Law
 tags: [probability, distributions]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Classes
-description: TO BE DONEEEEE
+
 tags: [cpp]
 ---
 

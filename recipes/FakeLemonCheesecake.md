@@ -1,6 +1,6 @@
 ---
 title: Fake Lemon Cheesecake
-description: Fake Lemon Cheesecake
+
 tags: [dessert, cheesecake]
 ---
 

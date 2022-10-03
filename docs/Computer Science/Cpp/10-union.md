@@ -1,6 +1,6 @@
 ---
 title: Union
-description: TO BE DONEEEEE
+
 tags: [cpp, union]
 ---
 

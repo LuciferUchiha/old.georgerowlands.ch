@@ -1,6 +1,6 @@
 ---
 title: Overloading
-description: TO BE DONEEEEE
+
 tags: [cpp, overloading, operator overloading, friend, move-semantic]
 ---
 

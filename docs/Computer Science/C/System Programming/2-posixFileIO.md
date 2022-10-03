@@ -1,6 +1,5 @@
 ---
 title: POSIX File I/O
-description: POSIX File I/O
 tags: [c, file io, posix]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: JMM - Java Memory Model
-description: JMM - Java Memory Model
 tags: [concurrent programming, synchronization]
 ---
 

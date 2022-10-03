@@ -1,6 +1,6 @@
 ---
 title: Mediterranean Chicken
-description: Mediterranean Chicken
+
 tags: [chicken, bbq, marinade]
 ---
 

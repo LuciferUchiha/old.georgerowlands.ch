@@ -1,6 +1,5 @@
 ---
 title: IPC with Pipes
-description: IPC with Pipes
 tags: [c, ipc, processes, pipes]
 ---
 

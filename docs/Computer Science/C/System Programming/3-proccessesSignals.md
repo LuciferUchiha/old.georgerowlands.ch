@@ -1,6 +1,5 @@
 ---
 title: Processes and signals
-description: Processes and signals
 tags: [c, processes, signals, system calls, environment variables]
 ---
 

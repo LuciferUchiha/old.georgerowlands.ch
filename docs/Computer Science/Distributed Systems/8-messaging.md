@@ -1,6 +1,6 @@
 ---
 title: Messaging
-description: Messaging
+
 tags: [distributed systems, messaging, rabbitmq]
 ---
 

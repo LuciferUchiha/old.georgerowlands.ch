@@ -1,6 +1,5 @@
 ---
 title: B-Trees
-description: B-Trees
 tags: [java, collections, data structures, algorithms, trees, b trees, balanced trees]
 ---
 

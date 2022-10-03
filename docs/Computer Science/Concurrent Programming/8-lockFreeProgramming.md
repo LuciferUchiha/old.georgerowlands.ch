@@ -1,6 +1,5 @@
 ---
 title: Lock-Free Programming
-description: Lock-Free Programming
 tags: [concurrent programming, locks, atomics, cas]
 ---
 

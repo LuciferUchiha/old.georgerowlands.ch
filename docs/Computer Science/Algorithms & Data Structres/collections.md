@@ -1,6 +1,5 @@
 ---
 title: Collections
-description: Collections
 tags: [java, collections, data structures]
 ---
 

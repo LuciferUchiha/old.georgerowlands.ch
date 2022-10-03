@@ -1,6 +1,6 @@
 ---
 title: Doomsday Algorithm
-description: Doomsday Algorithm
+
 tags: [doomsday algorithm, john conway]
 ---
 :::info

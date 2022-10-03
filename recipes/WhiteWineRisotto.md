@@ -1,6 +1,6 @@
 ---
 title: White Wine Risotto
-description: White Wine Risotto
+
 tags: [risotto]
 ---
 

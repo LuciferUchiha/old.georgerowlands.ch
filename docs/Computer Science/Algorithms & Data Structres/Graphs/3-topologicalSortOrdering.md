@@ -1,6 +1,5 @@
 ---
 title: Topological Sort/Ordering
-description: Topological Sort/Ordering
 tags: [java, collections, data structures, algorithms, graphs, kahn's algorithm]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Curry Yogurt Chicken
-description: Curry Yogurt Chicken
+
 tags: [chicken, bbq, marinade]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Graph Traversal
-description: Graph Traversal
 tags: [java, collections, data structures, algorithms, graphs, depth first search, breadth first search, spanning trees]
 ---
 

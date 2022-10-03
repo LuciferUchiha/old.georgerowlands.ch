@@ -1,6 +1,6 @@
 ---
 title: Variables
-description: TO BE DONEEEEE
+
 tags: [cpp]
 ---
 

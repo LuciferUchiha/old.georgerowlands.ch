@@ -1,6 +1,5 @@
 ---
 title: Functions
-description: Functions
 tags: [C, functions, function prototype, function pointers, qsort, map, macros]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Stream I/O
-description: Stream I/O
+
 tags: [cpp, file io, streams]
 ---
 

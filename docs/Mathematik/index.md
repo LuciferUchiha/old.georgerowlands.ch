@@ -1,6 +1,6 @@
 ---
 title: Mathematics
-description: Mathematics
+
 tags: [mathematics]
 ---
 

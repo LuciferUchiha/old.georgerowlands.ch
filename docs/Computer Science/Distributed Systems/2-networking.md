@@ -1,6 +1,6 @@
 ---
 title: Networking
-description: Networking
+
 tags: [distributed systems, tcp/ip, sockets]
 ---
 

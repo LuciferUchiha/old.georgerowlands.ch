@@ -1,6 +1,6 @@
 ---
 title: Structures
-description: TO BE DONEEEEE
+
 tags: [cpp, structs]
 ---
 

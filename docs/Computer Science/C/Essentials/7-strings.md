@@ -1,6 +1,5 @@
 ---
 title: Strings
-description: Strings
 tags: [C, strings, character arrays]
 ---
 

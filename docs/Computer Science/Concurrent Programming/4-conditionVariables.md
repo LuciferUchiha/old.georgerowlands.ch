@@ -1,6 +1,5 @@
 ---
 title: Condition Variables
-description: Condition Variables
 tags: [concurrent programming, synchronization, condition variables, blocking queues]
 ---
 

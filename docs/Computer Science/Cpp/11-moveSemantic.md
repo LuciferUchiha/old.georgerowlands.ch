@@ -1,6 +1,6 @@
 ---
 title: Move Semantic
-description: TO BE DONEEEEE
+
 tags: [cpp, move operator, copy operator, move constructor, copy cosntructor, lvalue, rvalue, xvalue, rvalue reference]
 ---
 

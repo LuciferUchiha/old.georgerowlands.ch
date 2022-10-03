@@ -1,6 +1,5 @@
 ---
 title: Stacks
-description: Stacks
 tags: [java, collections, data structures, stacks]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Strings
-description: TO BE DONEEEEE
+
 tags: [cpp, strings, character arrays, unicode, utf, raw literals]
 ---
 

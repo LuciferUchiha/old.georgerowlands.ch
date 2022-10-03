@@ -1,6 +1,5 @@
 ---
 title: Interrupts
-description: Interrupts
 tags: [concurrent programming, synchronization]
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Locking
-description: Locking
 tags: [concurrent programming, synchronization, locking, locks, interleavings, mutex, mutual exclusion, race conditions, deadlock]
 ---
 

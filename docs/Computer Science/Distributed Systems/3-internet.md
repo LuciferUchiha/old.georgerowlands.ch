@@ -1,6 +1,6 @@
 ---
 title: The Internet
-description: The Internet
+
 tags: [distributed systems, internet, http, mime types]
 ---
 

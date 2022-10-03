@@ -1,6 +1,6 @@
 ---
 title: Makefiles
-description: Makefiles
+
 tags: [makefiles, make, build tools]
 ---
 

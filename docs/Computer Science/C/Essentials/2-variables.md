@@ -1,6 +1,5 @@
 ---
 title: Variables and Data Types
-description: Variables and Data Types
 tags: [c, variables, data types, command-line arguments, visibility, const, static, define, sizeof, preprocessor]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Inheritance
-description: Inheritance
+
 tags: [cpp, inheritance, interfaces, polymorphism]
 ---
 

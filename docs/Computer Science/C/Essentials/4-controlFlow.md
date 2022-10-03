@@ -1,6 +1,5 @@
 ---
 title: Control Flow
-description: Control Flow
 tags: [C, control flow, if else, for, while, switch, break, continue, goto]
 ---
 

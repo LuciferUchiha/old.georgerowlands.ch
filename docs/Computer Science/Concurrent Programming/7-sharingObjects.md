@@ -1,6 +1,5 @@
 ---
 title: Safe Object Sharing
-description: Safe Object Sharing
 tags: [concurrent programming, synchronization, immutability]
 ---
 

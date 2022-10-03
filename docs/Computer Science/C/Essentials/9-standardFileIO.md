@@ -1,6 +1,5 @@
 ---
 title: Standard File I/O
-description: Standard File I/O
 tags: [c, file io]
 ---
 

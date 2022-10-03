@@ -1,6 +1,5 @@
 ---
 title: Shortest Path
-description: Shortest Path
 tags: [java, collections, data structures, algorithms, graphs, shortest path, breadth first search, dijkstra's algorithm]
 ---
 

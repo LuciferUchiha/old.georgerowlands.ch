@@ -1,6 +1,6 @@
 ---
 title: Pointers
-description: TO BE DONEEEEE
+
 tags: [cpp, pointers, references, smart pointers, void pointers, const pointers]
 ---
 

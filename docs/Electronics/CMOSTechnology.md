@@ -1,6 +1,6 @@
 ---
 title: CMOS Inverter
-description: CMOS Inverter
+
 tags: [electronics, electrical circuits, voltage, current, transistors, mosfet, cmos, nmos, pmos]
 ---
 

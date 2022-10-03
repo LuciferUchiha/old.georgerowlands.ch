@@ -1,6 +1,5 @@
 ---
 title: Introduction to Concurrent Programming
-description: Introduction to Concurrent Programming
 tags: [concurrent programming, serial programming, parallel programming, moore's law, amdahl's law]
 ---
 
