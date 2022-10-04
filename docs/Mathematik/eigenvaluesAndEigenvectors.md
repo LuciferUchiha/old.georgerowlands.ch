@@ -50,7 +50,7 @@ $$\bm{Av}=\lambda \bm{v}$$
 
 Because there would be an infinite amount of solutions we limit the magnitude of the vector to $\parallel\bm{v}\parallel_2=1$.
 
-Let us look at an example of how to calculate the eigenvector and eigenvalue of 
+Let us look at an example of how to calculate the eigenvector and eigenvalue of
 
 $$
 \bm{A}=
@@ -76,7 +76,7 @@ For there to be a solution where $\bm{v}$ is non-zero then the following must be
 $$
 \begin{align*}
 det(\bm{A}-\lambda\bm{I}) &= 0 \\
-det\big( 
+det\big(
     \begin{bmatrix}
       0 & 1 \\
       -2 & -3 \\
@@ -86,7 +86,7 @@ det\big(
       0 & \lambda \\
     \end{bmatrix}
 \big) &= 0 \\
-det\big( 
+det\big(
     \begin{bmatrix}
       -\lambda & 1 \\
       -2 & -3-\lambda \\
@@ -154,3 +154,31 @@ print(f"Eigenvectors: {v}")
 
 
 </CodeOutputBlock>
+
+## Properties
+
+We can use the eigenvalues and eigenvectors of the matrix $\bm{A}$ to find out a lot about it
+
+- The trace of $\bm{A}$ is the sum of its eigenvalues $tr(\bm{A})=\sum_{i=1}^{n}{\lambda_i}$.
+- The determinant of $\bm{A}$ is the product of its eigenvalues $tr(\bm{A})=\prod_{i=1}^{n}{\lambda_i}$.
+- The rank of $\bm{A}$ is amount of non-zero eigenvalues.
+
+
+
+```python
+print(f"Trace: {np.trace(A)}")
+print(f"Determinant: {np.linalg.det(A)}")
+print(f"Rank: {np.linalg.matrix_rank(A)}")
+```
+
+<CodeOutputBlock lang="python">
+
+    Trace: -3
+    Determinant: 2.0
+    Rank: 2
+
+
+</CodeOutputBlock>
+
+## Eigendecomposition
+
