@@ -180,5 +180,25 @@ print(f"Rank: {np.linalg.matrix_rank(A)}")
 
 </CodeOutputBlock>
 
+If $\bm{A}$ is a diagonal matrix then the eigenvalues are just the diagonal elements.
+
+
+```python
+D = np.diag([1,2,3])
+w, v = np.linalg.eig(D)
+print(f"Eigenvalues: {w}")
+print(f"Eigenvectors: {v}")
+```
+
+<CodeOutputBlock lang="python">
+
+    Eigenvalues: [1. 2. 3.]
+    Eigenvectors: [[1. 0. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]]
+
+
+</CodeOutputBlock>
+
 ## Eigendecomposition
 
