@@ -140,6 +140,7 @@ We can also calculate this using the following numpy code:
 
 ```python
 import numpy as np
+
 A = np.array([[0, 1], [-2, -3]])
 w, v = np.linalg.eig(A)
 print(f"Eigenvalues: {w}")
@@ -184,7 +185,7 @@ If $\bm{A}$ is a diagonal matrix then the eigenvalues are just the diagonal elem
 
 
 ```python
-D = np.diag([1,2,3])
+D = np.diag([1, 2, 3])
 w, v = np.linalg.eig(D)
 print(f"Eigenvalues: {w}")
 print(f"Eigenvectors: {v}")
@@ -202,3 +203,78 @@ print(f"Eigenvectors: {v}")
 
 ## Eigendecomposition
 
+The eigendecomposition can be pretty easily derived from the above since it lead to the following equations:
+
+$$
+\begin{align*}
+    \bm{A}= \begin{bmatrix}5 & 2 & 0\\ 2 & 5 & 0\\ 4 & -1 & 4\end{bmatrix} \\
+    \bm{A}\begin{bmatrix}1\\ 1\\ 1\end{bmatrix} = 7 \cdot \begin{bmatrix}1\\ 1\\ 1\end{bmatrix} \\
+    \bm{A}\begin{bmatrix}0\\ 0\\ 1\end{bmatrix} = 4 \cdot \begin{bmatrix}0\\ 0\\ 1\end{bmatrix} \\
+    \bm{A}\begin{bmatrix}-1\\ 1\\ 5\end{bmatrix} = 3 \cdot \begin{bmatrix}-1\\ 1\\ 5\end{bmatrix}
+\end{align*}
+$$
+
+Instead of holding this information in three separate equations we can combine them to one equation using matrices. We combine the eigenvectors to a matrix where each column is a eigenvector and we create a diagonal matrix with the eigenvalues (by convention in order of small to large):
+
+$$
+\begin{align*}
+    \bm{A}\begin{bmatrix}
+        1 & 0 & -1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 5
+    \end{bmatrix}
+    = \begin{bmatrix}
+         1 & 0 & -1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 5
+    \end{bmatrix}
+    \begin{bmatrix}
+        7 & 0 & 0 \\
+        0 & 4 & 0 \\
+        0 & 0 & 3
+    \end{bmatrix}
+\end{align*} \\
+\bm{AX}=\bm{X}\Lambda \\
+\bm{AXX^{-1}}=\bm{X}\Lambda\bm{X}^{-1} \\
+\bm{A}=\bm{X}\Lambda\bm{X}^{-1}
+$$
+
+
+```python
+A = np.array([[5,2,0],[2,5,0],[4,-1,4]])
+A
+```
+
+<CodeOutputBlock lang="python">
+
+
+
+
+    array([[ 5,  2,  0],
+           [ 2,  5,  0],
+           [ 4, -1,  4]])
+
+
+
+</CodeOutputBlock>
+
+
+```python
+X = np.array([[1, 0, -1], [1, 0, 1], [1, 1, 5]])
+Lambda = np.diag([7, 4, 3])
+inverse = np.linalg.inv(X)
+np.matmul(np.matmul(X, Lambda), inverse)
+```
+
+<CodeOutputBlock lang="python">
+
+
+
+
+    array([[ 5.,  2.,  0.],
+           [ 2.,  5.,  0.],
+           [ 4., -1.,  4.]])
+
+
+
+</CodeOutputBlock>
