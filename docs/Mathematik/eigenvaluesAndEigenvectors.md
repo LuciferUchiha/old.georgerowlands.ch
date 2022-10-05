@@ -142,9 +142,9 @@ We can also calculate this using the following numpy code:
 import numpy as np
 
 A = np.array([[0, 1], [-2, -3]])
-w, v = np.linalg.eig(A)
-print(f"Eigenvalues: {w}")
-print(f"Eigenvectors: {v}")
+e_values, e_vectors = np.linalg.eig(A)
+print(f"Eigenvalues: {e_values}")
+print(f"Eigenvectors: {e_vectors}")
 ```
 
 <CodeOutputBlock lang="python">
@@ -186,9 +186,9 @@ If $\bm{A}$ is a diagonal matrix then the eigenvalues are just the diagonal elem
 
 ```python
 D = np.diag([1, 2, 3])
-w, v = np.linalg.eig(D)
-print(f"Eigenvalues: {w}")
-print(f"Eigenvectors: {v}")
+e_values, e_vectors = np.linalg.eig(D)
+print(f"Eigenvalues: {e_values}")
+print(f"Eigenvectors: {e_vectors}")
 ```
 
 <CodeOutputBlock lang="python">
@@ -203,7 +203,7 @@ print(f"Eigenvectors: {v}")
 
 ## Eigendecomposition
 
-The eigendecomposition can be pretty easily derived from the above since it lead to the following equations:
+The eigendecomposition is a way to split up **square** matrices into 3 matrices which can be useful in many applications. Eigendecomposition can be pretty easily derived from the above since it lead to the following equations:
 
 $$
 \begin{align*}
@@ -235,13 +235,13 @@ $$
     \end{bmatrix}
 \end{align*} \\
 \bm{AX}=\bm{X}\Lambda \\
-\bm{AXX^{-1}}=\bm{X}\Lambda\bm{X}^{-1} \\
+\bm{AXX}^{-1}=\bm{X}\Lambda\bm{X}^{-1} \\
 \bm{A}=\bm{X}\Lambda\bm{X}^{-1}
 $$
 
 
 ```python
-A = np.array([[5,2,0],[2,5,0],[4,-1,4]])
+A = np.array([[5, 2, 0], [2, 5, 0], [4, -1, 4]])
 A
 ```
 
@@ -274,6 +274,77 @@ np.matmul(np.matmul(X, Lambda), inverse)
     array([[ 5.,  2.,  0.],
            [ 2.,  5.,  0.],
            [ 4., -1.,  4.]])
+
+
+
+</CodeOutputBlock>
+
+## Singular Value Decomposition - SVD
+
+The eigendecomposition only works for square matrices, the singular value decomposition, short SVD, is a generalization of the eigendecomposition allowing it to be used for rectangular matrices. Singular value decomposition uses 3 matrices just like the eigendecomposition.
+
+$$\bm{A}=\bm{U}\Sigma\bm{V}^T$$
+
+The first matrix $\bm{U}$ is the so-called left singular value matrix which is an orthogonal matrix meaning $\bm{UU}^T=\bm{I}$, the second matrix $\Sigma$ is the singular value matrix which is very just like the matrix containing the eigenvalues in the eigendecomposition a diagonal matrix. The last matrix $\bm{V}^T$ is the right singular value matrix which is also an orthogonal matrix. To find the values we can do the following transformations which make it very similar to the eigendecomposition.
+
+$$
+\begin{align*}
+    \bm{A}^T\bm{A}=\bm{V}\Sigma^T\bm{U}^T\bm{U}\Sigma\bm{V}^T \\
+    \bm{A}^T\bm{A}=\bm{V}(\Sigma^T\Sigma)\bm{V}^T
+\end{align*}
+$$
+
+Because $\Sigma$ is a diagonal matrix the multiplication with its transpose results again in a diagonal matrix. Which gives it the same form as the eigendecomposition. To get the matrix $\bm{U}$ we can do something very similiar.
+
+$$
+\begin{align*}
+    \bm{A}\bm{A}^T=\bm{U}\Sigma\bm{V}^T\bm{V}\Sigma^T\bm{U}^T \\
+    \bm{A}\bm{A}^T=\bm{U}(\Sigma\Sigma^T)\bm{U}^T
+\end{align*}
+$$
+
+
+
+```python
+A = np.array([[-5,2,3], [2, 5, 1], [-3,1,-5]])
+e_values, e_vectors = np.linalg.eigh(A.T@A) # @ is same as np.matmul
+Sigma = np.diag(np.sqrt(e_values))
+V = e_vectors
+U = []
+for i in range(0, len(e_values)):
+    u_i = A@V[:,i]/np.linalg.norm(A@V[:,i])
+    U.append(u_i)
+U@Sigma@V.T
+```
+
+<CodeOutputBlock lang="python">
+
+
+
+
+    array([[-5.18214154,  1.89367286,  2.74943852],
+           [ 1.95955405,  5.01675209,  1.2880268 ],
+           [-2.7028794 ,  1.11633398, -5.07755598]])
+
+
+
+</CodeOutputBlock>
+
+We can see that we lose some precision due to floating number operations but these can be fixed using the round operation.
+
+
+```python
+np.round(U@Sigma@V.T)
+```
+
+<CodeOutputBlock lang="python">
+
+
+
+
+    array([[-5.,  2.,  3.],
+           [ 2.,  5.,  1.],
+           [-3.,  1., -5.]])
 
 
 
