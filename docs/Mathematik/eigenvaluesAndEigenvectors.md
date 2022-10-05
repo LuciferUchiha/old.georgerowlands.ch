@@ -44,16 +44,16 @@ $$
 \end{bmatrix}
 $$
 
-Now let us go back to eigenvalues and eigenvectors. An eigenvector $\bm{v}$ of a square matrix $\bm{A}$ is defined as a non-zero vector such that the multiplication with $\bm{A}$ only changes the scale of the vector it does not change the direction. The scalar $\lambda$ is called the eigenvalue.
+Now let us go back to eigenvalues and eigenvectors. An eigenvector $\boldsymbol{v}$ of a square matrix $\boldsymbol{A}$ is defined as a non-zero vector such that the multiplication with $\boldsymbol{A}$ only changes the scale of the vector it does not change the direction. The scalar $\lambda$ is called the eigenvalue.
 
-$$\bm{Av}=\lambda \bm{v}$$
+$$\boldsymbol{Av}=\lambda \boldsymbol{v}$$
 
-Because there would be an infinite amount of solutions we limit the magnitude of the vector to $\parallel\bm{v}\parallel_2=1$.
+Because there would be an infinite amount of solutions we limit the magnitude of the vector to $\parallel\boldsymbol{v}\parallel_2=1$.
 
 Let us look at an example of how to calculate the eigenvector and eigenvalue of
 
 $$
-\bm{A}=
+\boldsymbol{A}=
 \begin{bmatrix}
   0 & 1 \\
   -2 & -3 \\
@@ -64,18 +64,18 @@ For this we can rewrite the problem and solve the following equations:
 
 $$
 \begin{align*}
-\bm{Av}=\lambda \bm{v} \\
-\bm{Av} - \lambda \bm{v} = 0 \\
-\bm{Av} - \lambda \bm{Iv} = 0
-(\bm{A} - \lambda \bm{I})\bm{v} = 0
+\boldsymbol{Av}=\lambda \boldsymbol{v} \\
+\boldsymbol{Av} - \lambda \boldsymbol{v} = 0 \\
+\boldsymbol{Av} - \lambda \boldsymbol{Iv} = 0
+(\boldsymbol{A} - \lambda \boldsymbol{I})\boldsymbol{v} = 0
 \end{align*}
 $$
 
-For there to be a solution where $\bm{v}$ is non-zero then the following must be true and which then must lead to the characteristic polynomial of $\bm{A}$. Solving the characteristic polynomial equaling 0 we can get between 0 and $n$ eigenvalues with $n$ being the number of dimensions of $\bm{A} \in \mathbb{R}^{n \times n}$:
+For there to be a solution where $\boldsymbol{v}$ is non-zero then the following must be true and which then must lead to the characteristic polynomial of $\boldsymbol{A}$. Solving the characteristic polynomial equaling 0 we can get between 0 and $n$ eigenvalues with $n$ being the number of dimensions of $\boldsymbol{A} \in \mathbb{R}^{n \times n}$:
 
 $$
 \begin{align*}
-det(\bm{A}-\lambda\bm{I}) &= 0 \\
+det(\boldsymbol{A}-\lambda\boldsymbol{I}) &= 0 \\
 det\big(
     \begin{bmatrix}
       0 & 1 \\
@@ -100,7 +100,7 @@ Now that we have the eigenvalues all we need to do is calculate the eigenvectors
 
 $$
 \begin{align*}
-(\bm{A} - \lambda \bm{I})\bm{v} &= 0 \\
+(\boldsymbol{A} - \lambda \boldsymbol{I})\boldsymbol{v} &= 0 \\
 \big(\begin{bmatrix}
       0 & 1 \\
       -2 & -3 \\
@@ -130,7 +130,7 @@ $$
 $$
 
 So we know $v_1 = -v_2$ since we constrict ourselves to vectors with a magnitude of 1 so $\sqrt{v_1^2 + (-v_1)^2}=1$ we get for eigenvalue $\lambda_1=-1$ the eigenvector
-$$\bm{v}=\begin{bmatrix}
+$$\boldsymbol{v}=\begin{bmatrix}
       0.707107 \\
       -0.707107 \\
 \end{bmatrix}$$
@@ -158,11 +158,11 @@ print(f"Eigenvectors: {e_vectors}")
 
 ## Properties
 
-We can use the eigenvalues and eigenvectors of the matrix $\bm{A}$ to find out a lot about it
+We can use the eigenvalues and eigenvectors of the matrix $\boldsymbol{A}$ to find out a lot about it
 
-- The trace of $\bm{A}$ is the sum of its eigenvalues $tr(\bm{A})=\sum_{i=1}^{n}{\lambda_i}$.
-- The determinant of $\bm{A}$ is the product of its eigenvalues $tr(\bm{A})=\prod_{i=1}^{n}{\lambda_i}$.
-- The rank of $\bm{A}$ is amount of non-zero eigenvalues.
+- The trace of $\boldsymbol{A}$ is the sum of its eigenvalues $tr(\boldsymbol{A})=\sum_{i=1}^{n}{\lambda_i}$.
+- The determinant of $\boldsymbol{A}$ is the product of its eigenvalues $tr(\boldsymbol{A})=\prod_{i=1}^{n}{\lambda_i}$.
+- The rank of $\boldsymbol{A}$ is amount of non-zero eigenvalues.
 
 
 
@@ -181,7 +181,7 @@ print(f"Rank: {np.linalg.matrix_rank(A)}")
 
 </CodeOutputBlock>
 
-If $\bm{A}$ is a diagonal matrix then the eigenvalues are just the diagonal elements.
+If $\boldsymbol{A}$ is a diagonal matrix then the eigenvalues are just the diagonal elements.
 
 
 ```python
@@ -207,10 +207,10 @@ The eigendecomposition is a way to split up **square** matrices into 3 matrices 
 
 $$
 \begin{align*}
-    \bm{A}= \begin{bmatrix}5 & 2 & 0\\ 2 & 5 & 0\\ 4 & -1 & 4\end{bmatrix} \\
-    \bm{A}\begin{bmatrix}1\\ 1\\ 1\end{bmatrix} = 7 \cdot \begin{bmatrix}1\\ 1\\ 1\end{bmatrix} \\
-    \bm{A}\begin{bmatrix}0\\ 0\\ 1\end{bmatrix} = 4 \cdot \begin{bmatrix}0\\ 0\\ 1\end{bmatrix} \\
-    \bm{A}\begin{bmatrix}-1\\ 1\\ 5\end{bmatrix} = 3 \cdot \begin{bmatrix}-1\\ 1\\ 5\end{bmatrix}
+    \boldsymbol{A}= \begin{bmatrix}5 & 2 & 0\\ 2 & 5 & 0\\ 4 & -1 & 4\end{bmatrix} \\
+    \boldsymbol{A}\begin{bmatrix}1\\ 1\\ 1\end{bmatrix} = 7 \cdot \begin{bmatrix}1\\ 1\\ 1\end{bmatrix} \\
+    \boldsymbol{A}\begin{bmatrix}0\\ 0\\ 1\end{bmatrix} = 4 \cdot \begin{bmatrix}0\\ 0\\ 1\end{bmatrix} \\
+    \boldsymbol{A}\begin{bmatrix}-1\\ 1\\ 5\end{bmatrix} = 3 \cdot \begin{bmatrix}-1\\ 1\\ 5\end{bmatrix}
 \end{align*}
 $$
 
@@ -218,7 +218,7 @@ Instead of holding this information in three separate equations we can combine t
 
 $$
 \begin{align*}
-    \bm{A}\begin{bmatrix}
+    \boldsymbol{A}\begin{bmatrix}
         1 & 0 & -1 \\
         1 & 0 & 1 \\
         1 & 1 & 5
@@ -234,9 +234,9 @@ $$
         0 & 0 & 3
     \end{bmatrix}
 \end{align*} \\
-\bm{AX}=\bm{X}\Lambda \\
-\bm{AXX}^{-1}=\bm{X}\Lambda\bm{X}^{-1} \\
-\bm{A}=\bm{X}\Lambda\bm{X}^{-1}
+\boldsymbol{AX}=\boldsymbol{X}\Lambda \\
+\boldsymbol{AXX}^{-1}=\boldsymbol{X}\Lambda\boldsymbol{X}^{-1} \\
+\boldsymbol{A}=\boldsymbol{X}\Lambda\boldsymbol{X}^{-1}
 $$
 
 
@@ -283,23 +283,23 @@ np.matmul(np.matmul(X, Lambda), inverse)
 
 The eigendecomposition only works for square matrices, the singular value decomposition, short SVD, is a generalization of the eigendecomposition allowing it to be used for rectangular matrices. Singular value decomposition uses 3 matrices just like the eigendecomposition.
 
-$$\bm{A}=\bm{U}\Sigma\bm{V}^T$$
+$$\boldsymbol{A}=\boldsymbol{U}\Sigma\boldsymbol{V}^T$$
 
-The first matrix $\bm{U}$ is the so-called left singular value matrix which is an orthogonal matrix meaning $\bm{UU}^T=\bm{I}$, the second matrix $\Sigma$ is the singular value matrix which is very just like the matrix containing the eigenvalues in the eigendecomposition a diagonal matrix. The last matrix $\bm{V}^T$ is the right singular value matrix which is also an orthogonal matrix. To find the values we can do the following transformations which make it very similar to the eigendecomposition.
+The first matrix $\boldsymbol{U}$ is the so-called left singular value matrix which is an orthogonal matrix meaning $\boldsymbol{UU}^T=\boldsymbol{I}$, the second matrix $\Sigma$ is the singular value matrix which is very just like the matrix containing the eigenvalues in the eigendecomposition a diagonal matrix. The last matrix $\boldsymbol{V}^T$ is the right singular value matrix which is also an orthogonal matrix. To find the values we can do the following transformations which make it very similar to the eigendecomposition.
 
 $$
 \begin{align*}
-    \bm{A}^T\bm{A}=\bm{V}\Sigma^T\bm{U}^T\bm{U}\Sigma\bm{V}^T \\
-    \bm{A}^T\bm{A}=\bm{V}(\Sigma^T\Sigma)\bm{V}^T
+    \boldsymbol{A}^T\boldsymbol{A}=\boldsymbol{V}\Sigma^T\boldsymbol{U}^T\boldsymbol{U}\Sigma\boldsymbol{V}^T \\
+    \boldsymbol{A}^T\boldsymbol{A}=\boldsymbol{V}(\Sigma^T\Sigma)\boldsymbol{V}^T
 \end{align*}
 $$
 
-Because $\Sigma$ is a diagonal matrix the multiplication with its transpose results again in a diagonal matrix. Which gives it the same form as the eigendecomposition. To get the matrix $\bm{U}$ we can do something very similiar.
+Because $\Sigma$ is a diagonal matrix the multiplication with its transpose results again in a diagonal matrix. Which gives it the same form as the eigendecomposition. To get the matrix $\boldsymbol{U}$ we can do something very similiar.
 
 $$
 \begin{align*}
-    \bm{A}\bm{A}^T=\bm{U}\Sigma\bm{V}^T\bm{V}\Sigma^T\bm{U}^T \\
-    \bm{A}\bm{A}^T=\bm{U}(\Sigma\Sigma^T)\bm{U}^T
+    \boldsymbol{A}\boldsymbol{A}^T=\boldsymbol{U}\Sigma\boldsymbol{V}^T\boldsymbol{V}\Sigma^T\boldsymbol{U}^T \\
+    \boldsymbol{A}\boldsymbol{A}^T=\boldsymbol{U}(\Sigma\Sigma^T)\boldsymbol{U}^T
 \end{align*}
 $$
 
