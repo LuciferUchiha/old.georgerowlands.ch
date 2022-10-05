@@ -349,3 +349,24 @@ np.round(U@Sigma@V.T)
 
 
 </CodeOutputBlock>
+
+We can also just use the built in svd of numpy which is more efficient and accurate.
+
+
+```python
+U, Sigma, Vh = np.linalg.svd(A)
+U@np.diag(Sigma)@Vh
+```
+
+<CodeOutputBlock lang="python">
+
+
+
+
+    array([[-5.,  2.,  3.],
+           [ 2.,  5.,  1.],
+           [-3.,  1., -5.]])
+
+
+
+</CodeOutputBlock>
