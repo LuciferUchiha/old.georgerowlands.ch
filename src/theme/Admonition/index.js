@@ -138,7 +138,7 @@ const AdmonitionConfigs = {
   },
   // Custom Admonitions
   example: {
-    infimaClassName: 'secondary',
+    infimaClassName: 'info',
     iconComponent: ExampleIcon,
     label: (
       <Translate

@@ -22,6 +22,16 @@ body {
   --ifm-code-font-size: 95%;
 }
 
+.alert--info {
+  --ifm-color-info-dark: #6200ee;
+  --ifm-color-info-darker: #5600e8;
+  --ifm-color-info-darkest: #3700b3;
+  --ifm-color-info-light: #985eff;
+  --ifm-color-info-lighter: #bb86fc;
+  --ifm-color-info-lightest: #dbb2ff;
+  --ifm-color-info-contrast-background: #3c1c87;
+}
+
 .footer {
   min-height: 55rem;
 }
