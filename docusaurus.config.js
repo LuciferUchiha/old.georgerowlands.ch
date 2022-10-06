@@ -47,6 +47,10 @@ const config = {
           /* Dont wanna delete but also not proud of them */
           exclude: ['**/4-servlets.md', '**/6-websockets.md', '**/10-distributedAlgorithms.md'],
           editUrl: 'https://github.com/LuciferUchiha/georgerowlands.ch/tree/main',
+          admonitions: {
+            tag: ':::',
+            keywords: ['note', 'tip', 'info', 'caution', 'danger', 'example', 'todo'],
+          },
         },
         blog: false,
         theme: {
