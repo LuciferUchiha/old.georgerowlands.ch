@@ -89,6 +89,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        {
+          name: 'george rowlands, digital garden, computer science ',
+          content:
+            'blog, notes, explanations, guides, tutorials, computer science, AI, Artificial Intelligence, digital garden',
+        },
+      ],
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: false,
