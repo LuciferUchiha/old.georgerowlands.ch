@@ -43,11 +43,58 @@ This section is to show off some of the features of what can be rendered with do
 
 ### Markdown
 
-// TODO
+Docusaurus supports markdown out of the box and its many features. For a brief overview of what it supports check out the
+[docusaurus documentation](https://docusaurus.io/docs/markdown-features). The most interesting features are the following:
+
+#### Tables
+
+#### Links
+
+#### Code blocks
+
+#### Admonitions
+
+Admonitions aren't included in standard markdown but have become very popular and are very useful. Admonitions allow you to highlight certain text
+and add a category to the text for example:
+
+```
+:::caution
+
+This Is a big scary warning.
+
+:::
+```
+
+Renders to:
+
+:::caution
+
+This Is a big scary warning.
+
+:::
+
+You can also change the title of the banner:
+
+```
+:::info The following types are supported
+
+note, tip, danger, info, caution. However in the future I would like to add my own example type
+
+:::
+```
+
+:::info The following types are supported
+
+note, tip, danger, info, caution. However in the future I would like to add my own example type
+
+:::
+
+To find out more check out the [Docusaurus documentation on Admonitions](https://docusaurus.io/docs/markdown-features/admonitions).
 
 ### MDX
 
-// TODO
+In addition to normal markdown Docusaurus also supports the MDX format which allows you to write JSX, i.e react code in a markdown file.
+To find out more about MDX check out the [Docusaurus documentation on MDX](https://docusaurus.io/docs/markdown-features/react) and the official [MDX documentation](https://mdxjs.com/).
 
 ### LaTeX
 
@@ -56,7 +103,62 @@ Docusaurus renders LaTeX content using KaTex, however Jupyter Notebooks renders 
 
 ### PlantUML
 
-Custom plantuml theme with procedures. TODO: SVGs so that can copy text.
+If you ever need to create diagrams and especially UML diagrams, PlantUML is definetly the way to go. I started off with using Mermaid to crate UML diagrams
+but swapped to PlantUML for the additional features and It also allowing me to create custom theme (so everything can be minimalist and purple :D).
+
+The current implementation to render the diagrams is built upon [Remark Simple PlantUML](https://github.com/akebifiky/remark-simple-plantuml). It allows you to create
+PlantUML diagrams in markdown code blocks with the plantuml language.
+
+// TODO SVG to copy text but then backgound isn't transparent???
+
+Some Examples can be seen below, on the official website or on [REAL WORLD PlantUML](https://real-world-plantuml.com/?type=class).
+
+```plantuml
+@startuml
+!theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
+
+interface Command {
+    execute()
+    undo()
+}
+class Invoker{
+    setCommand()
+}
+class Client
+class Receiver{
+    action()
+}
+class ConcreteCommand{
+    execute()
+    undo()
+}
+
+Command <|-down- ConcreteCommand
+Client -right-> Receiver
+Client --> ConcreteCommand
+Invoker o-right-> Command
+Receiver <-left- ConcreteCommand
+
+@enduml
+```
+
+<br />
+
+```plantuml
+@startuml
+!theme purplerain from https://raw.githubusercontent.com/LuciferUchiha/georgerowlands.ch/main
+
+state Elevator {
+Stopped -right-> Moving : Next Stop
+Moving --> Stopped : No More Stops
+Moving --> Moving : Has More Stops
+}
+
+@enduml
+
+```
+
+My custom theme also has some processes built in for simple text coloring for example in cases of success, failure etc.
 
 ```plantuml
 @startuml
@@ -70,8 +172,6 @@ Bob ->> Alice : $info("finished")
 
 @enduml
 ```
-
-// TODO
 
 ### Jupyter Notebooks
 
