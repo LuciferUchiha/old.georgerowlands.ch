@@ -115,7 +115,11 @@ $$
 I = \int_0^{2\pi} \sin(x)\,dx
 $$
 
-Annoyingly Jupyter Notebooks use MathJax to
+Annoyingly Jupyter Notebooks use MathJax to render LaTeX content in the same way instead of KaTeX. This means that KaTeX supports some things and MathJax
+supports other things. Importantly however is that the jupyter notebooks get converted to mardown and therefore in the end it will only be rendered in KaTeX.
+Therefore if something is written that is supported in MathJax but not in KaTeX it might look okay but in the end it will not be rendered by docusaurus.
+This leads to the task below since I want the latex to be rendered correctly when working inside the jupyter notebook but in the end only the LaTeX that
+can be rendered by KaTeX will be readable.
 
 :::todo
 
@@ -130,13 +134,6 @@ but swapped to PlantUML for the additional features and It also allowing me to c
 
 The current implementation to render the diagrams is built upon [Remark Simple PlantUML](https://github.com/akebifiky/remark-simple-plantuml). It allows you to create
 PlantUML diagrams in markdown code blocks with the plantuml language.
-
-:::todo
-
-Currently PlantUML diagrams are rendered using png images however svgs would be better as then the text can be copied however there seems to be a bug
-with the background not being transparent when rendering as an svg.
-
-:::
 
 Some Examples can be seen below, on the official website or on [REAL WORLD PlantUML](https://real-world-plantuml.com/?type=class).
 
