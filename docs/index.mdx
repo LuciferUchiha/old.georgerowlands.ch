@@ -108,8 +108,20 @@ To find out more about MDX check out the [Docusaurus documentation on MDX](https
 
 ### LaTeX
 
-// TODO
-Docusaurus renders LaTeX content using KaTex, however Jupyter Notebooks renders content in jupyter notebooks using MathJax.
+It has recently become very popular to write LaTeX equations in markdown. Docusaurus also supports this by using KaTeX to render LaTeX content either inline
+between `$\LaTeX$` $\LaTeX$ or as a block between `$$\LaTeX$$`:
+
+$$
+I = \int_0^{2\pi} \sin(x)\,dx
+$$
+
+Annoyingly Jupyter Notebooks use MathJax to
+
+:::todo
+
+Add a LaTeX cheatsheet and notation guideline that is flexible between KaTeX and MathJax.
+
+:::
 
 ### PlantUML
 
@@ -119,7 +131,12 @@ but swapped to PlantUML for the additional features and It also allowing me to c
 The current implementation to render the diagrams is built upon [Remark Simple PlantUML](https://github.com/akebifiky/remark-simple-plantuml). It allows you to create
 PlantUML diagrams in markdown code blocks with the plantuml language.
 
-// TODO SVG to copy text but then backgound isn't transparent???
+:::todo
+
+Currently PlantUML diagrams are rendered using png images however svgs would be better as then the text can be copied however there seems to be a bug
+with the background not being transparent when rendering as an svg.
+
+:::
 
 Some Examples can be seen below, on the official website or on [REAL WORLD PlantUML](https://real-world-plantuml.com/?type=class).
 
@@ -184,6 +201,12 @@ Bob ->> Alice : $info("finished")
 ```
 
 ### Jupyter Notebooks
+
+:::todo
+
+Explain how jupyter notebooks get converted to markdown.
+
+:::
 
 ## How can I Contribute?
 

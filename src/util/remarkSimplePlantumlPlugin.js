@@ -2,8 +2,8 @@ const visit = require('unist-util-visit');
 const plantumlEncoder = require('plantuml-encoder');
 
 const DEFAULT_OPTIONS = {
-  baseUrl: 'https://www.plantuml.com/plantuml/png',
-  type: 'image',
+  baseUrl: 'https://www.plantuml.com/plantuml/svg',
+  type: 'svg',
 };
 
 /**
