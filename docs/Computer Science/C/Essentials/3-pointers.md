@@ -11,8 +11,10 @@ To access the value the variable holds which a pointer is pointing we can derefe
 
 Pointers are also stored in memory so they also have addresses so it is possible to output them as well. &pnumber warning by compiler because expected a pointer but it is a pointer to a pointer of itn so cast to void\*???
 
-:::warning
+:::caution
+
 You should never dereference an uninitialized pointer as if you assign it a value it could go anywhere. You could maybe overwrite data or even cause the program to crash!
+
 :::
 
 ```c
