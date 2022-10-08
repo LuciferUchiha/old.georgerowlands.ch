@@ -13,5 +13,3 @@ kotlin can run anywhere where java can run as uses jvm aswell. Does have native 
 - interoprability, especially with java
 
 ## Converting Hello World
-
-## Converting Text Advanture Game
