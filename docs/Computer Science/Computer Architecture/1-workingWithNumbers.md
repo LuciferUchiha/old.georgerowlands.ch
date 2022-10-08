@@ -148,6 +148,14 @@ This representations does have its limits since we can only represent numbers of
 
 ### Fixed Points
 
+The fixed-point representation or also called $p.q$ fixed-point representation extends the idea of binary fractions by adding a sign bit making the left part of the binary point the same as the two's complement. The right part is the same fractional part. The number of bits for the integer part (including the sign) bit corresponds to $p$ the number of bits for the fractional part corresponds to $q$, 17.14 being the most popular format.
+
+$$D(P)=-b_p \cdot 2^p + \sum_{k=-q}^{p-1}{b_k \cdot 2^k}$$
+
+<img src="/img/programming/fixedPoint.png" alt="fixedPoint" width="450"/>
+
+This representation has many pros, it is simple we can use simple arithmetic operations and don't need special floating-point hardware which is why it is commonly used in many low-cost embedded processors. The only con is that we can not represent a wide range of numbers which we will fix with the next and last representation.
+
 ### Floating Points
 
 #### Special Numbers
