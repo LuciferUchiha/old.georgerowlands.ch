@@ -89,7 +89,7 @@ $$\begin{align*}
 Any easy way to calculate the negative value of a given value with the two's complement representation is the following:
 
 $$
-\sim B + 1 \equiv -B
+\sim B + 1 \Leftrightarrow -B
 $$
 
 #### Sign Extension
@@ -108,3 +108,54 @@ $$\begin{align*}
 :::
 
 ## Real Numbers
+
+Representing real numbers can be pretty hard as you can imagine since real numbers can be infinite numbers such as $\pi = 3.14159265358979323846264338327950288...$ but we only have finite resources and bits to represent them for example 4 or 8 bytes. Another problem is that often times when working with real numbers we find ourselves using very small or very large numbers such as $1$ Lightyear $=9'460'730'472'580.8\,km$ or the radius of a hydrogen atom $0.000000000025\,m$.
+
+### Binary Fractions
+
+One way, but not a very good way to represent real numbers is to use binary fractions. Binary fractions are a way to extend the unsigned integer representation by adding a so-called binary/zero/decimal point. To the left of the binary point, we have just like with the unsigned representation the powers of 2. To the right, we now also use the powers of 2 with negative numbers to get the following structure:
+
+$$
+B = b_{i},b_{i-1},..,b_0\,.\,b_{-1},...,b_{-j+1},b_{-j}
+$$
+
+And Formula:
+
+$$
+D(B) = \sum_{k=-j}^{i}{b_k \cdot 2^k}
+$$
+
+<img src="/img/programming/binaryFractions.png" alt="binaryFractions" width="450"/>
+
+:::example
+
+$$
+\begin{align*}
+5 \frac{3}{4} &= 0101.1100_2
+2 \frac{7}{8} &= 0010.1110_2
+\frac{63}{64} &= 0.1111110_2
+\end{align*}
+$$
+
+:::
+
+From the above examples we can make 3 key observations the first 2 might already know if you have been programming for a long time.
+
+- Dividing by powers of 2 can be done with shifting right $x : 2^y \Leftrightarrow x >> y$
+- Multiply with powers of 2 can be done with shifting left $x \cdot 2^y \Leftrightarrow x << y$
+
+This representations does have its limits since we can only represent numbers of the form $\frac{x}{s^k}$ other numbers such as $\frac{1}{3}$ have repeating bit representations.
+
+### Fixed Points
+
+### Floating Points
+
+#### Special Numbers
+
+#### Rounding
+
+#### Addition/Subtraction
+
+#### Multiplication
+
+## Byte Ordering
