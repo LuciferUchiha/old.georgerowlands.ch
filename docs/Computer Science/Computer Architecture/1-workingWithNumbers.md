@@ -258,6 +258,49 @@ int main ()
 
 #### Rounding
 
+The IEEE standard 754 defines four rounding modes:
+
+- Round-up
+- Round-down
+- Round-toward-zero, i.e truncate, which is commonly done when converting from integer to floating point.
+- Round-to-even, the most common but also the most complicated of the four modes.
+
+I will not go into detail of the first three modes as they are self explanatory. Let us first look at why we need to round-to-even. The reason is actually pretty simple, normal rounding is not very fair.
+
+:::example
+
+$$
+\begin{align*}
+& &0.5+1.5+2.5+3.5 &= 8 \\
+\text{Rounded: }& &1+2+3+4 &= 10 \\
+\text{Round-to-even: }& &0 + 2 + 2 + 4 &= 8
+\end{align*}
+$$
+
+:::
+
+When working with round-to-even we need to keep track of 3 things:
+
+- Guard bit: The LSB that is still part of the fraction.
+- Round bit: The first bit that exceeds the fraction.
+- Sticky bit: A bitwise OR of all the remaining bits that exceed the fraction.
+
+So if we only have a mantissa of 4 bits, i.e a fraction with 3 bits then it could look like this:
+
+<img src="/img/programming/grsBits.png" alt="grsBits" width="450"/>
+
+Now we have 3 cases:
+
+- If $GRS=0xx$ we round down, i.e do nothing since the LSB is already $0$.
+- If $GRS=100$ this is a so-called tie, if the bit before the guard bit is $1$ we round the mantissa up otherwise we round down i.e set Guard bit to $0$
+- All other cases $GRS=110$$GRS=101$,$GRS=111$ we round up.
+
+:::caution
+
+After rounding, you might have to normalize and round again for example if we have $1.1111\,1111|11$ with $GRS=111$ and Biased exponent $128$, i.e $2^1$. We have to round up and get $11.0000\,0000$ therefore we need to increase the exponent by $1$ to normalize again. This also means that after rounding we can produce a over or underflow to infinity.
+
+:::
+
 #### Addition/Subtraction
 
 #### Multiplication
