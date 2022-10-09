@@ -141,7 +141,7 @@ $$
 
 From the above examples we can make 3 key observations the first 2 might already know if you have been programming for a long time.
 
-- Dividing by powers of 2 can be done with shifting right $x : 2^y \Leftrightarrow x >> y$
+- Dividing by powers of 2 can be done with shifting right $x / 2^y \Leftrightarrow x >> y$
 - Multiply with powers of 2 can be done with shifting left $x \cdot 2^y \Leftrightarrow x << y$
 
 This representations does have its limits since we can only represent numbers of the form $\frac{x}{s^k}$ other numbers such as $\frac{1}{3}$ have repeating bit representations.
@@ -158,7 +158,82 @@ This representation has many pros, it is simple we can use simple arithmetic ope
 
 ### Floating Points
 
+In 1985 the [IEEE standard 754](https://standards.ieee.org/ieee/754/993/) was released and quickly adapted as the standard for so-called floating-point arithmetic. In 1989, William Kahan, one of the primary architects even received the Turing Award, which is like the noble prize for computer science. The floating-point representation builds on the ideas of the fixed-point representation and [scientific notation](../../Mathematik/scientificNotation).
+
+Floating-point representation consists of 3 parts, the sign bit, and like the scientific notation an exponent and mantissa.
+
+<img src="/img/programming/floatingPointForm.png" alt="floatingPointForm" width="450"/>
+
+We most commonly use the following sizes for the exponent and mantissa:
+
+- Single precision: 8 bits for the exponent, 23 bits for the mantissa making a total of 32 bits with the sign bit.
+- Double precision: 11 bits for the exponent, 52 bits for the mantissa making a total of 64 bits. It doesn't offer much of a wider range then the single precision however, it does offer more precision, hence the name.
+
+In 2008 the IEEE standard 754 was revised with the addition of the following sizes:
+
+- Half precision: 5 bits for the exponent, 10 bits for the mantissa making a total of 16 bits.
+- Quad precision: 15 bits for the exponent, 112 bits for the mantissa making a total of 32 bits.
+
+The floating-point representation used however normalized values just like the scientific notation. Meaning the mantissa is normalized to the form of
+
+$$
+1.000010010...110_2
+$$
+
+So, in reality, we are not actually storing the mantissa but only the fraction part which is why it is also commonly referred to as the fraction. This leads to two things, we get an extra bit for free since we imply that the first bit is 1, but we can no longer represent the value 0. We will however see later how we can solve the problem of representing 0.
+
+We also do not store the exponent using the two's complement. Instead, we use the so-called biased notation for the simple reason of wanting to compare values quickly with each other. To do this we want a form where the exponent with all zeros $0000\,0000$ is smaller than the exponent with all ones $1111\,1111$ which wouldn't be the case when using the two's complement. Instead, we use a bias. To calculate the bias we use the number of bits used to represent the exponent $k$. For single precision $k=8$, the bias for single precision is $127$ calculated using the formula:
+
+$$
+bias = 2^{k-1}-1
+$$
+
+:::example
+
+Now that we understand the form of the floating-point representation let us look at an example. We want to store the value $2022$ using single precision floating-point. First we set the sign bit in this case $0$. Then we convert the value to a binary fraction. Then we normalize it whilst keeping track of the exponent. Then lastly we store the fraction part and the exponent + the bias.
+
+$$
+\begin{align}
+2022 &= 11111100110._2 \cdot 2^0 & \text{Convert to binary fraction} \\
+&= 1.1111100110_2 \cdot 2^{10} & \text{Shift binary point to normalize} \\
+M &= 1.1111100110_2 & \text{Mantissa} \\
+Fraction &= 1111100110_2 & \text{Fraction} \\
+E &= 10 & \text{Exponent} \\
+Exp &= E + bias = 10 + 127 = 1000\,1001_2 & \text{Biased Exponent}
+\end{align}
+$$
+
+| Sign | Exponent  | Fraction                     |
+| ---- | --------- | ---------------------------- |
+| 0    | 1000 1001 | 1111 1001 1000 0000 0000 000 |
+
+:::
+
+#### Denormalized values
+
+As mentioned above we can't represent the value $0$ using the normalized values. For this, we need to use denormalized values. For this, we reserve the exponent that consists of only zeros so has the biased value $0$ and the exponent $1-bias$, for single precision this would be $-126$. If the fraction also consists of all zeros then we have a representation for the value $0$. If it is not zero then we just have evenly distributed values close to 0.
+
+:::example
+
+| Value                                             | Sign | Exponent  | Fraction                     |
+| ------------------------------------------------- | ---- | --------- | ---------------------------- |
+| 0                                                 | 0    | 0000 0000 | 0000 0000 0000 0000 0000 000 |
+| -0                                                | 1    | 0000 0000 | 0000 0000 0000 0000 0000 000 |
+| $0.5 \cdot 2^{-126} \approx 5.877 \cdot 10^{-39}$ | 0    | 0000 0000 | 1000 0000 0000 0000 0000 000 |
+| $0.99999 \cdot 2^{-126}$                          | 0    | 0000 0000 | 1111 1111 1111 1111 1111 111 |
+
+:::
+
 #### Special Numbers
+
+For some cases we want to be able to store some special values such as $\infty$ if we do $1.0 / 0.0$ or $NaN$ when doing $\sqrt{-1}$ or $\infty - \infty$. Just like with solving the issue of representing $0$, to represent special values we reserve the exponent consisting of only ones. If the fraction only consists of zeros then it represents the value $\infty$ otherwise if the fraction is not all zeros it represents $NaN$.
+
+| Value     | Sign | Exponent  | Fraction                     |
+| --------- | ---- | --------- | ---------------------------- |
+| $\infty$  | 0    | 1111 1111 | 0000 0000 0000 0000 0000 000 |
+| $-\infty$ | 1    | 1111 1111 | 0000 0000 0000 0000 0000 000 |
+| $NaN$     | 0    | 1111 1111 | 1000 0000 0000 0000 0000 000 |
+| $NaN$    | 1    | 1111 1111 | 1111 1111 1111 1111 1111 111 |
 
 #### Rounding
 
