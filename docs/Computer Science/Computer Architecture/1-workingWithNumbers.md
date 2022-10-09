@@ -233,7 +233,28 @@ For some cases we want to be able to store some special values such as $\infty$ 
 | $\infty$  | 0    | 1111 1111 | 0000 0000 0000 0000 0000 000 |
 | $-\infty$ | 1    | 1111 1111 | 0000 0000 0000 0000 0000 000 |
 | $NaN$     | 0    | 1111 1111 | 1000 0000 0000 0000 0000 000 |
-| $NaN$    | 1    | 1111 1111 | 1111 1111 1111 1111 1111 111 |
+| $NaN$     | 1    | 1111 1111 | 1111 1111 1111 1111 1111 111 |
+
+#### Precision
+
+As mentioned at the beginning of the floating-point section Real numbers are in theory infinite however we can not represent an infinite amount of numbers with a finite number of bits. Below you can see an estimated visualization of what values can actually be represented.
+<img src="/img/programming/floatingPointPrecision.png" alt="floatingPointPrecision" width="450"/>
+
+At a closer look, we can also see how the representations are distributed with the values close to zero being very precise.
+
+<img src="/img/programming/floatingPointRange.png" alt="floatingPointRange" width="450"/>
+
+This issue can however cause problems of imprecision if a certain number can not be represented and is rounded to the closest number that can be represented. For example in C we can do the following:
+
+```c
+#include <stdio.h>
+int main ()
+{
+    double d;
+    d = 1.0 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+    printf (“d = %.20f\n”, d); // Not 2.0, outputs 2.00000000000000088818
+}
+```
 
 #### Rounding
 
