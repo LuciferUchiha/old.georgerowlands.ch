@@ -265,7 +265,7 @@ The IEEE standard 754 defines four rounding modes:
 - Round-toward-zero, i.e truncate, which is commonly done when converting from integer to floating point.
 - Round-to-even, the most common but also the most complicated of the four modes.
 
-I will not go into detail of the first three modes as they are self explanatory. Let us first look at why we need to round-to-even. The reason is actually pretty simple, normal rounding is not very fair.
+I will not go into detail of the first three modes as they are self-explanatory. Let us first look at why we need to round-to-even. The reason is actually pretty simple, normal rounding is not very fair.
 
 :::example
 
@@ -276,6 +276,12 @@ $$
 \text{Round-to-even: }& &0 + 2 + 2 + 4 &= 8
 \end{align*}
 $$
+
+:::
+
+:::todo
+
+This part is not correct.
 
 :::
 
@@ -292,8 +298,8 @@ So if we only have a mantissa of 4 bits, i.e a fraction with 3 bits then it coul
 Now we have 3 cases:
 
 - If $GRS=0xx$ we round down, i.e do nothing since the LSB is already $0$.
-- If $GRS=100$ this is a so-called tie, if the bit before the guard bit is $1$ we round the mantissa up otherwise we round down i.e set Guard bit to $0$
-- All other cases $GRS=110$$GRS=101$,$GRS=111$ we round up.
+- If $GRS=100$ this is a so-called tie, if the bit before the guard bit is $1$ we round the mantissa up otherwise we round down i.e set the guard bit to $0$
+- For all other cases $GRS=110$, $GRS=101$ and $GRS=111$ we round up.
 
 :::caution
 
