@@ -174,6 +174,13 @@ In 2008 the IEEE standard 754 was revised with the addition of the following siz
 - Half precision: 5 bits for the exponent, 10 bits for the mantissa making a total of 16 bits.
 - Quad precision: 15 bits for the exponent, 112 bits for the mantissa making a total of 32 bits.
 
+With the rise of artificial intelligence and neural networks, smaller representations have gained popularity for quantization. This popularity introduced the following so-called minifloats consisting of 8 bits in total:
+
+- E4M3: as the name suggests 4 bits for the exponent and 3 bits for the mantissa.
+- E5M2: 5 bits for the exponent and 2 bits for the mantissa.
+
+The brain floating point which was developed by Google Brain is also very popular for AI as it has the same range as single precision due to using the same amount of bits for the exponent but with less precision.
+
 The floating-point representation used however normalized values just like the scientific notation. Meaning the mantissa is normalized to the form of
 
 $$
@@ -190,7 +197,7 @@ $$
 
 :::example
 
-Now that we understand the form of the floating-point representation let us look at an example. We want to store the value $2022$ using single precision floating-point. First we set the sign bit in this case $0$. Then we convert the value to a binary fraction. Then we normalize it whilst keeping track of the exponent. Then lastly we store the fraction part and the exponent + the bias.
+Now that we understand the form of the floating-point representation let us look at an example. We want to store the value $2022$ using single precision floating-point. First, we set the sign bit in this case $0$. Then we convert the value to a binary fraction. Then we normalize it whilst keeping track of the exponent. Then lastly we store the fraction part and the exponent + the bias.
 
 $$
 \begin{align}
@@ -211,7 +218,7 @@ $$
 
 #### Denormalized values
 
-As mentioned above we can't represent the value $0$ using the normalized values. For this, we need to use denormalized values. For this, we reserve the exponent that consists of only zeros so has the biased value $0$ and the exponent $1-bias$, for single precision this would be $-126$. If the fraction also consists of all zeros then we have a representation for the value $0$. If it is not zero then we just have evenly distributed values close to 0.
+As mentioned above we can't represent the value $0$ using the normalized values. For this, we need to use denormalized values or also often called subnormal. For this, in the case of single precision, we reserve the exponent that consists of only zeros so has the biased value $0$ and therefore the exponent $1-bias$, for single precision this would be $-126$. If the fraction also consists of all zeros then we have a representation for the value $0$. If it is not zero then we just have evenly distributed values close to 0.
 
 :::example
 
@@ -226,7 +233,7 @@ As mentioned above we can't represent the value $0$ using the normalized values.
 
 #### Special Numbers
 
-For some cases we want to be able to store some special values such as $\infty$ if we do $1.0 / 0.0$ or $NaN$ when doing $\sqrt{-1}$ or $\infty - \infty$. Just like with solving the issue of representing $0$, to represent special values we reserve the exponent consisting of only ones. If the fraction only consists of zeros then it represents the value $\infty$ otherwise if the fraction is not all zeros it represents $NaN$.
+For some cases we want to be able to store some special values such as $\infty$ if we do $1.0 / 0.0$ or $NaN$ when doing $\sqrt{-1}$ or $\infty - \infty$. Just like with solving the issue of representing $0$, to represent special values we can reserve an exponent, in the case of single precision this is the exponent consisting of only ones. If the fraction only consists of zeros then it represents the value $\infty$ otherwise if the fraction is not all zeros it represents $NaN$.
 
 | Value     | Sign | Exponent  | Fraction                     |
 | --------- | ---- | --------- | ---------------------------- |
@@ -234,6 +241,14 @@ For some cases we want to be able to store some special values such as $\infty$ 
 | $-\infty$ | 1    | 1111 1111 | 0000 0000 0000 0000 0000 000 |
 | $NaN$     | 0    | 1111 1111 | 1000 0000 0000 0000 0000 000 |
 | $NaN$     | 1    | 1111 1111 | 1111 1111 1111 1111 1111 111 |
+
+For other representations such as the E4M3, E5M2 or bfloat16 the handling of special numbers can be different. This comes down to there being less bits and therefore each bit having more meaning so reserving an entire exponent range just to represent $NaN$ would be a big waste:
+
+|| E4M3             | E5M2                     |
+| ------------------ | ---------------- | ------------------------ |
+| $-\infty / \infty$ | N/A              | $S\,11111\,00_2$         |
+| $NaN$              | $S\,1111\,111_2$ | $S\,11111\,{01,10,11}_2$ |
+| $-0/0$             | $S\,0000\,000_2$ | $S\,00000\,00_2$         |
 
 #### Precision
 
