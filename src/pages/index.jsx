@@ -8,7 +8,10 @@ import Rain from '../components/Rain';
 
 export default function Home() {
   return (
-    <Layout title="Home" description="The homepage of georgerowlands.ch">
+    <Layout
+      title="Home"
+      description="George Rowlands, a Computer Scientists Digital Garden on Subjects such as Algorithms, Data Structures, Programming Languages, Technologies and more"
+    >
       <main>
         <Container>
           <BrowserOnly>{() => <Rain numDrops={600} />}</BrowserOnly>
