@@ -70,10 +70,13 @@ print("Hello World")
 By using the React component for code blocks you can also display 2 code blocks side by side.
 
 import CodeBlock from '@theme/CodeBlock';
-<div style={{ display: 'grid', width: '1000px' }}>
+
+<div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+  <CodeBlock language="python">
+    print("Hello World witha very very very very very long text that spans over ver ylong area")
+  </CodeBlock>
   <CodeBlock language="python">print("Hello World")</CodeBlock>
-  <CodeBlock language="python">print("Hello World")</CodeBlock>
-</div>;
+</div>
 
 Docusaurus also enables you to use an [interactive live code editor](https://docusaurus.io/docs/markdown-features/code-blocks) but I haven't seen the need for it yet since it only supports html, css, javascipt and jsx.
 But maybe once I start writing more notes on web programming I will add it in.
