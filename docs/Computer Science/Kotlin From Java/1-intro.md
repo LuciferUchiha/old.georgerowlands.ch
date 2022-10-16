@@ -238,3 +238,7 @@ The trimMargin method removes all white spaces from the start of every line up t
 val receipt = """Item 1: $1.00\nItem 2: $0.50"""
 receipt = """Item 1: $1.00${"\n"}Item 2: $0.50"""
 ```
+
+## Kotlin REPL
+
+Just like the JShell, Kotlin offers a way to quickly execute Kotlin code to experiment and see the output. REPL stands for Read, Evaluate, Print Loop and can be accessed in IntelliJ via the Tool menu. Important however to note is that to execute a statement you need to press CTRL + Enter instead of just Enter.
