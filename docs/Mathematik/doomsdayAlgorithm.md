@@ -3,9 +3,7 @@ title: Doomsday Algorithm
 
 tags: [doomsday algorithm, john conway]
 ---
-:::info
-
-This is work in progress
+:::todo
 
 :::
 
