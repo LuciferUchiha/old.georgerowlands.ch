@@ -156,14 +156,88 @@ This does not make a lot of sense with the end timestamp as it would already be 
 
 ## Filtering a Data Stream
 
+We often find ourselves wanting to filter data, for example, if we receive a search query we want to filter the results to only contain the search keyword. However the most common example to explain these algorithms is an email spam filter, when we receive a new email we want to filter it into the good or spam pile. In a more general form if we have a list of elements $S$ we want to determine which elements of a stream are in $S$. The most obvious solution would be a hash table, however as always when working with streams we most likely will not have enough memory to store all elements of $S$ in a hash table.
+
+### First Approaches
+
+Our first approach could be a more streamlined hash table. We create a bit array $B$ with $n$ bits that are all initially set to 0. We then use the hash function $h$ to hash each element $s \in S$ to one of the $n$ buckets and set that bit to 1 i.e $B[h(s)]=1$.
+
+To then find out if an element $e$ is in $S$ we just hash the element $e$ using the same hash function $h$ and check if the value is 1. The solution creates false positives due to collisions but no false negatives.
+
+:::todo
+probability of false negative
+:::
+
+
 ### Bloom Filter
+
+The bloom filter is very commonly used and is heavily inspired by our first approach however it aims to minimize the false negative rate by using multiple hash functions.
+
+We have the same setup as in our first approach where we have "training data" $S$ with $m$ elements and a bit array $B$ with $n$ elements initialized at 1. However, now we have $k$ independent hash functions $h_1, h_2, ... h_k$. Now in our "training" phase we hash each element $s \in S$ using each hash function and set the value of the bit array to 1. So $B[h_i(s)]= 1$ for $i \in [1,k]$. Important to not get confused here is that we only have one bit array $B$ not multiple.
+
+If we now want to check to see if an element $e$ is in $S$ we again use all the hash functions but now check if all the values are 1. If even only one of the values isn't 1 then we can with 100% certainty say $e \notin S$.
+
+:::todo
+probability of false negative and how to pick k.
+:::
 
 ## Counting Distinct Elements
 
+We have lots of use cases for wanting distinct elements for example Amazon might be interested to know how many distinct products they have sold in the last week. The most obvious approach would be to maintain a set of elements seen so far i.e use a hash table to keep track of all the distinct elements seen so far and their count. But as always we assume we do not have enough memory to store a hash table big enough so instead we want to be able to estimate the count fairly.
+
 ### Flajolet–Martin algorithm
+
+The Flajolet–Martin algorithm does exactly that. It is quite a simple algorithm we hash each element $e$ that comes into the system and use the output as in index of a bitstring and set it to 1, important to note is that the hash function is no longer uniform but exponential. In other words, $1/2$ of the elements map to the first bit, $1/4$ to the second bit etc. 
+
+Our intuition of this is then that the probability of the first bucket being 1 is $1/2$ the second $1/4$ the $k$-th bit then has a probability of $1/2^k$ of being 1. This means that if the $k$-th bit is set to 1 then an event with a probability of $1/2^k$ has happened which we would expect if we inserted $s^k$ distinct elements.
+
+The algorithm then says that if $R$ is the position of the least 0 bit then the number of distinct elements is $2^R/C$ where $C$ is some constant.
+
+We can further improve the accuracy of this algorithm by using $k$ different hash functions und bitstrings. We then compute the average position of the least 0 bit $b$.
+
+The number of distinct elements is then $2^b/C$ where $C$ is still some constant.
+
+The storage required for this algorithm is also very small. If we use $k$ hash functions and $k$ bitstrings and given a N distinct elements we only need $O(k log N)$ bits.
+
+
 
 ## Moments
 
+First, let us define what a moment is and then see what they can be used for. Suppose we have a data stream $S$ and the set $A$ contains all the distinct elements in the stream. We then let $m_i$ be the number of times the value $i$ occurs in the stream $S$. We can then define the $k$-th moment as:
+
+$$
+\sum_{i \in A}{(m_i)^k}
+$$
+
+:::example
+
+If we have the stream $S=[x,y,x,y,z,z,z,x,z]$ then the 2nd moment is $3^2+2^2+4^2=29$
+
+:::
+
+If we take a closer look at different moments we will notice the following:
+
+- The 0th moment corresponds to the number of distinct elements, just as we saw below
+- The 1st moment corresponds to the number of elements in the stream $S$ i.e $|S|$.
+- The 2nd moment we can call the surprise number of $S$ which is a measure of how uneven the distribution of $S$ is (the lower the value the more even the distribution).
+
+
+:::example
+
+If we have the following values for $m_i: [10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]$ then the surpise value is $910$ because the distribution is pretty even. 
+
+If $m_i: [90, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]$ then the surprise value is $8110$.
+
+:::
+
 ### AMS Method
 
+Now we want a method to be able to give an unbiased estimate of the $k$-th moment. First, let us look at the 2nd moment
+
+:::todo
+Confussed by the algorithm
+:::
+
 ## Counting Frequent Itemsets
+
+We can imagine that Amazon or Google often ask themselves the question given a data stream how they can find recent frequent items, frequent items being defined by a threshold and recent meaning being in a sliding window.
