@@ -1,5 +1,5 @@
 ---
-title: What is RISC-V
+title: What is RISC-V?
 tags: [risc-v, isa]
 ---
 

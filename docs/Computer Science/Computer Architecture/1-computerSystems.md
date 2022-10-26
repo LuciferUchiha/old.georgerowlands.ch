@@ -18,21 +18,26 @@ Most commonly Computers are split up into the following types:
 
 ## Components of a Computer
 
-control blabla etc.
+:::todo
+CPU = Control + Datapath
+Memory
+IO
+:::
 
-## How are Chip made
+## How are Chips made
 
-blbabla silicon and moores law
+blbabla silicon and moores law. yield etc.
 
-technology trend
+![sandToChips](/img/programming/sandToChips.png)
 
 ## The Power Wall
 
-power wall and denard scaling
+As transistors get smaller, their power density stays constant. power wall and denard scaling
+cant reduce voltage because of noise => bits getting flipped and cant cool
 
-## Shift to Multicore Processors
+lead to hift to Multicore Processors
 
-blabla amhdals law
+blabla amhdals law, cant infinetly speeedup there is some limit.
 
 ## Programming a Computer
 

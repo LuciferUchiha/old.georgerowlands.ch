@@ -161,7 +161,7 @@ print(f"Eigenvectors: {e_vectors}")
 We can use the eigenvalues and eigenvectors of the matrix $\boldsymbol{A}$ to find out a lot about it
 
 - The trace of $\boldsymbol{A}$ is the sum of its eigenvalues $tr(\boldsymbol{A})=\sum_{i=1}^{n}{\lambda_i}$.
-- The determinant of $\boldsymbol{A}$ is the product of its eigenvalues $tr(\boldsymbol{A})=\prod_{i=1}^{n}{\lambda_i}$.
+- The determinant of $\boldsymbol{A}$ is the product of its eigenvalues $det(\boldsymbol{A})=\prod_{i=1}^{n}{\lambda_i}$.
 - The rank of $\boldsymbol{A}$ is amount of non-zero eigenvalues.
 
 
@@ -200,6 +200,17 @@ print(f"Eigenvectors: {e_vectors}")
 
 
 </CodeOutputBlock>
+
+## Trick for $2 \times 2$ Matrices
+
+As presented in this [video by 3Blue1Brown](https://www.youtube.com/watch?v=e50Bj7jn9IQ) there is a cool formula that can be used to calculate the eigenvalues of a $2 \times 2$ matrix such as $\boldsymbol{A}=\begin{bmatrix}a & b \\ c & d\end{bmatrix}$. It rests upon two properties that have already been mentioned above:
+
+- The trace of $\boldsymbol{A}$ is the sum of its eigenvalues $tr(\boldsymbol{A})=\sum_{i=1}^{n}{\lambda_i}$. So in other words $a + d = \lambda_1 + \lambda_2$. We can also reform this to get the mean value of the two eigenvalues: $\frac{1}{2}tr(\boldsymbol{A})=\frac{a+d}{2}=\frac{\lambda_1 + \lambda_2}{2}=m$
+- The determinant of $\boldsymbol{A}$ is the product of its eigenvalues $det(\boldsymbol{A})=\prod_{i=1}^{n}{\lambda_i}$. So in other words $ad - bc = \lambda_1 \cdot \lambda_2 = p$
+
+$$
+\lambda_1, \lambda_2 = m \pm \sqrt{m^2 - p}
+$$
 
 ## Eigendecomposition
 
