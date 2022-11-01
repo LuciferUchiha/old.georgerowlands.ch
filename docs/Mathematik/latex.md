@@ -10,36 +10,36 @@ This notation guide is inspired by [Deep Learning by Ian Goodfellow, Yoshua Beng
 
 ## Numbers and Arrays
 
-If we wanted tensors to also be bold we would have to write `\textsf{\textbf{A}}` which is sadly not nice and short.
+If we wanted tensors to also be bold we would have to write `\mathsf{\boldsymbol{A}}` which is sadly not nice and short.
 
-| Description                                                                | Code           | Example               |
-| -------------------------------------------------------------------------- | -------------- | --------------------- |
-| Scalar (integer or real)                                                   | `a=2`          | $a$                   |
-| Vector                                                                     | `\bf{a}`       | $\bf{a}$              |
-| Matrix                                                                     | `\bf{A}`       | $\bf{A}$              |
-| Tensor                                                                     | `\sf{A}`       | $\sf{A}$              |
-| Identity matrix with $n$ rows and $n$ columns                              | `\bf{I}\it_n`  | $\bf{I}\it_n$         |
-| Identity matrix with implied dimensionality                                | `\bf{I}`       | $\bf{I}$              |
-| Square diagonal matrix with elements along main diagonal given by $\bf{a}$ | `\text{diag}(\bf{a})` | $\text{diag}(\bf{a})$ |
+| Description                                                                        | Code                          | Example                       |
+| ---------------------------------------------------------------------------------- | ----------------------------- | ----------------------------- |
+| Scalar (integer or real)                                                           | `a=2`                         | $a$                           |
+| Vector, lowercase italic bold                                                      | `\boldsymbol{a}`              | $\boldsymbol{a}$              |
+| Matrix, uppercase italic bold                                                      | `\boldsymbol{A}`              | $\boldsymbol{A}$              |
+| Tensor, uppercase sans-serif                                                       | `\mathsf{A}`                  | $\mathsf{A}$                  |
+| Identity matrix with $n$ rows and $n$ columns                                      | `\boldsymbol{I}_n`            | $\boldsymbol{I}_n$            |
+| Identity matrix with implied dimensionality                                        | `\boldsymbol{I}`              | $\boldsymbol{I}$              |
+| Square diagonal matrix with elements along main diagonal given by $\boldsymbol{a}$ | `\text{diag}(\boldsymbol{a})` | $\text{diag}(\boldsymbol{a})$ |
 
 ## Indexing
-| Description                                                                                        | Code                  | Example               |
-| -------------------------------------------------------------------------------------------------- | --------------------- | --------------------- |
-| Element $i$ of vector $\bf{a}$, with indexing starting at 1                                        | `a_i`                 | $a_i$                 |
-| All elements of vector $\bf{a}$ except for element $i$                                             | `a_{-i}`              | $a_{-i}$              |
-| Element $i,j$ of matrix $\bf{A}$, with $i$ corresponding to the row index and $j$ the column index | `A_{i,j}` or `a_{ij}` | $A_{i,j}$ or $a_{ij}$ |
-| Row $i$ of matrix $\bf{A}$                                                                         | `\bf{A}\it_{i,:}`     | $\bf{A}\it_{i , :}$   |
-| Column $j$ of matrix $\bf{A}$                                                                      | `\bf{A}\it_{:,j}`     | $\bf{A}\it_{: , j}$   |
+| Description                                                                                                | Code                   | Example                  |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------ |
+| Element $i$ of vector $\boldsymbol{a}$, with indexing starting at 1                                        | `a_i`                  | $a_i$                    |
+| All elements of vector $\boldsymbol{a}$ except for element $i$                                             | `a_{-i}`               | $a_{-i}$                 |
+| Element $i,j$ of matrix $\boldsymbol{A}$, with $i$ corresponding to the row index and $j$ the column index | `A_{i,j}` or `a_{ij}`  | $A_{i,j}$ or $a_{ij}$    |
+| Row $i$ of matrix $\boldsymbol{A}$                                                                         | `\boldsymbol{A}_{i,:}` | $\boldsymbol{A}_{i , :}$ |
+| Column $j$ of matrix $\boldsymbol{A}$                                                                      | `\boldsymbol{A}_{:,j}` | $\boldsymbol{A}_{: , j}$ |
 
 ## Linear Algebra Operations
 
-| Description                                              | Code                 | Example               |
-| -------------------------------------------------------- | -------------------- | --------------------- |
-| Tranpose of matrix $\bf{A}$                              | `\bf{A}^T`           | $\bf{A}^T$            |
-| Moore-Penrose pseudoinverse of matrix $\bf{A}$           | `\bf{A}^\dagger`     | $\bf{A}^\dagger$      |
-| Hadamard (element-wise) product of $\bf{A}$ and $\bf{B}$ | `\bf{A} \odot bf{B}` | $\bf{A} \odot \bf{B}$ |
-| Determinant of matrix $\bf{A}$                           | `\text{det}(\bf{A})` | $\text{det}(\bf{A})$  |
-| Trace of matrix $\bf{A}$                                 | `\text{tr}(\bf{A})`  | $\text{tr}(\bf{A})$   |
+| Description                                                              | Code                                 | Example                               |
+| ------------------------------------------------------------------------ | ------------------------------------ | ------------------------------------- |
+| Tranpose of matrix $\boldsymbol{A}$                                      | `\boldsymbol{A}^T`                   | $\boldsymbol{A}^T$                    |
+| Moore-Penrose pseudoinverse of matrix $\boldsymbol{A}$                   | `\boldsymbol{A}^\dagger`             | $\boldsymbol{A}^\dagger$              |
+| Hadamard (element-wise) product of $\boldsymbol{A}$ and $\boldsymbol{B}$ | `\boldsymbol{A} \odot boldsymbol{B}` | $\boldsymbol{A} \odot \boldsymbol{B}$ |
+| Determinant of matrix $\boldsymbol{A}$                                   | `\text{det}(\boldsymbol{A})`         | $\text{det}(\boldsymbol{A})$          |
+| Trace of matrix $\boldsymbol{A}$                                         | `\text{tr}(\boldsymbol{A})`          | $\text{tr}(\boldsymbol{A})$           |
 
 
 ## Sets and Graphs
