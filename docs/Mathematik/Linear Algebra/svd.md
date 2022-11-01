@@ -97,3 +97,22 @@ U@np.diag(Sigma)@Vh
 
 
 </CodeOutputBlock>
+
+
+Solving equations using svd???? Or only because we can solve equations using moore penrose and one way to compute is with SVD.
+
+## Image Compression
+
+:::todo
+low rank approximation
+:::
+
+## Principal Component Analysis - PCA
+
+:::todo
+This should probably be its own chapter
+:::
+
+
+
+
