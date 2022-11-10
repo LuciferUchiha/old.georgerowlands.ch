@@ -47,17 +47,23 @@ This is a collection of articles, books and videos I have read or watched and wo
 - ["An Introduction to Modern CMake by Cliutils"](https://cliutils.gitlab.io/modern-cmake/chapters/intro/running.html)<br/>
   Extensive CMake Tutorial.
 
+- ["CS231n: Deep Learning for Computer Vision"](http://cs231n.stanford.edu/)<br/>
+  Explains some basics of using deep learning for computer vision whilst starting of with some more classical classification examples.
+
 ### Videos
 
 - ["C Programming For Beginners - Master the C Language - Udemy course by Jason Fedin"](https://www.udemy.com/course/c-programming-for-beginners-/)<br/>
-  This helped me with improving my C knowledge and summarizing it gives a pretty good and extensive introduction to the language. He also has another Course where more advanced subjects are introduced.
+  This course helped me improve my C knowledge and summarize it for one of my university courses. The course gives a pretty good and extensive introduction to the language.
 
 - ["Advanced C Programming Course - Udemy course by Jason Fedin"](https://www.udemy.com/course/advanced-c-programming-cours)<br/>
-  This is the advanced course mentioned above which definitely improves our knowledge and productivity.
+  This is the advanced course of the course mentioned above which also covers more complex topics.
 
 - [HowToGraphQL (Fundamentals)](https://www.youtube.com/watch?v=T571423fC68)<br/>
-  4 short videos explaining on the advantages of GraphQL and how it works.
+  These 4 short videos explained the advantages of GraphQL and how it works very well.
 
+- ["Mathematical Foundations of Machine Learning - Udemy course by Jon Krohn"](https://www.udemy.com/course/advanced-c-programming-cours)<br/>
+  This course helped me refresh my linear algebra knowledge whilst showing how the maths can be done in python code. It also helped me understand some more advanced topics such as SVD and pseudoinverses.
+  
 ## 2021
 
 This website was created in 2022 so this is just what I remember of the top of my head.

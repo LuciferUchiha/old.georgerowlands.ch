@@ -44,46 +44,11 @@ This section is to show off some of the features of what can be rendered with Do
 ### Markdown
 
 Docusaurus supports markdown out of the box and its many features. For a brief overview of what it supports check out the
-[docusaurus documentation](https://docusaurus.io/docs/markdown-features). The most interesting features are the following:
-
-#### Tables
-
-:::todo
-
-:::
-
-#### Links
-
-:::todo
-
-:::
-
-#### Code blocks
-
-Code Blocks are probably one of the most important features of markdown. It allows you to nicely represent your code snippets and enables you to quickly
-copy them and are just overall very aesthetically pleasing.
-
-```python
-print("Hello World")
-```
-
-By using the React component for code blocks you can also display 2 code blocks side by side.
-
-import CodeBlock from '@theme/CodeBlock';
-
-<div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-  <CodeBlock language="python">
-    print("Hello World witha very very very very very long text that spans over ver ylong area")
-  </CodeBlock>
-  <CodeBlock language="python">print("Hello World")</CodeBlock>
-</div>
-
-Docusaurus also enables you to use an [interactive live code editor](https://docusaurus.io/docs/markdown-features/code-blocks) but I haven't seen the need for it yet since it only supports html, css, javascipt and jsx.
-But maybe once I start writing more notes on web programming I will add it in.
+[docusaurus documentation](https://docusaurus.io/docs/markdown-features).
 
 #### Admonitions
 
-Admonitions aren't included in standard markdown but have become very popular and are very useful. Admonitions allow you to highlight certain text
+Admonitions aren't included in standard markdown but have become very popular and are very useful and are supported by Docusaurus. Admonitions allow you to highlight certain text
 and add a category to the text for example:
 
 ```
@@ -228,7 +193,8 @@ Bob ->> Alice : $info("finished")
 
 :::todo
 
-Explain how Jupyter Notebooks get converted to markdown.
+Explain how Jupyter Notebooks get converted to markdown. But I currently don't really like how all this is done which is making me think of creating
+my own static site generator where I can then freely add pre processors such as jupyter notebooks to markdown of any kernel or R notebooks etc.
 
 :::
 
@@ -302,14 +268,10 @@ Make sure you are using my custom theme by adding the following at the beginning
 
 #### MDX
 
-:::todo
-
-:::
-
-If the file ends in `.mdx` then there can and probably will be some JSX in the file.
+If the file you want to edit ends in `.mdx` then there can and probably will be some JSX in the file so you will need to know how React and JSX works. If you do not know
+then either ignore the blocks of JSX or do note edit any files ending in `.mdx` :)
 
 #### Jupyter Notebooks
 
-:::todo
-
-:::
+If you want to add a jupyter notebook or edit a page that was generated from then I would hope you know how to do so. However only edit the jupyter notebook not the
+generated markdown file. Also make sure that you are using the correct development environment so that the jupyter notebooks are automatically converted to markdown.
