@@ -1,6 +1,6 @@
 ---
 title: Hadamard Product
-tags: [hadamard, linear algebra, matrices ]
+tags: [hadamard, linear algebra, matrices, numpy]
 ---
 
 
@@ -50,7 +50,7 @@ $$
 
 :::
 
-Beginners in numpy often write the following lines of code multiply two matrices
+Beginners in numpy often write the following lines of code to multiply two matrices
 
 
 ```python
@@ -74,7 +74,31 @@ A * B
 
 </CodeOutputBlock>
 
-But as might notice this is the hadamard product/element-wise multiplication. You would get the same result if used the `np.multiply` function as this is the function that is called under the hood when using the `*` operator. 
+But as might notice this is the hadamard product/element-wise multiplication. You would get the same result if you used the [`np.multiply(A,B)`](https://numpy.org/doc/stable/reference/generated/numpy.multiply.html) function as this is the function that is called under the hood when using the `*` operator. If you really did want to multiply $\mathbf{A}$ with $\mathbf{B}$ you would need to use the `@` operator or [`np.matmul(A,B)`](https://numpy.org/doc/stable/reference/generated/numpy.matmul.html) function.
 
+
+```python
+A = np.array([[1,2],[3,4]])
+A*B
+```
+
+<CodeOutputBlock lang="python">
+
+
+    ---------------------------------------------------------------------------
+
+    ValueError                                Traceback (most recent call last)
+
+    Cell In [5], line 2
+          1 A = np.array([[1,2],[3,4]])
+    ----> 2 A*B
+
+
+    ValueError: operands could not be broadcast together with shapes (2,2) (3,3) 
+
+
+</CodeOutputBlock>
+
+As you can see the hadamard product only works if A and B are of the same dimension/shape. However, from the error you can see that there is an exception to this definition if the matrices can be broadcast together. To find out more about broadcasting and how it works check out [this page](./broadcasting.md). 
 
 
