@@ -49,6 +49,10 @@ This is a collection of articles, books and videos I have read or watched and wo
 
 - ["CS231n: Deep Learning for Computer Vision"](http://cs231n.stanford.edu/)<br/>
   Explains some basics of using deep learning for computer vision whilst starting of with some more classical classification examples.
+  
+- ["Handling Short And Long Content In CSS by Ahmad Shadeed"](https://ishadeed.com/article/css-short-long-content/)<br/>
+  Explains well how text should be handled on web pages.
+  
 
 ### Videos
 
